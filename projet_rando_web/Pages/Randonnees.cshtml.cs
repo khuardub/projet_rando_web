@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace projet_rando_web.Pages
 {
-    public class BaseModel : PageModel
+    public class RandonneesModel : PageModel
     {
         public void OnGet()
         {
