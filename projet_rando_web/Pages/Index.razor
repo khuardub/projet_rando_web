@@ -1,9 +1,51 @@
 ﻿@page "/"
+@using projet_rando_web.Classes
+@using projet_rando_web.Enums
 
-<PageTitle>Index</PageTitle>
 
-<h1>Hello, world!</h1>
+<div class="container mt-5">
+    <div class="row">
+        @foreach (var randonnee in listeDeRandonnees)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img src="pexels-liz-earl-18288717.jpg" class="card-img-top" alt="Image de la randonnée">
+                    <div class="card-body">
+                        <h5 class="card-title">@randonnee.Nom</h5>
+                        <p class="card-subtitle text-muted">Créé par : @randonnee.Utilisateur.Nom</p>
+                        <hr>
+                        <p class="card-text"><strong>Ville de Départ :</strong> @randonnee.VilleDepart.Nom</p>
+                        <p class="card-text"><strong>Date de Départ :</strong> @randonnee.DateDepart</p>
+                        <p class="card-text"><strong>Ville d'Arrivée :</strong> @randonnee.VilleArrivee.Nom</p>
+                        <hr>
+                        <p class="card-text"><strong>Météo :</strong> @randonnee.Meteo</p>
+                        <p class="card-text"><strong>Type :</strong> @randonnee.Type</p>
+                        <p class="card-text"><strong>Dénivelé :</strong> @randonnee.Denivele</p>
+                        <hr>
+                        <p class="card-text"><strong>Statut :</strong> @randonnee.Statut</p>
+                        <a href="#" class="btn btn-primary">Détails</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
 
-Welcome to your new app.
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+@code
+{
+    private List<Randonnee> listeDeRandonnees;
+
+    protected override void OnInitialized()
+    {
+        listeDeRandonnees = new List<Randonnee>()
+        {
+            new Randonnee("0",DateTime.Now, "Randonné1","Desctiption",new Utilisateur("Ziad"),new Pays("0","Liban"),new Ville("0",new Pays("0","Liban"),"Liban"),DateTime.Now, new Ville("1",new Pays("1","Canada"),"Quebec"),DateTime.Now, Meteo.ensoleille,"Monter",Statut.enCours),
+            new Randonnee("1", DateTime.Now, "Randonnée 2", "Description 2", new Utilisateur("Alice"), new Pays("1", "France"), new Ville("2", new Pays("1", "France"), "Paris"), DateTime.Now, new Ville("3", new Pays("2", "Espagne"), "Barcelone"), DateTime.Now, Meteo.nuageux, "Randonnée en ville", Statut.archive),
+            new Randonnee("2", DateTime.Now, "Randonnée 3", "Description 3", new Utilisateur("Bob"), new Pays("3", "Italie"), new Ville("4", new Pays("3", "Italie"), "Rome"), DateTime.Now, new Ville("5", new Pays("4", "Allemagne"), "Berlin"), DateTime.Now, Meteo.pluvieux, "Randonnée culturelle", Statut.enCours),
+            new Randonnee("3", DateTime.Now, "Randonnée 4", "Description 4", new Utilisateur("Eve"), new Pays("5", "Grèce"), new Ville("6", new Pays("5", "Grèce"), "Athènes"), DateTime.Now, new Ville("7", new Pays("6", "Turquie"), "Istanbul"), DateTime.Now, Meteo.ensoleille, "Randonnée historique", Statut.enCours),
+            new Randonnee("4", DateTime.Now, "Randonnée 5", "Description 5", new Utilisateur("David"), new Pays("7", "Suisse"), new Ville("8", new Pays("7", "Suisse"), "Zurich"), DateTime.Now, new Ville("9", new Pays("8", "Autriche"), "Vienne"), DateTime.Now, Meteo.ensoleille, "Randonnée urbaine", Statut.enCours),
+            new Randonnee("5", DateTime.Now, "Randonnée 6", "Description 6", new Utilisateur("Sophie"), new Pays("9", "Portugal"), new Ville("10", new Pays("9", "Portugal"), "Lisbonne"), DateTime.Now, new Ville("11", new Pays("10", "Pays-Bas"), "Amsterdam"), DateTime.Now, Meteo.nuageux, "Randonnée touristique", Statut.enCours)
+        };
+    }
+}

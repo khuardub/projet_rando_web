@@ -23,7 +23,7 @@ namespace projet_rando_web.Interfaces
         public DateTime DateArrivee { get; set; }
         public Meteo Meteo { get; set; }
         public Enums.Type Type { get; set; }
-        public int Denivele { get; set; }
+        public string Denivele { get; set; }
         public Statut Statut { get; set; }
     }
 }

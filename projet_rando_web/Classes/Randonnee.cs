@@ -55,8 +55,8 @@ namespace projet_rando_web.Classes
         [BsonElement("Type"), BsonRepresentation(BsonType.String)]
         public Enums.Type Type { get; set; }
 
-        [BsonElement("Denivele"), BsonRepresentation(BsonType.Int32)]
-        public int Denivele { get; set; }
+        [BsonElement("Denivele"), BsonRepresentation(BsonType.String)]
+        public string Denivele { get; set; }
 
         [BsonElement("Statut"), BsonRepresentation(BsonType.String)]
         public Statut Statut { get; set; }
@@ -64,7 +64,7 @@ namespace projet_rando_web.Classes
         public Randonnee()
         {
         }
-        public Randonnee(string id, DateTime createdAt, string nom, string description, Utilisateur utilisateur, Pays pays, Ville villeDepart, DateTime dateDepart, Ville villeArrivee, DateTime dateArrivee, Meteo meteo, int denivele, Statut statut)
+        public Randonnee(string id, DateTime createdAt, string nom, string description, Utilisateur utilisateur, Pays pays, Ville villeDepart, DateTime dateDepart, Ville villeArrivee, DateTime dateArrivee, Meteo meteo, string denivele, Statut statut)
         {
             this.Id = id;
             this.CreatedAt = createdAt;

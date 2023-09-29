@@ -75,6 +75,11 @@ namespace projet_rando_web.Classes
         [BsonElement("Niveau"), BsonRepresentation(BsonType.String)]
         public Niveau Niveau { get; set; }
 
+        public Utilisateur(string nom)
+        {
+            Nom = nom;
+        }
+
         /// <summary>
         /// Constructeur vide
         /// </summary>

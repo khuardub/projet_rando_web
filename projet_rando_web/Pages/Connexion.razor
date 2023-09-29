@@ -1,0 +1,54 @@
+@page "/connexion"
+@using projet_rando_web.Classes
+@using System.ComponentModel.DataAnnotations
+
+<PageTitle>Se Connecter</PageTitle>
+<div class="alert alert-secondary mt-4">
+    <span class="oi oi-account-login me-2" aria-hidden="true"></span>
+    <span class="text-nowrap">
+        Vous n'avez pas un compte? <a href="/authentification">Créer un!</a>
+    </span>
+</div>
+<div class="container">
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-7">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="card-title text-center">Se Connecter</h2>
+                    <EditForm Model="@utilisateur" OnValidSubmit="SeConnecter">
+                        <DataAnnotationsValidator />
+                        <div class="mb-3">
+                            <label for="courriel" class="form-label">Courriel</label>
+                            <InputText id="courriel" class="form-control" @bind-Value="utilisateur.Courriel" />
+                            <ValidationMessage For="@(() => utilisateur.Courriel)" />
+                        </div>
+                        <div class="mb-3">
+                            <label for="mdp" class="form-label">Mot de Passe</label>
+                            <InputText id="mdp" class="form-control" @bind-Value="utilisateur.MotDePasse" />
+                            <ValidationMessage For="@(() => utilisateur.MotDePasse)" />
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary">Se Connecter</button>
+                        </div>
+                    </EditForm>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@code {
+    public Utilisateur utilisateur;
+
+    protected override void OnInitialized()
+    {
+        utilisateur = new Utilisateur();
+    }
+
+    private void SeConnecter()
+    {
+
+    }
+}

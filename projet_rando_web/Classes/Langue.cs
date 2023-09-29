@@ -15,7 +15,7 @@ namespace projet_rando_web.Classes
         /// </summary>
         /// <value>Identifiant de la langue.</value>
         [BsonId, BsonRepresentation(BsonType.ObjectId)]
-        public int Id { get; set; }
+        public string Id { get; set; }
 
         /// <summary>
         /// Obtient ou définit le nom de la langue.
@@ -33,5 +33,10 @@ namespace projet_rando_web.Classes
             Nom = nom;
         }
 
+        public Langue(string id,string nom)
+        {
+            Id = id;
+            Nom = nom;
+        }
     }
 }
