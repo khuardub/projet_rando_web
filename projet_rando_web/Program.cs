@@ -1,5 +1,7 @@
+using dymaptic.GeoBlazor.Core;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.AspNetCore.StaticFiles;
 using projet_rando_web.Data;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,6 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddBlazorBootstrap();
+builder.Services.AddGeoBlazor();
 
 var app = builder.Build();
 
@@ -21,7 +24,16 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+var provider = new FileExtensionContentTypeProvider();
+provider.Mappings[".wsv"] = "application/octet-stream";
+
+
 app.UseStaticFiles();
+// NOTE: for some reason, you still need the plain "UseStaticFiles" call above
+app.UseStaticFiles(new StaticFileOptions
+{
+    ContentTypeProvider = provider
+}); 
 
 app.UseRouting();
 
@@ -29,3 +41,6 @@ app.MapBlazorHub();
 app.MapFallbackToPage("/_Host");
 
 app.Run();
+
+
+
