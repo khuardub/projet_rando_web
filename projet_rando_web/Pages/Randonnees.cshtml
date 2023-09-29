@@ -1,13 +1,94 @@
 ﻿@page "/randonnees"
-@{
+@using projet_rando_web.Classes
+@using projet_rando_web.Data
+@inject projet_rando_web.Interfaces.IRandonnee randonneeService
+
+
+@* @{
     Layout = "../Shared/MainLayout";
-}
+} *@
+
 
 <main>
     <h2>Les randonnées</h2>
     <div class="container">
-        <div class="row-cols-2 text-center mt-5">
-            <img src="construction.jpg" />
-        </div>
+       @*  <h3>Creer une randonnee</h3>
+        <label name="nom">Nom</label>
+        <input @bind="_randonnee.Nom" type="text" for="nom"/>
+        <label name="description">Nom</label>
+        <input @bind="_randonnee.Description" type="text" /> *@
+    </div>
+    <div class="container">
+        <h3>Tableau des randonnees</h3>
+        <table>
+            <thead>
+            <tr>
+                <th>Rando ID</th>
+                <th>Non</th>
+                <th>Description</th>
+                <th>Modifier</th>
+                <th>Supprimer</th>
+            </tr>
+            </thead>
+            <tbody>
+            @if (_randonnees.Count() > 0)
+            {
+                @foreach (var rando in _randonnees)
+                {
+                    <tr>
+                        <td>@rando.Id</td>
+                        <td>@rando.Nom</td>
+                        <td>@rando.Description</td>
+                        <td>
+                            <button @onclick="@(e => Edit(@rando.Id))">Modifier</button>
+                        </td>
+                        <td>
+                            <button @onclick="@(e => Delete(@rando.Id))">Supprimer</button>
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <p>Pas de rando</p>
+            }
+            </tbody>
+        </table>
     </div>
 </main>
+
+
+@code
+{
+    Randonnee _randonnee = new Randonnee();
+    List<Randonnee>
+    _randonnees = new List<Randonnee>();
+    // protected override async Task OnInitializedAsync()
+    protected async Task OnInitializedAsync()
+    {
+        GetRandonnees();
+    }
+    private void GetRandonnees()
+    {
+        _randonnees = randonneeService.GetRandonnees();
+    }
+    private void Save()
+    {
+        randonneeService.SaveOrUpdate(_randonnee);
+        Reset();
+        GetRandonnees();
+    }
+    private void Reset()
+    {
+        _randonnee = new Randonnee();
+    }
+    private void Edit(string randonneeId)
+    {
+        _randonnee = randonneeService.GetRandonnee(randonneeId);
+    }
+    private void Delete(string randonneeId)
+    {
+        randonneeService.Delete(randonneeId);
+        GetRandonnees();
+    }
+}
