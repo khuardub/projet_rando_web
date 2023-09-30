@@ -1,22 +1,16 @@
 ﻿@page "/randonnees"
 @using projet_rando_web.Classes
-@using projet_rando_web.Data
 @inject projet_rando_web.Interfaces.IRandonnee randonneeService
-
-
-@* @{
-    Layout = "../Shared/MainLayout";
-} *@
 
 
 <main>
     <h2>Les randonnées</h2>
     <div class="container">
-       @*  <h3>Creer une randonnee</h3>
+       <h3>Creer une randonnee</h3>
         <label name="nom">Nom</label>
-        <input @bind="_randonnee.Nom" type="text" for="nom"/>
+        <input @bind=_randonnee.Nom type="text" for="nom"/>
         <label name="description">Nom</label>
-        <input @bind="_randonnee.Description" type="text" /> *@
+        <input @bind="_randonnee.Description" type="text" /> 
     </div>
     <div class="container">
         <h3>Tableau des randonnees</h3>
@@ -57,38 +51,3 @@
     </div>
 </main>
 
-
-@code
-{
-    Randonnee _randonnee = new Randonnee();
-    List<Randonnee>
-    _randonnees = new List<Randonnee>();
-    // protected override async Task OnInitializedAsync()
-    protected async Task OnInitializedAsync()
-    {
-        GetRandonnees();
-    }
-    private void GetRandonnees()
-    {
-        _randonnees = randonneeService.GetRandonnees();
-    }
-    private void Save()
-    {
-        randonneeService.SaveOrUpdate(_randonnee);
-        Reset();
-        GetRandonnees();
-    }
-    private void Reset()
-    {
-        _randonnee = new Randonnee();
-    }
-    private void Edit(string randonneeId)
-    {
-        _randonnee = randonneeService.GetRandonnee(randonneeId);
-    }
-    private void Delete(string randonneeId)
-    {
-        randonneeService.Delete(randonneeId);
-        GetRandonnees();
-    }
-}
