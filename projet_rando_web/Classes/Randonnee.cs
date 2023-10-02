@@ -10,7 +10,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace projet_rando_web.Classes
 {
-    public class Randonnee : IRandonnee
+    public class Randonnee
     {
 
         [BsonId, BsonRepresentation(BsonType.ObjectId)]
@@ -80,6 +80,26 @@ namespace projet_rando_web.Classes
             //this.Denivele = denivele;
             //this.Statut = statut;
 
+        }
+
+        public Randonnee(IRandonnee randonneeService)
+        {
+            this.RandonneeService = randonneeService;
+        }
+
+        // Ajoutez une propriété pour injecter la dépendance vers le service IRandonnee
+        [BsonIgnore]
+        public IRandonnee RandonneeService { get; set; }
+
+        // Implémentez des méthodes pour interagir avec le service IRandonnee
+        public void Save()
+        {
+            RandonneeService.SaveOrUpdate(this);
+        }
+
+        public void Delete()
+        {
+            RandonneeService.Delete(this.Id);
         }
 
     }
