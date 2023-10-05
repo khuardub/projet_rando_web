@@ -1,8 +1,12 @@
 ﻿@page "/"
+@code {
+    private readonly double _latitude = 0;
+    private readonly double _longitude = 0;
+}
 
 <main>
-    <img src="/img-accueil-1.jpg" class="rounded-3 pb-3 bg-dark img-fluid" />
-    <div class="text-light bg-dark rounded-2">
+    <img src="/img-accueil-1.jpg" class="img-fluid" />
+    <div class="text-light bg-dark pt-3">
         <div class="container p-4">
             <h2 class="mb-4 text-center border-top border-bottom border-2">Explorez, Partagez, Connectez - Votre Aventure Commence avec Randomax !</h2>
             <p>
@@ -22,14 +26,16 @@
             </p>
         </div>
     </div>
-    <div class="bg-image">
-        <div class="container">
-            <MapView Class="map">
+    <div class="bg-image pt-4 pb-3">
+        <div class="container bg-dark rounded-3 p-4 text-center text-light">
+            <h3 class="mb-4">La carte de tout nos randonnées</h3>
+            <MapView Longitude="0" Latitude="0" Zoom="2" Style="height: 400px; width: 100%; justify-content:center;" Class="border-4 border mb-3">
                 <WebMap>
-                    <PortalItem Id="826498a48bd0424f9c9315214f2165d4" />
+                    <PortalItem Id="4a6cb60ebbe3483a805999d481c2daa5" />
                 </WebMap>
                 <ScaleBarWidget Position="OverlayPosition.BottomLeft" />
             </MapView>
+            <p>Prêt à partager votre aventure ? Inscrivez-vous et créez votre propre itinéraire de randonnée depuis votre compte. Partagez vos découvertes avec notre communauté de passionnés et inspirez d'autres explorateurs. Rejoignez-nous aujourd'hui pour façonner ensemble le monde des aventures en plein air !</p>
         </div>
     </div>
 </main>
