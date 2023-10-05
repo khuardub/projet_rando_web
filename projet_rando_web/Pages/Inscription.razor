@@ -1,0 +1,21 @@
+﻿@page "/inscription"
+@layout MainLayout
+
+<main>
+    <h2>Inscription</h2>
+
+
+</main>
+
+<h3>Inscription</h3>
+
+<MapView Longitude="_longitude" Latitude="_latitude" Zoom="11" Style="height: 400px; width: 100%;">
+    <WebMap>
+        <PortalItem Id="4a6cb60ebbe3483a805999d481c2daa5" />
+    </WebMap>
+</MapView>
+
+@code {
+    private readonly double _latitude = 34.027;
+    private readonly double _longitude = -118.805;
+} 
