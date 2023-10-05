@@ -63,7 +63,9 @@ namespace projet_rando_web.Classes
 
         public Randonnee()
         {
+            Id = ObjectId.GenerateNewId().ToString();
         }
+        /*
         public Randonnee(string id, DateTime createdAt, string nom, string description, Utilisateur utilisateur, Pays pays, Ville villeDepart, DateTime dateDepart, Ville villeArrivee, DateTime dateArrivee, Meteo meteo, int denivele, Statut statut)
         {
             this.Id = id;
@@ -81,7 +83,7 @@ namespace projet_rando_web.Classes
             //this.Statut = statut;
 
         }
-
+        
         public Randonnee(IRandonnee randonneeService)
         {
             this.RandonneeService = randonneeService;
@@ -101,6 +103,6 @@ namespace projet_rando_web.Classes
         {
             RandonneeService.Delete(this.Id);
         }
-
+        */
     }
 }

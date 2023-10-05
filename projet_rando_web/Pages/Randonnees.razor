@@ -1,7 +1,8 @@
 ﻿@page "/randonnees"
 @using projet_rando_web.Classes
+@using System.Collections.Generic
+@using System.Linq
 @inject projet_rando_web.Interfaces.IRandonnee randonneeService
-
 
 <main>
     <h2>Les randonnées</h2>
@@ -50,6 +51,32 @@
             }
             </tbody>
         </table>
+        <div class="container mt-5">
+            <div class="row">
+                @foreach (var randonnee in _randonnees)
+                {
+                    <div class="col-md-4 mb-4">
+                        <div class="card">
+                            @* <img src="pexels-liz-earl-18288717.jpg" class="card-img-top" alt="Image de la randonnée"> *@
+                            <div class="card-body">
+                                <h5 class="card-title">@randonnee.Nom</h5>
+                                @* <p class="card-subtitle text-muted">Créé par : @randonnee.Utilisateur.Nom</p>
+                                <hr>
+                                <p class="card-text"><strong>Ville de Départ :</strong> @randonnee.VilleDepart.Nom</p>
+                                <p class="card-text"><strong>Date de Départ :</strong> @randonnee.DateDepart</p>
+                                <p class="card-text"><strong>Ville d'Arrivée :</strong> @randonnee.VilleArrivee.Nom</p>
+                                <hr>
+                                <p class="card-text"><strong>Météo :</strong> @randonnee.Meteo</p>
+                                <p class="card-text"><strong>Type :</strong> @randonnee.Type</p>
+                                <p class="card-text"><strong>Dénivelé :</strong> @randonnee.Denivele</p>
+                                <hr>
+                                <p class="card-text"><strong>Statut :</strong> @randonnee.Statut</p> *@
+                                <a href="#" class="btn btn-primary">Détails</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
     </div>
 </main>
-

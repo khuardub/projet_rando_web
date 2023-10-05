@@ -1,4 +1,6 @@
 ﻿using projet_rando_web.Classes;
+using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace projet_rando_web.Pages
 {
