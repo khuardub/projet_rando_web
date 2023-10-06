@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.StaticFiles;
 using projet_rando_web.Data;
+using projet_rando_web.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +12,7 @@ builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddSingleton<WeatherForecastService>();
 builder.Services.AddGeoBlazor();
+builder.Services.AddScoped<IRandonnee, RandonneeService>();
 
 var app = builder.Build();
 
