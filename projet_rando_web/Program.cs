@@ -12,6 +12,8 @@ builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddSingleton<WeatherForecastService>();
 builder.Services.AddGeoBlazor();
+builder.Services.Configure<RandoMaxDatabaseSettings>(
+    builder.Configuration.GetSection("RandoMaxDatabase"));
 builder.Services.AddScoped<IRandonnee, RandonneeService>();
 
 var app = builder.Build();
