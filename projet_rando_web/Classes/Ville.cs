@@ -16,6 +16,11 @@ namespace projet_rando_web.Classes
         [BsonId]
         public string Id { get; set; }
 
+        /// <summary>
+        /// Obtient ou définit le pays auquel appartient la ville.
+        /// </summary>
+        [BsonIgnore]
+        public Pays Pays { get; set; }
 
         /// <summary>
         /// Obtient ou définit le nom de la ville.
