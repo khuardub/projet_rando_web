@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using projet_rando_web.Enums;
-using projet_rando_web.Interfaces;
+using projet_rando_web.Classes;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using System.ComponentModel.DataAnnotations;
@@ -36,9 +36,14 @@ namespace projet_rando_web.Classes
 
         //[BsonIgnore]
         //public Pays Pays { get; set; }
+        
+        [BsonElement("VilleDepart")]
+        public Ville VilleDepart { get; set; }
 
-        //[BsonIgnore]
-        //public Ville VilleDepart { get; set; }
+        [BsonElement("VilleRetour")]
+        public Ville? VilleRetour { get; set; }
+
+
 
         //[BsonElement("DateDepart"), BsonRepresentation(BsonType.DateTime)]
         //public DateTime DateDepart { get; set; }
@@ -66,33 +71,24 @@ namespace projet_rando_web.Classes
             Id = ObjectId.GenerateNewId().ToString();
         }
         
-        public Randonnee(string id, string nom, string description)
+        public Randonnee(string id, string nom, string description, Ville villeDepart, Ville? villeRetour)
         {
             this.Id = id;
-            //this.CreatedAt = createdAt;
             this.Nom = nom;
             this.Description = description;
-            //this.Utilisateur = utilisateur;
-            //this.Pays = pays;
-            //this.VilleDepart = villeDepart;
-            //this.DateDepart = dateDepart;
-            //this.VilleArrivee = villeArrivee;
-            //this.DateArrivee = dateArrivee;
-            //this.Meteo = meteo;
-            //this.Denivele = denivele;
-            //this.Statut = statut;
-
+            this.VilleDepart = villeDepart;
+            this.VilleRetour = villeRetour;
         }
         /*
         public Randonnee(IRandonnee randonneeService)
         {
             this.RandonneeService = randonneeService;
         }
-
+        
         // Ajoutez une propriété pour injecter la dépendance vers le service IRandonnee
         [BsonIgnore]
         public IRandonnee RandonneeService { get; set; }
-
+        
         // Implémentez des méthodes pour interagir avec le service IRandonnee
         public void Save()
         {
@@ -102,7 +98,7 @@ namespace projet_rando_web.Classes
         public void Delete()
         {
             RandonneeService.Delete(this.Id);
-        }
-        */
+        }*/
+        
     }
 }

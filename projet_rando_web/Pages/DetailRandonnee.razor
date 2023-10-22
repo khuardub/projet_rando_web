@@ -1,43 +1,20 @@
-﻿@page "/detail/{id:int}"
+﻿@page "/detail/{id}"
 @using projet_rando_web.Classes
 @inject projet_rando_web.Interfaces.IRandonnee randonneeService
 
-@code
-{
-    private List<Randonnee> listeDeRandonnees;
-    private Randonnee randonnee;
-    [Parameter]
-    public int id { get; set; }
-
-    protected override void OnInitialized()
-    {
-        listeDeRandonnees = new List<Randonnee>()
-        {
-            new Randonnee("1","Randonnée pittoresque","Une randonnée pittoresque à travers les montagnes, offrant des vues à couper le souffle."),
-            new Randonnee("2","Randonnée pleine nature","Une aventure en pleine nature à travers une forêt dense avec des sentiers sinueux."),
-            new Randonnee("3","Randonnée relaxante","Une randonnée relaxante le long d'une rivière paisible, idéale pour une journée en famille."),
-            new Randonnee("4","Randonnée expédition","Une expédition exigeante jusqu'au sommet d'une montagne escarpée, réservée aux randonneurs expérimentés."),
-            new Randonnee("5","Randonnée exploration","Une exploration urbaine à travers la ville, découvrant l'histoire et la culture locales."),
-            new Randonnee("6","Randonnée aventure","Une aventure en bord de mer, longeant la côte avec des plages de sable blanc et des vues magnifiques sur l'océan."),
-        };
-        foreach (var rando in listeDeRandonnees)
-        {
-            if (rando.Id == id.ToString())
-            {
-                randonnee = rando;
-            }
-        }
-
-    }
-}
-
 <main>
     <div class="container mt-5">
-        @if (listeDeRandonnees != null)
+        @if (randonnee != null)
         {
             <div class="container mt-5">
                 <h5>@randonnee.Nom</h5>
-                <p>@randonnee.Description</p>
+                <p>Ville de départ : @randonnee.VilleDepart.Nom</p>
+                @if (randonnee.VilleRetour != null)
+                {
+                    <p> Ville de départ : @randonnee.VilleRetour.Nom</p>
+                }
+
+                <p>Description : @randonnee.Description</p>
             </div>
         }
         else

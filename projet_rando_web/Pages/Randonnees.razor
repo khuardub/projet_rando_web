@@ -6,18 +6,23 @@
 
 <main>
     <div class="container mt-5">
-        @if (listeDeRandonnees != null)
+        @if (_randonnees != null)
         {
 
             <div class="container mt-5">
                 <div class="row">
-                    @foreach (var randonnee in listeDeRandonnees)
+                    @foreach (var randonnee in _randonnees)
                     {
                         <div class="col-md-4 mb-4">
                             <div class="card">
                                 <img src="https://picsum.photos/@randonnee.Id" class="card-img-top" alt="Image de la randonnée">
                                 <div class="card-body">
                                     <h5 class="card-title">@randonnee.Nom</h5>
+                                    <p>Ville de départ : @randonnee.VilleDepart.Nom</p>
+                                    @if (randonnee.VilleRetour != null)
+                                    {
+                                        <p>Ville de retour : @randonnee.VilleRetour.Nom</p>
+                                    }
                                     <a href="/detail/@randonnee.Id" class="btn btn-primary">Détails</a>
                                 </div>
                             </div>
@@ -28,21 +33,8 @@
         }
         else
         {
-            <p>Désolé, cette randonnée n'existe pas.</p>
+            <p>Créez une nouvelle randonnée !</p>
         }
     </div>
 
 </main>
-
-@code
-{
-    List<Randonnee> listeDeRandonnees = new List<Randonnee>()
-    {
-        new Randonnee("1","Randonnée pittoresque","Une randonnée pittoresque à travers les montagnes, offrant des vues à couper le souffle."),
-        new Randonnee("2","Randonnée pleine nature","Une aventure en pleine nature à travers une forêt dense avec des sentiers sinueux."),
-        new Randonnee("3","Randonnée relaxante","Une randonnée relaxante le long d'une rivière paisible, idéale pour une journée en famille."),
-        new Randonnee("4","Randonnée expédition","Une expédition exigeante jusqu'au sommet d'une montagne escarpée, réservée aux randonneurs expérimentés."),
-        new Randonnee("5","Randonnée exploration","Une exploration urbaine à travers la ville, découvrant l'histoire et la culture locales."),
-        new Randonnee("6","Randonnée aventure","Une aventure en bord de mer, longeant la côte avec des plages de sable blanc et des vues magnifiques sur l'océan."),
-    };
-}
