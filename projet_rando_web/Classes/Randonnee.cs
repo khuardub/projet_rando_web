@@ -7,6 +7,7 @@ using projet_rando_web.Classes;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using System.ComponentModel.DataAnnotations;
+using Type = System.Type;
 
 namespace projet_rando_web.Classes
 {
@@ -16,8 +17,8 @@ namespace projet_rando_web.Classes
         [BsonId, BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; } = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
 
-        //[BsonElement("CreatedAt"), BsonRepresentation(BsonType.DateTime)]
-        //public DateTime CreatedAt { get; set; }
+        [BsonElement("CreatedAt"), BsonRepresentation(BsonType.DateTime)]
+        public DateTime CreatedAt { get; set; }
 
         [BsonElement("Nom"), BsonRepresentation(BsonType.String)]
         [Required(ErrorMessage = "Le nom est requis.")]
@@ -45,39 +46,42 @@ namespace projet_rando_web.Classes
 
 
 
-        //[BsonElement("DateDepart"), BsonRepresentation(BsonType.DateTime)]
-        //public DateTime DateDepart { get; set; }
+        [BsonElement("DateDepart"), BsonRepresentation(BsonType.DateTime)]
+        public DateTime DateDepart { get; set; }
 
-        //[BsonIgnore]
-        //public Ville VilleArrivee { get; set; }
+        [BsonElement("Meteo")]
+        public Meteo Meteo { get; set; }
 
-        //[BsonElement("DateDepart"), BsonRepresentation(BsonType.DateTime)]
-        //public DateTime DateArrivee { get; set; }
+        [BsonElement("Sorte")]
+        public Sorte TypeRando { get; set; }
 
-        //[BsonIgnore]
-        //public Meteo Meteo { get; set; }
+        [BsonElement("Denivele"), BsonRepresentation(BsonType.Int32)]
+        public int Denivele { get; set; }
 
-        //[BsonElement("Type"), BsonRepresentation(BsonType.String)]
-        //public Enums.Type Type { get; set; }
+        [BsonElement("Statut")]
+        public Statut Statut { get; set; }
 
-        //[BsonElement("Denivele"), BsonRepresentation(BsonType.Int32)]
-        //public int Denivele { get; set; }
-
-        //[BsonElement("Statut"), BsonRepresentation(BsonType.String)]
-        //public Statut Statut { get; set; }
+        [BsonElement("Niveau")]
+        public Niveau Niveau { get; set; }
 
         public Randonnee()
         {
             Id = ObjectId.GenerateNewId().ToString();
         }
         
-        public Randonnee(string id, string nom, string description, Ville villeDepart, Ville? villeRetour)
+        public Randonnee(string id, string nom, string description, Ville villeDepart, Ville? villeRetour, Meteo meteo, DateTime dateDepart, Sorte typeRando, int denivele, Statut statut, Niveau niveau)
         {
             this.Id = id;
             this.Nom = nom;
             this.Description = description;
             this.VilleDepart = villeDepart;
             this.VilleRetour = villeRetour;
+            this.Meteo = meteo;
+            this.DateDepart = dateDepart;
+            this.TypeRando = typeRando;
+            this.Denivele = denivele;
+            this.Statut = statut;
+            this.Niveau = niveau;
         }
         /*
         public Randonnee(IRandonnee randonneeService)

@@ -7,16 +7,6 @@ namespace projet_rando_web.Data
 {
     public class RandonneeService : IRandonnee
     {
-        //private MongoClient _client = null;
-        //private IMongoDatabase _database = null;
-        //private IMongoCollection<Randonnee> _randonneeTable = null;
-
-        //public RandonneeService()
-        //{
-        //    _client = new MongoClient("mongodb+srv://adminRandomax:*****@cluster0.x75fagl.mongodb.net/");
-        //    _database = _client.GetDatabase("randomax");
-        //    _randonneeTable = _database.GetCollection<Randonnee>("randonnees");
-        //}
 
         private readonly IMongoCollection<Randonnee> _randonneesCollection;
 

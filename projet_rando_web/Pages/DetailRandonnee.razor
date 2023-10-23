@@ -8,13 +8,22 @@
         {
             <div class="container mt-5">
                 <h5>@randonnee.Nom</h5>
+                <p>Créé le : @randonnee.CreatedAt</p>
                 <p>Ville de départ : @randonnee.VilleDepart.Nom</p>
                 @if (randonnee.VilleRetour != null)
                 {
                     <p> Ville de départ : @randonnee.VilleRetour.Nom</p>
                 }
-
+                <p>Date de départ : @randonnee.DateDepart</p>
                 <p>Description : @randonnee.Description</p>
+                <p>Autres détails : </p>
+                <ul>
+                    <li>meteo : @randonnee.Meteo</li>
+                    <li>type : @randonnee.TypeRando</li>
+                    <li>denivele : @randonnee.Denivele</li>
+                    <li>statut : @randonnee.Statut</li>
+                    <li>niveau : @randonnee.Niveau</li>
+                </ul>
             </div>
         }
         else
