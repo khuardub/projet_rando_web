@@ -38,11 +38,11 @@ namespace projet_rando_web.Classes
         //[BsonIgnore]
         //public Pays Pays { get; set; }
         
-        [BsonElement("VilleDepart")]
-        public Ville VilleDepart { get; set; }
+        [BsonElement("EndroitDepart")]
+        public Ville EndroitDepart { get; set; }
 
-        [BsonElement("VilleRetour")]
-        public Ville? VilleRetour { get; set; }
+        [BsonElement("EndroitRetour")]
+        public Ville? EndroitRetour { get; set; }
 
 
 
@@ -74,8 +74,8 @@ namespace projet_rando_web.Classes
             this.Id = id;
             this.Nom = nom;
             this.Description = description;
-            this.VilleDepart = villeDepart;
-            this.VilleRetour = villeRetour;
+            this.EndroitDepart = villeDepart;
+            this.EndroitRetour = villeRetour;
             this.Meteo = meteo;
             this.DateDepart = dateDepart;
             this.TypeRando = typeRando;
@@ -84,7 +84,7 @@ namespace projet_rando_web.Classes
             this.Niveau = niveau;
         }
         /*
-        public Randonnee(IRandonnee randonneeService)
+        public Randonnee(IRandonnee randonneeServicepa
         {
             this.RandonneeService = randonneeService;
         }
