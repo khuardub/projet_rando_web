@@ -19,5 +19,7 @@ namespace projet_rando_web.Pages
         {
             randonnee = randonneeService.GetRandonnee(Id);
         }
+
+        
     }
 }

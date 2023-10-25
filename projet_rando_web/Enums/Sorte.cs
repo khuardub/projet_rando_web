@@ -1,6 +1,6 @@
 namespace projet_rando_web.Enums
 {
-    public enum Type
+    public enum Sorte
     {
         montagneux,
         foret,

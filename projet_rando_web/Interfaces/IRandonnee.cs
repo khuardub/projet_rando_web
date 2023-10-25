@@ -21,9 +21,9 @@ namespace projet_rando_web.Interfaces
         //public string Description { get; set; }
         //public Utilisateur Utilisateur { get; set; }
         //public Pays Pays { get; set; }
-        //public Ville VilleDepart { get; set; }  
+        //public Ville EndroitDepart { get; set; }  
         //public DateTime DateDepart { get; set; }
-        //public Ville VilleArrivee { get; set; }
+        //public Ville EndroitArrivee { get; set; }
         //public DateTime DateArrivee { get; set; }
         //public Meteo Meteo { get; set; }
         //public Enums.Type Type { get; set; }
