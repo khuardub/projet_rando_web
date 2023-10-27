@@ -69,7 +69,7 @@ namespace projet_rando_web.Classes
             Id = ObjectId.GenerateNewId().ToString();
         }
         
-        public Randonnee(string id, string nom, string description, Ville villeDepart, Ville? villeRetour, Meteo meteo, DateTime dateDepart, Sorte typeRando, int denivele, Statut statut, Niveau niveau)
+        public Randonnee(string id, string nom, string description, Ville villeDepart, Ville villeRetour, Meteo meteo, DateTime dateDepart, Sorte typeRando, int denivele, Statut statut, Niveau niveau)
         {
             this.Id = id;
             this.Nom = nom;
