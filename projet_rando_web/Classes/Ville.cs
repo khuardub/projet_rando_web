@@ -13,7 +13,7 @@ namespace projet_rando_web.Classes
         /// <summary>
         /// Obtient ou définit l'identifiant de la ville.
         /// </summary>
-        [BsonId]
+        [BsonId, BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; }
 
         /// <summary>
@@ -40,7 +40,7 @@ namespace projet_rando_web.Classes
         /// <param name="nom">Le nom de la ville.</param>
         /// <param name="latitude">La latitude de la ville.</param>
         /// <param name="longitude">La longitude de la ville.</param>
-        public Ville(string id, Pays pays, string nom, double latitude, double longitude)
+        public Ville(string id, Pays? pays, string nom, double latitude, double longitude)
         {
             Id = id;
             Nom = nom;

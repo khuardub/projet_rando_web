@@ -9,19 +9,14 @@ namespace projet_rando_web.Pages
     public partial class CreationRandonnee
     {
         public Randonnee randonnee;
-        public RandonneeService randonneeService;
-        public List<string> lstVilleTempo = new List<string>()
-        {
-            "Quebec",
-            "Moteal",
-            "Liban"
-        };
+        public VilleService _villeService;
+        public List<Ville> lstVille;
 
-        protected override void OnInitialized()
+        protected override async Task OnInitializedAsync()
         {
             randonnee = new Randonnee();
             randonnee.DateDepart = DateTime.UtcNow;
-            //randonneeService = new RandonneeService();
+            lstVille = villeService.GetVilles();
         }
 
         public void AjoutRandonnee()
@@ -29,5 +24,5 @@ namespace projet_rando_web.Pages
 
         }
     }
-    
+
 }

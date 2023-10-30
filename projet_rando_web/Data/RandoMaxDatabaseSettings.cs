@@ -8,5 +8,7 @@
 
         public string RandonneesCollectionName { get; set; } = null!;
 
+        public string VilleCollectionName { get; set; } = null;
+
     }
 }

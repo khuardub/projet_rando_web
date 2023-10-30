@@ -2,6 +2,7 @@
 @layout MainLayout
 @using projet_rando_web.Classes
 @using projet_rando_web.Enums
+@inject projet_rando_web.Interfaces.IVille villeService
 
 <PageTitle>Création d'une Randonnée</PageTitle>
 <main class="main-content">
@@ -10,7 +11,7 @@
     <div class="container mt-5">
         <div class="row justify-content-center">
             <div class="col-md-9">
-                <div class="login-card card">
+                <div class="main-card card">
                     <div class="card-body">
                         <h2 class="card-title text-center mb-4">Randonnée</h2>
                         <EditForm Model="@randonnee" OnInvalidSubmit="AjoutRandonnee">
@@ -44,9 +45,9 @@
                                 <label for="endroit_depart" class="form-label">Ville de départ de la Randonnée</label>
                                 <InputSelect id="endroit_depart" placeholder="L'Endroit de départ de votre Randonnée" class="form-select" @bind-Value="randonnee.EndroitDepart">
                                     <option selected disabled>L'Endroit de départ où vous souhaitez</option>
-                                    @foreach (var ville in lstVilleTempo)
+                                    @foreach (var ville in lstVille)
                                     {
-                                        <option value="@ville">@ville</option>
+                                        <option value="@ville.Nom">@ville.Nom</option>
                                     }
                                 </InputSelect>
                                 <ValidationMessage For="@(() => randonnee.EndroitDepart)" />
@@ -55,21 +56,21 @@
                                 <label for="endroit_retour" class="form-label">L'Endroit de retour de la Randonnée</label>
                                 <InputSelect id="endroit_retour" placeholder="L'Endroit de retour de votre Randonnée" class="form-select" @bind-Value="randonnee.EndroitRetour">
                                     <option selected disabled>L'Endroit de retour où vous souhaitez</option>
-                                    @foreach (var ville in lstVilleTempo)
+                                    @foreach (var ville in lstVille)
                                     {
-                                        <option value="@ville">@ville</option>
+                                        <option value="@ville.Nom">@ville.Nom</option>
                                     }
                                 </InputSelect>
                                 <ValidationMessage For="@(() => randonnee.EndroitRetour)" />
                             </div>
                             <div class="mb-3">
                                 <label for="denivele" class="form-label">Denivele de la Randonnée</label>
-                                <InputNumber id="denivele" placeholder="Le Denivele de votre Randonnée" class="form-select" @bind-Value="randonnee.Denivele" />
+                                <InputNumber id="denivele" placeholder="Le Denivele de votre Randonnée" class="form-control" @bind-Value="randonnee.Denivele" />
                                 <ValidationMessage For="@(() => randonnee.Denivele)" />
                             </div>
                             <div class="mb-3">
                                 <label for="niveau" class="form-label">Niveau de la Randonnée</label>
-                                <InputSelect id="niveau" placeholder="Le Niveau de votre Randonnée" class="form-control" @bind-Value="randonnee.Niveau">
+                                <InputSelect id="niveau" placeholder="Le Niveau de votre Randonnée" class="form-select" @bind-Value="randonnee.Niveau">
                                     <option selected disabled>Le Niveau que vous souhaitez</option>
                                     @foreach (var niveau in Enum.GetValues(typeof(Niveau)))
                                     {
@@ -85,3 +86,25 @@
         </div>
     </div>
 </main>
+<style>
+    body {
+        background-image: url('sarah-sheedy-yxlkcff8lpy-unsplash.jpg');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-position: center center;
+        height: 100%;
+        margin: 0;
+    }
+
+    .main-title {
+        color: white;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    }
+
+    .main-card {
+        background-color: rgba(255, 255, 255, 0.9);
+        border-radius: 8px;
+        box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    }
+</style>

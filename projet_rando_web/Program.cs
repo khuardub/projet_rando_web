@@ -15,6 +15,7 @@ builder.Services.AddGeoBlazor();
 builder.Services.Configure<RandoMaxDatabaseSettings>(
     builder.Configuration.GetSection("RandoMaxDatabase"));
 builder.Services.AddScoped<IRandonnee, RandonneeService>();
+builder.Services.AddScoped<IVille, VilleService>();
 
 var app = builder.Build();
 
