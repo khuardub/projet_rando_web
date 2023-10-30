@@ -2,7 +2,6 @@
 using projet_rando_web.Classes;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
-using projet_rando_web.Data;
 
 
 namespace projet_rando_web.Pages

@@ -12,6 +12,7 @@ namespace projet_rando_web.Interfaces
         void SaveOrUpdateUser(Utilisateur utilisateur);
 
         Utilisateur GetUtilisateur(string utilisateurId);
+        Utilisateur GetUtilisateurByCourriel(string courriel);
         string DeleteUser(string utilisateurId);
         List<Utilisateur> GetUtilisateurs();
 

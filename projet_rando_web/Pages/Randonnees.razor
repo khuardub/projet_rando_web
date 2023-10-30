@@ -4,18 +4,25 @@
 @using System.Linq
 @inject projet_rando_web.Interfaces.IRandonnee randonneeService
 
-<main class="bg-dark">
+<main>
     <div class="container pt-3">
         @if (_randonnees != null)
         {
-            <h2 class="text-light mb-4 text-center border-top border-bottom border-2">Nos randonnées</h2>
-            <p class="text-light">Voici nos randonnées chez Randomax, une véritable invitation à l'aventure en plein air. Que vous soyez passionné par les montagnes majestueuses, les forêts luxuriantes ou les paysages côtiers à couper le souffle, nos randonnées sont conçues pour satisfaire tous les amoureux de la nature. Explorez des sentiers pittoresques, découvrez la faune et la flore locales, et vivez des moments mémorables en plein air. Nos guides passionnés vous accompagneront tout au long de votre périple, garantissant une expérience enrichissante à chaque étape. Chez Randomax, l'aventure commence sous vos pas. Rejoignez-nous pour des randonnées inoubliables.</p>
+            <div class="div-rend bg-dark container-fluid p-5 mb-5 mt-2">
+                <h2 class="text-light mb-4 text-center border-top border-bottom border-2">Nos randonnées</h2>
+                <p class="text-light">
+                    Voici nos randonnées chez Randomax, une véritable invitation à l'aventure en plein air. Que vous soyez passionné par les montagnes majestueuses, les forêts luxuriantes ou les paysages côtiers à couper le souffle, nos randonnées sont conçues pour satisfaire tous les amoureux de la nature. Explorez des sentiers pittoresques, découvrez la faune et la flore locales, et vivez des moments mémorables en plein air. Nos guides passionnés vous accompagneront tout au long de votre périple, garantissant une expérience enrichissante à chaque étape. Chez Randomax, l'aventure commence sous vos pas.
+                    Rejoignez-nous pour des randonnées inoubliables.
+                </p>
+            </div>
+
+
             <div class="row">
                 @foreach (var randonnee in _randonnees)
                 {
                     <div class="col-md-4 mb-4">
-                        <div class="card">
-                            <img src="https://picsum.photos/500/500" class="card-img-top" alt="Image de la randonnée">
+                        <div class="card border-0 shadow-sm">
+                            <img src="https://picsum.photos/1000/1000" class="card-img-top" alt="Image de la randonnée">
                             <div class="card-body">
                                 <h5 class="card-title">@randonnee.Nom</h5>
                                 <p>Ville de départ : @randonnee.EndroitDepart.Nom</p>
@@ -23,10 +30,11 @@
                                 {
                                     <p>Ville de retour : @randonnee.EndroitRetour.Nom</p>
                                 }
-                                <a href="/detail/@randonnee.Id" class="btn btn-secondary">Détails</a>
+                                <a href="/detail/@randonnee.Id" class="btn btn-outline-dark">Détails</a>
                             </div>
                         </div>
                     </div>
+
                 }
             </div>
         }
@@ -37,3 +45,19 @@
     </div>
 
 </main>
+<style>
+    .card-img-top{
+        height: 250px;
+        object-fit: cover;
+    }
+
+    body {
+        background-image: url('marek-piwnicki-xag4w1eb9nm-unsplash.jpg');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-position: center center;
+        height: 100%;
+        margin: 0;
+    }
+</style>

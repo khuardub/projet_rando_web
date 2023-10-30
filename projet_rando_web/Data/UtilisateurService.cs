@@ -41,6 +41,11 @@ namespace projet_rando_web.Data
             return _utilisateursCollection.Find(user => user.Id == utilisateurId).FirstOrDefault();
         }
 
+        public Utilisateur GetUtilisateurByCourriel(string courriel)
+        {
+            return _utilisateursCollection.Find(user => user.Courriel == courriel).FirstOrDefault();
+        }
+
         public string DeleteUser(string utilisateurId)
         {
             _utilisateursCollection.DeleteOne(user => user.Id == utilisateurId);

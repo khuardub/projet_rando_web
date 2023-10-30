@@ -17,4 +17,19 @@
     background-color: lightgray
 }
 
+.main-content {
+    padding: 1rem;
+    margin-bottom : 5rem;
+}
+
+.main-title {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.login-card {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
 

@@ -1,21 +1,131 @@
 ﻿@page "/inscription"
 @layout MainLayout
+@using projet_rando_web.Classes
+@using projet_rando_web.Enums
 
-<main>
-    <h2>Inscription</h2>
 
 
+<main class="main-content">
+    <h2 class="main-title text-center mt-4">Inscription</h2>
+
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-9">
+                <div class="login-card card">
+                    <div class="card-body">
+                        <h2 class="card-title text-center mb-4">Authentification</h2>
+                        <EditForm Model="@utilisateur" OnValidSubmit="Authentifier">
+                            <DataAnnotationsValidator />
+                            <div class="mb-3">
+                                <label for="prenom" class="form-label">Prénom</label>
+                                <InputText id="prenom" placeholder="Votre Prénom" class="form-control" @bind-Value="utilisateur.Prenom" />
+                                <ValidationMessage For="@(() => utilisateur.Prenom)" />
+                            </div>
+                            <div class="mb-3">
+                                <label for="nom" class="form-label">Nom</label>
+                                <InputText id="nom" placeholder="Votre Nom" class="form-control" @bind-Value="utilisateur.Nom" />
+                                <ValidationMessage For="@(() => utilisateur.Nom)" />
+                            </div>
+                            <div class="mb-3">
+                                <label for="courriel" class="form-label">Courriel</label>
+                                <InputText id="courriel" placeholder="Votre Courriel" class="form-control" @bind-Value="utilisateur.Courriel" />
+                                <ValidationMessage For="@(() => utilisateur.Courriel)" />
+                            </div>
+                            <div class="mb-3">
+                                <label for="mdp" class="form-label">Mot de Passe</label>
+                                <InputText id="mdp" placeholder="Créer votre mot de passe" class="form-control" @bind-Value="utilisateur.MotDePasse" />
+                                <ValidationMessage For="@(() => utilisateur.MotDePasse)" />
+                            </div>
+                            <div class="mb-3">
+                                <label for="pseudo" class="form-label">Pseudo</label>
+                                <InputText id="pseudo" placeholder="Votre Pseudo" class="form-control" @bind-Value="utilisateur.Pseudo" />
+                                <ValidationMessage For="@(() => utilisateur.Pseudo)" />
+                            </div>
+                            <div class="mb-3">
+                                <label for="langue" class="form-label">Langue</label>
+                                <InputSelect id="langue" class="form-select" @bind-Value="utilisateur.Langue">
+                                    <option disabled value="" selected>-- Choisissez votre Langue --</option>
+                                    @foreach (Langue langue in langues)
+                                    {
+                                        <option value="@langue.Id">@langue.Nom</option>
+                                    }
+                                </InputSelect>
+                                <ValidationMessage For="@(() => utilisateur.Langue)" />
+                            </div>
+                            <div class="mb-3">
+                                <label for="niveau" class="form-label">Niveau</label>
+                                <InputSelect id="niveau" class="form-select" @bind-Value="utilisateur.Echelon">
+                                    @foreach (Niveau nomNiveau in Enum.GetValues(typeof(Niveau)))
+                                    {
+                                        <option value="@nomNiveau">@nomNiveau</option>
+                                    }
+                                </InputSelect>
+                                <ValidationMessage For="@(() => utilisateur.Echelon)" />
+                            </div>
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-outline-dark">Créer le Compte</button>
+                            </div>
+                        </EditForm>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </main>
 
-<h3>Inscription</h3>
+<style>
+    body {
+        background-image: url('ander-pena-REAMd8gKbPc-unsplash.jpg');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-position: center center;
+        height: 100%;
+        margin: 0;
+    }
 
-<MapView Longitude="_longitude" Latitude="_latitude" Zoom="11" Style="height: 400px; width: 100%;">
+    .login-card {
+        background-color: rgba(255, 255, 255, 0.9);
+        border-radius: 8px;
+        box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    }
+
+    .main-title {
+        color: white;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    }
+
+</style>
+
+@* <MapView Longitude="_longitude" Latitude="_latitude" Zoom="11" Style="height: 400px; width: 100%;">
     <WebMap>
         <PortalItem Id="4a6cb60ebbe3483a805999d481c2daa5" />
     </WebMap>
-</MapView>
+</MapView> *@
 
 @code {
     private readonly double _latitude = 34.027;
     private readonly double _longitude = -118.805;
+
+    private Utilisateur utilisateur;
+
+    protected override void OnInitialized()
+    {
+        utilisateur = new Utilisateur();
+
+        langues = new List<Langue>()
+        {
+            new Langue("Français"),
+            new Langue("Engalais"),
+            new Langue("Arabe"),
+
+        };
+    }
+
+    private List<Langue> langues;
+
+    private void Authentifier()
+    {
+
+    }
 } 
