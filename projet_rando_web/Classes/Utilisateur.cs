@@ -14,7 +14,7 @@ namespace projet_rando_web.Classes
     /// Représente un utilisateur.
     /// </summary>
     [Serializable]
-    public class Utilisateur : IUtilisateur
+    public class Utilisateur
     {
         /// <summary>
         /// Obtient ou définit l'identifiant de l'utilisateur.
@@ -72,8 +72,8 @@ namespace projet_rando_web.Classes
         /// <summary>
         /// Obtient ou définit le niveau d'accès de l'utilisateur.
         /// </summary>
-        [BsonElement("Niveau"), BsonRepresentation(BsonType.String)]
-        public Niveau Niveau { get; set; }
+        [BsonElement("Echelon")]
+        public Echelon Echelon { get; set; }
 
         /// <summary>
         /// Constructeur vide
@@ -85,7 +85,7 @@ namespace projet_rando_web.Classes
         /// <summary>
         /// Initialise une nouvelle instance de la classe Utilisateur avec un identifiant spécifié.
         /// </summary>
-        public Utilisateur(string id, string motDePasse, string pseudo, string prenom, string nom, string courriel, Langue langue, Niveau niveau)
+        public Utilisateur(string id, string motDePasse, string pseudo, string prenom, string nom, string courriel, Langue langue, Echelon echelon)
         {
             this.Id = id;
             this.MotDePasse = motDePasse;
@@ -94,7 +94,7 @@ namespace projet_rando_web.Classes
             this.Nom = nom;
             this.Courriel = courriel;
             this.Langue = langue;
-            this.Niveau = niveau;
+            this.Echelon = echelon;
 
         }
     }
