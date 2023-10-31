@@ -54,5 +54,18 @@ namespace projet_rando_web.Data
                 _randonneesCollection.ReplaceOne(rando => rando.Id == randonnee.Id, randonnee);
             }
         }
+        public void Insert(Randonnee randonnee)
+        {
+            if(randonnee != null)
+            {
+                _randonneesCollection.InsertOne(randonnee);
+            }
+        }
+
+        public bool RandonneeExiste(Randonnee randonnee)
+        {
+            var randonneExtiste = _randonneesCollection.Find(r => r.Nom == randonnee.Nom).FirstOrDefault();
+            return randonneExtiste != null;
+        }
     }
 }

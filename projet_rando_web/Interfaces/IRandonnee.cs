@@ -14,6 +14,9 @@ namespace projet_rando_web.Interfaces
         string Delete(string randonneeId);
         Randonnee GetRandonnee(string randonneeId);
         List<Randonnee> GetRandonnees();
+        void Insert(Randonnee randonnee);
+
+        bool RandonneeExiste(Randonnee randonnee);
 
         //public string Id { get; set; }
         //public DateTime CreatedAt { get; set; }

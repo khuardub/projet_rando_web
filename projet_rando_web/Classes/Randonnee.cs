@@ -39,9 +39,11 @@ namespace projet_rando_web.Classes
         //public Pays Pays { get; set; }
         
         [BsonElement("EndroitDepart")]
+        [Required(ErrorMessage ="L'endroit de départ est requis.")]
         public Ville EndroitDepart { get; set; }
 
         [BsonElement("EndroitRetour")]
+        [Required(ErrorMessage = "L'endroit de retour est requis.")]
         public Ville? EndroitRetour { get; set; }
 
 
@@ -50,9 +52,11 @@ namespace projet_rando_web.Classes
         public DateTime DateDepart { get; set; }
 
         [BsonElement("Meteo")]
+        [Required(ErrorMessage ="Météo est requis.")]
         public Meteo Meteo { get; set; }
 
         [BsonElement("Sorte")]
+        [Required(ErrorMessage = "Le type est requis.")]
         public Sorte TypeRando { get; set; }
 
         [BsonElement("Denivele"), BsonRepresentation(BsonType.Int32)]
@@ -62,6 +66,7 @@ namespace projet_rando_web.Classes
         public Statut Statut { get; set; }
 
         [BsonElement("Niveau")]
+        [Required(ErrorMessage = "Le niveau est requis.")]
         public Niveau Niveau { get; set; }
 
         public Randonnee()
