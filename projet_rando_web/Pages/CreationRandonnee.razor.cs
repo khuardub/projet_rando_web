@@ -58,6 +58,8 @@ namespace projet_rando_web.Pages
 
         [Inject]
         private NavigationManager navigation { get; set; }
+
+        private bool randonneExiste = false;
         #endregion
 
 
@@ -73,7 +75,9 @@ namespace projet_rando_web.Pages
                     navigation.NavigateTo($"/detail/{randonnee.Id}", true);
                 }
                 else
-                    throw new InvalidOperationException("La randonnée existe déjà.");
+                {
+                    randonneExiste = true;
+                }
 
             }
             else

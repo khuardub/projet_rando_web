@@ -15,6 +15,13 @@
                 <div class="main-card card">
                     <div class="card-body">
                         <h2 class="card-title text-center mb-4">Randonnée</h2>
+                        @if (randonneExiste)
+                        {
+                            <div class="alert alert-danger" role="alert">
+                                Cette Randonnée qui le nom "@randonnee.Nom" existe déjà.<br>
+                                Veuillez modifier le nom.
+                            </div>
+                        }
                         <EditForm Model="@randonnee" OnValidSubmit="AjoutRandonnee">
                             <DataAnnotationsValidator />
                             <div class="mb-3">
