@@ -1,4 +1,6 @@
 ﻿@inherits LayoutComponentBase
+@inject AuthenticationStateProvider authStateProvider
+@inject NavigationManager navManager
 
 <PageTitle>projet_rando_web</PageTitle>
 
@@ -51,7 +53,7 @@
                                                 <a class="nav-link" href="/page_utilisateur">Ma page @context.User.Identity.Name</a>
                                             </li>
                                             <li class="nav-item">
-                                                <a class="nav-link" href="/deconnexion">Se déconnecter</a>
+                                                <a class="nav-link" @onclick="Logout" href="javascript:void(0)">Se déconnecter</a>
                                             </li>
                                         </Authorized>
                                         <NotAuthorized>

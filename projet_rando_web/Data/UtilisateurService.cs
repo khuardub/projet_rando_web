@@ -25,14 +25,14 @@ namespace projet_rando_web.Data
 
         public void SaveOrUpdateUser(Utilisateur utilisateur)
         {
-            var userUpdate = _utilisateursCollection.Find(user => user.Id == utilisateur.Id).FirstOrDefault();
+            var userUpdate = _utilisateursCollection.Find(user => user.Courriel == utilisateur.Courriel).FirstOrDefault();
             if (userUpdate != null)
             {
-                _utilisateursCollection.InsertOne(userUpdate);
+                _utilisateursCollection.ReplaceOne(user => user.Id == utilisateur.Id, utilisateur);
             }
             else
             {
-                _utilisateursCollection.ReplaceOne(user => user.Id == utilisateur.Id, utilisateur);
+                _utilisateursCollection.InsertOne(utilisateur);
             }
         }
 
