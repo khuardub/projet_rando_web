@@ -41,9 +41,9 @@ namespace projet_rando_web.Pages
         }
         private PopupTemplate GeneratePopupTemplate(Randonnee rando)
         {
-            string lien = rando.Id.ToString();
-            return new PopupTemplate(rando.Nom, rando.Description + "<p> <a href = 'https://randomaxx.azurewebsites.net/detail/" + lien +"'>Voir les détails</a></>");
+            return new PopupTemplate(rando.Nom, $"<p>{rando.Description}</p><a href='https://randomaxx.azurewebsites.net/detail/{rando.Id}'>Voir les Détails</a>");
         }
+
         private Symbol GenerateSimpleMarker()
         {
             return new SimpleMarkerSymbol(new Outline(new MapColor(33, 25, 51)),
