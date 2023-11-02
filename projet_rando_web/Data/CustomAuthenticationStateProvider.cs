@@ -53,6 +53,7 @@ namespace projet_rando_web.Data
                 {
                     new Claim(ClaimTypes.Name, utilisateurSession.Pseudo),
                     new Claim(ClaimTypes.Role, utilisateurSession.Echelon.ToString()),
+                    new Claim(ClaimTypes.Locality, utilisateurSession.Langue.ToString()),
                 }));
             }
             else
