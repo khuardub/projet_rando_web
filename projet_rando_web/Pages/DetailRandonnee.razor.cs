@@ -7,11 +7,13 @@ using dymaptic.GeoBlazor.Core.Components.Layers;
 using dymaptic.GeoBlazor.Core.Components.Views;
 using System.Collections.Generic;
 using System.Threading;
-using System.Drawing;
 using projet_rando_web.Interfaces;
 using dymaptic.GeoBlazor.Core.Components.Geometries;
 using System.Dynamic;
 using dymaptic.GeoBlazor.Core.Components;
+using dymaptic.GeoBlazor.Core.Components.Popups;
+using dymaptic.GeoBlazor.Core.Components.Symbols;
+using dymaptic.GeoBlazor.Core.Objects;
 
 namespace projet_rando_web.Pages
 {
@@ -22,6 +24,7 @@ namespace projet_rando_web.Pages
 
         [Parameter]
         public string Id { get; set; }
+        public int grosseurChunk = 100;
         public GraphicsLayer graphicsLayer;
         private MapView? mapView;
 
@@ -29,15 +32,23 @@ namespace projet_rando_web.Pages
         {
             randonnee = randonneeService.GetRandonnee(Id);
         }
-        private async Task OnViewRendered()
+        private async Task OnMapRendered()
         {
-            Geometry geo = new dymaptic.GeoBlazor.Core.Components.Geometries.Point(randonnee.EndroitDepart.Longitude, randonnee.EndroitDepart.Latitude);
-            
             graphicsLayer = new GraphicsLayer();
-            Graphic graph1;
-            graph1 = new Graphic(geo);
-            graphicsLayer.Add(graph1);
+            Graphic graph;
+            Geometry point = GeneratePoint(randonnee);
+            graph = new Graphic(point, GenerateSimpleMarker());
+            graphicsLayer.Add(graph);
             mapView.AddLayer(graphicsLayer);
+        }
+        private Symbol GenerateSimpleMarker()
+        {
+            return new SimpleMarkerSymbol(new Outline(new MapColor(33, 25, 51)),
+                new MapColor(67, 131, 168), 10);
+        }
+        private Point GeneratePoint(Randonnee rando)
+        {
+            return new Point(rando.EndroitDepart.Longitude, rando.EndroitDepart.Latitude);
         }
     }
 

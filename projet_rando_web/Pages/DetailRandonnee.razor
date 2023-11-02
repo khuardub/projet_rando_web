@@ -7,7 +7,7 @@
         @if (randonnee != null)
         {
             <h2 class="mb-3 text-center border-top border-bottom border-2">Détails : @randonnee.Nom</h2>
-            <MapView @ref="mapView" OnViewRendered="OnViewRendered" Longitude="randonnee.EndroitDepart.Longitude" Latitude="randonnee.EndroitDepart.Latitude" Zoom="16" Style="height: 400px; width: 100%; justify-content:center;" Class="border-4 border mb-3">
+            <MapView @ref="mapView" OnMapRendered="OnMapRendered" Longitude="randonnee.EndroitDepart.Longitude" Latitude="randonnee.EndroitDepart.Latitude" Zoom="16" Style="height: 400px; width: 100%; justify-content:center;" Class="border-4 border mb-3" GraphicSerializationChunkSize="grosseurChunk">
                 <WebMap>
                     <PortalItem Id="e409ec0a5ef94d5cb486571894143b7c" />
                 </WebMap>
