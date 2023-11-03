@@ -2,6 +2,9 @@
 @layout MainLayout
 @using projet_rando_web.Classes
 @using projet_rando_web.Enums
+@inject Interfaces.IUtilisateur utilisateurService
+@inject IJSRuntime jsRuntime
+@inject NavigationManager navManager
 
 
 
@@ -14,53 +17,54 @@
                 <div class="login-card card">
                     <div class="card-body">
                         <h2 class="card-title text-center mb-4">Authentification</h2>
-                        <EditForm Model="@utilisateur" OnValidSubmit="Authentifier">
+                        <EditForm Model="@user" OnValidSubmit="CreationUtilisateur">
                             <DataAnnotationsValidator />
                             <div class="mb-3">
                                 <label for="prenom" class="form-label">Prénom</label>
-                                <InputText id="prenom" placeholder="Votre Prénom" class="form-control" @bind-Value="utilisateur.Prenom" />
-                                <ValidationMessage For="@(() => utilisateur.Prenom)" />
+                                <InputText id="prenom" placeholder="Votre Prénom" class="form-control" @bind-Value="user.Prenom" />
+                                <ValidationMessage For="@(() => user.Prenom)" />
                             </div>
                             <div class="mb-3">
                                 <label for="nom" class="form-label">Nom</label>
-                                <InputText id="nom" placeholder="Votre Nom" class="form-control" @bind-Value="utilisateur.Nom" />
-                                <ValidationMessage For="@(() => utilisateur.Nom)" />
+                                <InputText id="nom" placeholder="Votre Nom" class="form-control" @bind-Value="user.Nom" />
+                                <ValidationMessage For="@(() => user.Nom)" />
                             </div>
                             <div class="mb-3">
                                 <label for="courriel" class="form-label">Courriel</label>
-                                <InputText id="courriel" placeholder="Votre Courriel" class="form-control" @bind-Value="utilisateur.Courriel" />
-                                <ValidationMessage For="@(() => utilisateur.Courriel)" />
+                                <InputText id="courriel" placeholder="Votre Courriel" class="form-control" @bind-Value="user.Courriel" />
+                                <ValidationMessage For="@(() => user.Courriel)" />
                             </div>
                             <div class="mb-3">
                                 <label for="mdp" class="form-label">Mot de Passe</label>
-                                <InputText id="mdp" placeholder="Créer votre mot de passe" class="form-control" @bind-Value="utilisateur.MotDePasse" />
-                                <ValidationMessage For="@(() => utilisateur.MotDePasse)" />
+                                <InputText id="mdp" placeholder="Créer votre mot de passe" class="form-control" @bind-Value="user.MotDePasse" />
+                                <ValidationMessage For="@(() => user.MotDePasse)" />
                             </div>
+                            <!-- TODO  : faire champs de validation mot de passe -->
                             <div class="mb-3">
                                 <label for="pseudo" class="form-label">Pseudo</label>
-                                <InputText id="pseudo" placeholder="Votre Pseudo" class="form-control" @bind-Value="utilisateur.Pseudo" />
-                                <ValidationMessage For="@(() => utilisateur.Pseudo)" />
+                                <InputText id="pseudo" placeholder="Votre Pseudo" class="form-control" @bind-Value="user.Pseudo" />
+                                <ValidationMessage For="@(() => user.Pseudo)" />
                             </div>
                             <div class="mb-3">
                                 <label for="langue" class="form-label">Langue</label>
-                                <InputSelect id="langue" class="form-select" @bind-Value="utilisateur.Langue">
+                                <InputSelect id="langue" class="form-select" @bind-Value="user.Langue">
                                     <option disabled value="" selected>-- Choisissez votre Langue --</option>
-                                    @foreach (Langue langue in langues)
+                                    @foreach (Langue nomLangue in Enum.GetValues(typeof(Langue)))
                                     {
-                                        <option value="@langue.Id">@langue.Nom</option>
+                                        <option value="@nomLangue">@nomLangue</option>
                                     }
                                 </InputSelect>
-                                <ValidationMessage For="@(() => utilisateur.Langue)" />
+                                <ValidationMessage For="@(() => user.Langue)" />
                             </div>
                             <div class="mb-3">
                                 <label for="niveau" class="form-label">Niveau</label>
-                                <InputSelect id="niveau" class="form-select" @bind-Value="utilisateur.Echelon">
-                                    @foreach (Niveau nomNiveau in Enum.GetValues(typeof(Niveau)))
+                                <InputSelect id="niveau" class="form-select" @bind-Value="user.Echelon">
+                                    @foreach (Echelon nomEchelon in Enum.GetValues(typeof(Echelon)))
                                     {
-                                        <option value="@nomNiveau">@nomNiveau</option>
+                                        <option value="@nomEchelon">@nomEchelon</option>
                                     }
                                 </InputSelect>
-                                <ValidationMessage For="@(() => utilisateur.Echelon)" />
+                                <ValidationMessage For="@(() => user.Echelon)" />
                             </div>
                             <div class="text-center">
                                 <button type="submit" class="btn btn-outline-dark">Créer le Compte</button>
@@ -94,32 +98,4 @@
         color: white;
         text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
     }
-
-</style>
-
-@code {
-    private readonly double _latitude = 34.027;
-    private readonly double _longitude = -118.805;
-
-    private Utilisateur utilisateur;
-
-    protected override void OnInitialized()
-    {
-        utilisateur = new Utilisateur();
-
-        langues = new List<Langue>()
-        {
-            new Langue("Français"),
-            new Langue("Engalais"),
-            new Langue("Arabe"),
-
-        };
-    }
-
-    private List<Langue> langues;
-
-    private void Authentifier()
-    {
-
-    }
-} 
+</style> 

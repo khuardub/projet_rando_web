@@ -47,11 +47,11 @@ namespace projet_rando_web.Data
             var randoUpdate = _randonneesCollection.Find(rando => rando.Id == randonnee.Id).FirstOrDefault();
             if (randoUpdate != null)
             {
-                _randonneesCollection.InsertOne(randoUpdate);
+                _randonneesCollection.ReplaceOne(rando => rando.Id == randonnee.Id, randonnee);
             }
             else
             {
-                _randonneesCollection.ReplaceOne(rando => rando.Id == randonnee.Id, randonnee);
+                _randonneesCollection.InsertOne(randonnee);
             }
         }
     }

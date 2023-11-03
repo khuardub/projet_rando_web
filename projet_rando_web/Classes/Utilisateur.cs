@@ -66,7 +66,7 @@ namespace projet_rando_web.Classes
         /// <summary>
         /// Obtient ou définit la langue de l'utilisateur.
         /// </summary>
-        [BsonIgnore]
+        [BsonElement("Langue")]
         public Langue Langue { get; set; }
 
         /// <summary>

@@ -6,5 +6,6 @@ namespace projet_rando_web.Data
     {
         public string Pseudo { get; set; }
         public Echelon Echelon { get; set; }
+        public Langue Langue { get; set; }
     }
 }
