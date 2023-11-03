@@ -1,6 +1,6 @@
 # Projet RandoMax
 
-Application pour créer ou participer à des randonnées à travers le monde avec d'autres pationnés. <br/>
+Application pour créer ou participer à des randonnées à travers le monde avec d'autres passionnés. <br/>
 Application réalisé en C# à l'aide du framework Blazor, GeoBlazor, Bootstrap et MongoDB.
 
 ## Prérequis pour le développement
