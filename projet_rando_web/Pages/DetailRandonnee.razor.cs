@@ -1,4 +1,4 @@
-﻿using System.Reflection.Metadata;
+using System.Reflection.Metadata;
 using projet_rando_web.Classes;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;

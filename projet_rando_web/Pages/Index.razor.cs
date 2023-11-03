@@ -1,4 +1,4 @@
-﻿using projet_rando_web.Classes;
+using projet_rando_web.Classes;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using dymaptic.GeoBlazor.Core.Components.Geometries;
@@ -11,6 +11,8 @@ using dymaptic.GeoBlazor.Core.Components.Symbols;
 using dymaptic.GeoBlazor.Core.Objects;
 using System;
 using MongoDB.Driver.Core.Misc;
+using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Authorization;
 
 namespace projet_rando_web.Pages
 {
@@ -53,5 +55,7 @@ namespace projet_rando_web.Pages
         {
             return new Point(rando.EndroitDepart.Longitude, rando.EndroitDepart.Latitude);
         }
+        [CascadingParameter]
+        private Task<AuthenticationState> authenticationState { get; set; }
     }
 }

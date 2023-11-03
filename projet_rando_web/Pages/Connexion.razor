@@ -1,7 +1,9 @@
 ﻿@page "/connexion"
 @layout MainLayout
-@using projet_rando_web.Classes
-@using System.ComponentModel.DataAnnotations
+@inject Interfaces.IUtilisateur utilisateurService
+@inject AuthenticationStateProvider authStateProvider
+@inject IJSRuntime jsRuntime
+@inject NavigationManager navManager
 
 <PageTitle>Se Connecter</PageTitle>
 
@@ -25,17 +27,17 @@
                 <div class="login-card card">
                     <div class="card-body">
                         <h2 class="card-title text-center">Se Connecter</h2>
-                        <EditForm Model="@utilisateur" OnValidSubmit="SeConnecter">
+                        <EditForm Model="@user" OnValidSubmit="SeConnecter">
                             <DataAnnotationsValidator />
                             <div class="mb-3">
                                 <label for="courriel" class="form-label">Courriel</label>
-                                <InputText id="courriel" class="form-control" @bind-Value="utilisateur.Courriel" />
-                                <ValidationMessage For="@(() => utilisateur.Courriel)" />
+                                <InputText id="courriel" class="form-control" @bind-Value="user.Courriel" />
+                                <ValidationMessage For="@(() => user.Courriel)" />
                             </div>
                             <div class="mb-3">
                                 <label for="mdp" class="form-label">Mot de Passe</label>
-                                <InputText id="mdp" class="form-control" @bind-Value="utilisateur.MotDePasse" />
-                                <ValidationMessage For="@(() => utilisateur.MotDePasse)" />
+                                <InputText id="mdp" class="form-control" @bind-Value="user.MotDePasse" />
+                                <ValidationMessage For="@(() => user.MotDePasse)" />
                             </div>
                             <div class="text-center mt-4">
                                 <button type="submit" class="btn btn-outline-dark">Se Connecter</button>
@@ -71,18 +73,3 @@
 
 </style>
 
-@code {
-    private readonly double _latitude = 34.027;
-    private readonly double _longitude = -118.805;
-    public Utilisateur utilisateur;
-
-    protected override void OnInitialized()
-    {
-        utilisateur = new Utilisateur();
-    }
-
-    private void SeConnecter()
-    {
-
-    }
-}
