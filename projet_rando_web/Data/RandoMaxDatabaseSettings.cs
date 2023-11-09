@@ -10,5 +10,7 @@
 
         public string VilleCollectionName { get; set; } = null;
 
+        public string UtilisateursCollectionName { get; set; } = null!;
+
     }
 }

@@ -1,5 +1,7 @@
 using dymaptic.GeoBlazor.Core;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.StaticFiles;
 using projet_rando_web.Data;
@@ -10,12 +12,15 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
-builder.Services.AddSingleton<WeatherForecastService>();
 builder.Services.AddGeoBlazor();
+builder.Services.AddAuthenticationCore();
+builder.Services.AddScoped<ProtectedSessionStorage>();
+builder.Services.AddScoped<AuthenticationStateProvider, CustomAuthenticationStateProvider>();
 builder.Services.Configure<RandoMaxDatabaseSettings>(
     builder.Configuration.GetSection("RandoMaxDatabase"));
 builder.Services.AddScoped<IRandonnee, RandonneeService>();
 builder.Services.AddScoped<IVille, VilleService>();
+builder.Services.AddScoped<IUtilisateur, UtilisateurService>();
 
 var app = builder.Build();
 

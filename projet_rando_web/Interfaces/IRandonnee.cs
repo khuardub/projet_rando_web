@@ -14,6 +14,7 @@ namespace projet_rando_web.Interfaces
         string Delete(string randonneeId);
         Randonnee GetRandonnee(string randonneeId);
         List<Randonnee> GetRandonnees();
+        // Doublon avec le code SaveOrUpdate
         void Insert(Randonnee randonnee);
 
         bool RandonneeExiste(Randonnee randonnee);
@@ -32,5 +33,6 @@ namespace projet_rando_web.Interfaces
         //public Enums.Type Type { get; set; }
         //public int Denivele { get; set; }
         //public Statut Statut { get; set; }
+
     }
 }
