@@ -19,6 +19,7 @@ builder.Services.AddScoped<AuthenticationStateProvider, CustomAuthenticationStat
 builder.Services.Configure<RandoMaxDatabaseSettings>(
     builder.Configuration.GetSection("RandoMaxDatabase"));
 builder.Services.AddScoped<IRandonnee, RandonneeService>();
+builder.Services.AddScoped<IVille, VilleService>();
 builder.Services.AddScoped<IUtilisateur, UtilisateurService>();
 
 var app = builder.Build();

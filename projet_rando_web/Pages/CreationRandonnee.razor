@@ -1,0 +1,135 @@
+﻿@page "/creation_randonnee"
+@layout MainLayout
+@using projet_rando_web.Classes
+@using projet_rando_web.Enums
+@inject projet_rando_web.Interfaces.IVille villeService
+@inject projet_rando_web.Interfaces.IRandonnee randonneService
+
+<PageTitle>Création d'une Randonnée</PageTitle>
+<main class="main-content">
+    <h2 class="main-title text-center mt-4">Création d'une Randonnée</h2>
+
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-9">
+                <div class="main-card card">
+                    <div class="card-body">
+                        <h2 class="card-title text-center mb-4">Randonnée</h2>
+                        @if (randonneExiste)
+                        {
+                            <div class="alert alert-danger" role="alert">
+                                Cette Randonnée qui le nom "@randonnee.Nom" existe déjà.<br>
+                                Veuillez modifier le nom.
+                            </div>
+                        }
+                        <EditForm Model="@randonnee" OnValidSubmit="AjoutRandonnee">
+                            <DataAnnotationsValidator />
+                            <div class="mb-3">
+                                <label for="nom" class="form-label">Nom de la Randonnée</label>
+                                <InputText id="nom" placeholder="Le Nom de votre Randonnée" class="form-control" @bind-Value="randonnee.Nom" />
+                                <ValidationMessage For="@(() => randonnee.Nom)" />
+                            </div>
+                            <div class="mb-3">
+                                <label for="description" class="form-label">Description de la Randonnée</label>
+                                <InputText id="description" placeholder="La Description de votre Randonnée" class="form-control" @bind-Value="randonnee.Description" />
+                                <ValidationMessage For="@(() => randonnee.Description)" />
+                            </div>
+                            <div class="mb-3">
+                                <label for="date_depart" class="form-label">Date de départ de la Randonnée</label>
+                                <InputDate id="date_depart" placeholder="Le Date de départ de votre Randonnée" class="form-control" @bind-Value="randonnee.DateDepart" />
+                                <ValidationMessage For="@(() => randonnee.DateDepart)" />
+                            </div>
+                            <div class="mb-3">
+                                <label for="endroit_depart" class="form-label">Ville de départ de la Randonnée</label>
+                                <InputSelect id="endroit_depart" placeholder="L'Endroit de départ de votre Randonnée" class="form-select" @bind-Value="SelectedVilleDepartId">
+                                    <option selected disabled>L'Endroit de départ où vous souhaitez...</option>
+                                    @foreach (var ville in lstVille)
+                                    {
+                                        <option value="@ville.Id">@ville.Nom</option>
+                                    }
+                                </InputSelect>
+                                <ValidationMessage For="@(() => randonnee.EndroitDepart)" />
+                            </div>
+                            <div class="mb-3">
+                                <label for="endroit_retour" class="form-label">L'Endroit de retour de la Randonnée</label>
+                                <InputSelect id="endroit_retour" placeholder="L'Endroit de retour de votre Randonnée" class="form-select" @bind-Value="SelectedVilleRetourId">
+                                    <option selected disabled>L'Endroit de retour où vous souhaitez...</option>
+                                    @foreach (var ville in lstVille)
+                                    {
+                                        <option value="@ville.Id">@ville.Nom</option>
+                                    }
+                                </InputSelect>
+                                <ValidationMessage For="@(() => randonnee.EndroitRetour)" />
+                            </div>
+                            <div class="mb-3">
+                                <label for="meteo" class="form-label">Météo de la Randonnée</label>
+                                <InputSelect id="meteo" placeholder="Le météo de votre Randonnée" class="form-select" @bind-Value="randonnee.Meteo">
+                                    <option selected disabled>Le Météo que vous souhaitez...</option>
+                                    @foreach (Meteo meteo in Enum.GetValues(typeof(Meteo)))
+                                    {
+                                        <option value="@meteo">@UtilEnum.GetDescription(meteo)</option>
+                                    }
+                                </InputSelect>
+                                <ValidationMessage For="@(() => randonnee.Meteo)" />
+                            </div>
+                            <div class="mb-3">
+                                <label for="type" class="form-label">Type de la Randonnée</label>
+                                <InputSelect id="type" placeholder="Le Type de votre Randonnée" class="form-select" @bind-Value="randonnee.TypeRando">
+                                    <option selected disabled>Le Type que vous souhaitez...</option>
+                                    @foreach (Sorte type in Enum.GetValues(typeof(Sorte)))
+                                    {
+                                        <option value="@type">@UtilEnum.GetDescription(type)</option>
+                                    }
+                                </InputSelect>
+                                <ValidationMessage For="@(() => randonnee.TypeRando)" />
+                            </div>
+                            <div class="mb-3">
+                                <label for="niveau" class="form-label">Niveau de la Randonnée</label>
+                                <InputSelect id="niveau" placeholder="Le Niveau de votre Randonnée" class="form-select" @bind-Value="randonnee.Niveau">
+                                    <option selected disabled>Le Niveau que vous souhaitez...</option>
+                                    @foreach (Niveau niveau in Enum.GetValues(typeof(Niveau)))
+                                    {
+                                        <option value="@niveau">@UtilEnum.GetDescription(niveau)</option>
+                                    }
+                                </InputSelect>
+                                <ValidationMessage For="@(() => randonnee.Niveau)" />
+                            </div>
+                            <div class="mb-3">
+                                <label for="denivele" class="form-label">Denivele de la Randonnée</label>
+                                <InputNumber id="denivele" placeholder="Le Denivele de votre Randonnée" class="form-control" @bind-Value="randonnee.Denivele" />
+                                <ValidationMessage For="@(() => randonnee.Denivele)" />
+                            </div>
+                            <div class="float-end mt-3">
+                                <button type="reset" class="btn btn-danger me-3">Réinitialiser</button>
+                                <button type="submit" class="btn btn-dark">Ajouter la randonnée</button>
+                            </div>
+                        </EditForm>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<style>
+    body {
+        background-image: url('sarah-sheedy-yxlkcff8lpy-unsplash.jpg');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-position: center center;
+        height: 100%;
+        margin: 0;
+    }
+
+    .main-title {
+        color: white;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    }
+
+    .main-card {
+        background-color: rgba(255, 255, 255, 0.9);
+        border-radius: 8px;
+        box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    }
+</style>
+

@@ -1,4 +1,4 @@
-﻿@inherits LayoutComponentBase
+@inherits LayoutComponentBase
 @inject AuthenticationStateProvider authStateProvider
 @inject NavigationManager navManager
 
@@ -47,15 +47,26 @@
                                     <li class="nav-item">
                                         <a class="nav-link" href="/randonnees">Nos Randonnées</a>
                                     </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="/inscription">Inscrivez-vous</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="/connexion">Connectez-vous</a>
+                                    </li>
+                                    
                                     <AuthorizeView>
                                         <Authorized>
                                             <li class="nav-item">
                                                 <a class="nav-link" href="/page_utilisateur">Ma page @context.User.Identity.Name</a>
                                             </li>
                                             <li class="nav-item">
+                                              <a class="nav-link" href="/creation_randonnee">Création d'une randonnée</a>
+                                            </li>
+                                            <li class="nav-item">
                                                 <a class="nav-link" @onclick="Logout" href="javascript:void(0)">Se déconnecter</a>
                                             </li>
                                         </Authorized>
+                                      
                                         <NotAuthorized>
                                             <li class="nav-item">
                                                 <a class="nav-link" href="/inscription">Inscrivez-vous</a>
@@ -64,6 +75,7 @@
                                                 <a class="nav-link" href="/connexion">Connectez-vous</a>
                                             </li>
                                         </NotAuthorized>
+                                      
                                     </AuthorizeView>
                                 </ul>
                             </div>

@@ -14,5 +14,25 @@ namespace projet_rando_web.Interfaces
         string Delete(string randonneeId);
         Randonnee GetRandonnee(string randonneeId);
         List<Randonnee> GetRandonnees();
+        // Doublon avec le code SaveOrUpdate
+        void Insert(Randonnee randonnee);
+
+        bool RandonneeExiste(Randonnee randonnee);
+
+        //public string Id { get; set; }
+        //public DateTime CreatedAt { get; set; }
+        //public string Nom { get; set; }
+        //public string Description { get; set; }
+        //public Utilisateur Utilisateur { get; set; }
+        //public Pays Pays { get; set; }
+        //public Ville EndroitDepart { get; set; }  
+        //public DateTime DateDepart { get; set; }
+        //public Ville EndroitArrivee { get; set; }
+        //public DateTime DateArrivee { get; set; }
+        //public Meteo Meteo { get; set; }
+        //public Enums.Type Type { get; set; }
+        //public int Denivele { get; set; }
+        //public Statut Statut { get; set; }
+
     }
 }

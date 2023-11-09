@@ -1,11 +1,15 @@
+using System.ComponentModel;
+
 namespace projet_rando_web.Enums
 {
     public enum Meteo
     {
-        ensoleille,
-        nuageux,
-        enneige,
-        pluvieux
+        [Description("Ensoleillé")]
+        Ensoleille,
+        Nuageux,
+        [Description("Enneigé")]
+        Enneige,
+        Pluvieux
         
     }
 }

@@ -1,9 +1,12 @@
+using System.ComponentModel;
+
 namespace projet_rando_web.Enums
 {
     public enum Sorte
     {
-        montagneux,
-        foret,
-        plage
+        Montagneux,
+        [Description("Forêt")]
+        Foret,
+        Plage
     }
 }
