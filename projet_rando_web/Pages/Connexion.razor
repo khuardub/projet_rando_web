@@ -36,7 +36,7 @@
                             </div>
                             <div class="mb-3">
                                 <label for="mdp" class="form-label">Mot de Passe</label>
-                                <InputText id="mdp" class="form-control" @bind-Value="user.MotDePasse" />
+                                <InputText id="mdp" type="password" class="form-control" @bind-Value="user.MotDePasse" />
                                 <ValidationMessage For="@(() => user.MotDePasse)" />
                             </div>
                             <div class="text-center mt-4">
