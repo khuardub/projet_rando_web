@@ -3,6 +3,7 @@ using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 using projet_rando_web.Classes;
 using projet_rando_web.Interfaces;
+using projet_rando_web.Data;
 
 namespace projet_rando_web.Data
 {
@@ -10,12 +11,11 @@ namespace projet_rando_web.Data
     {
 
         private readonly IMongoCollection<Randonnee> _randonneesCollection;
-        private readonly IMongoCollection<Utilisateur> _utilisateursCollection;
-        private readonly UtilisateurService _utilisateurService;
+        private readonly IUtilisateur _utilisateurService;
 
         public RandonneeService(
             IOptions<RandoMaxDatabaseSettings> randoMaxDatabaseSettings,
-            UtilisateurService utilisateurService)
+            IUtilisateur utilisateurService)
         {
             var _mongoClient = new MongoClient(
                 randoMaxDatabaseSettings.Value.ConnectionString);
@@ -24,10 +24,7 @@ namespace projet_rando_web.Data
                 randoMaxDatabaseSettings.Value.DatabaseName);
 
             _randonneesCollection = _mongoDatabase.GetCollection<Randonnee>(
-                randoMaxDatabaseSettings.Value.RandonneesCollectionName);
-
-            _utilisateursCollection = _mongoDatabase.GetCollection<Utilisateur>(
-                randoMaxDatabaseSettings.Value.UtilisateursCollectionName);
+                randoMaxDatabaseSettings.Value.RandonneesCollectionName); ;
 
             _utilisateurService = utilisateurService;
         }
