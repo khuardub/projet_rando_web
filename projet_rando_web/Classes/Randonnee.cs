@@ -32,8 +32,8 @@ namespace projet_rando_web.Classes
         [MinLength(10, ErrorMessage = "Le nom doit avoir au moins 10 caractères")]
         public string Description { get; set; }
 
-        //[BsonIgnore]
-        //public Utilisateur Utilisateur { get; set; }
+        [BsonElement("Participants")]
+        public List<Utilisateur>? Participants { get; set; }
 
         //[BsonIgnore]
         //public Pays Pays { get; set; }
@@ -87,6 +87,7 @@ namespace projet_rando_web.Classes
             this.Denivele = denivele;
             this.Statut = statut;
             this.Niveau = niveau;
+            this.Participants = new List<Utilisateur>();
         }
         /*
         public Randonnee(IRandonnee randonneeServicepa

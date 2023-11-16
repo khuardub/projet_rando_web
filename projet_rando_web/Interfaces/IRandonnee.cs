@@ -10,7 +10,7 @@ namespace projet_rando_web.Interfaces
 {
     public interface IRandonnee
     {
-        void SaveOrUpdate(Randonnee randonnee);
+        Task SaveOrUpdate(Randonnee randonnee);
         string Delete(string randonneeId);
         Randonnee GetRandonnee(string randonneeId);
         List<Randonnee> GetRandonnees();

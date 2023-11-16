@@ -31,6 +31,12 @@
                 <li>Statut : @randonnee.Statut</li>
                 <li>Niveau : @randonnee.Niveau</li>
             </ul>
+            <EditForm Model="@user" OnValidSubmit="Inscription">
+                <DataAnnotationsValidator />
+                <div class="text-center mt-4">
+                    <button type="submit" class="btn btn-outline-dark">S'inscrire</button>
+                </div>
+            </EditForm>
         }
         else
         {
