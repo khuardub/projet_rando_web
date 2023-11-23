@@ -68,6 +68,7 @@ namespace projet_rando_web.Data
                 if (auteur != null)
                 {
                     randonnee.Auteur = auteur;
+                    randonnee.Participants = new List<Utilisateur>();
                     _randonneesCollection.InsertOne(randonnee);
                 }
                 
@@ -94,12 +95,18 @@ namespace projet_rando_web.Data
                     if (randonnee.Participants.Any(u => u.Id == user.Id))
                     {
                         return "Vous êtes déjà inscrit à cette randonnée.";
+                    } else if (randonnee.Auteur.Id == user.Id)
+                    {
+                        return "Vous êtes l'auteur de cette randonnée.";
                     }
-                    randonnee.Participants.Add(user);
-                    var filter = Builders<Randonnee>.Filter.Eq(r => r.Id, randonnee.Id);
-                    var update = Builders<Randonnee>.Update.Set(r => r.Participants, randonnee.Participants);
-                    await _randonneesCollection.UpdateOneAsync(filter, update);
-                    return "Inscription réussie";
+                    else
+                    {
+                        randonnee.Participants.Add(user);
+                        var filter = Builders<Randonnee>.Filter.Eq(r => r.Id, randonnee.Id);
+                        var update = Builders<Randonnee>.Update.Set(r => r.Participants, randonnee.Participants);
+                        await _randonneesCollection.UpdateOneAsync(filter, update);
+                        return "Inscription réussie";
+                    }
                 }
                 else
                 {

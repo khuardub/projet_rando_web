@@ -36,9 +36,18 @@
             </ul>
             <AuthorizeView>
                 <Authorized>
-                    <button @onclick="InscriptionParticipant" class="btn btn-primary">S'inscrire</button>
+                    @if (utilisateurSession.Id != randonnee.Auteur.Id)
+                    {
+                        <button @onclick="InscriptionParticipant" class="btn btn-primary">S'inscrire</button>
+                    }
+                    else
+                    {
+                        <h3>Vous êtes l'auteur de cette randonnée.</h3>
+                    }
                 </Authorized>
-                <NotAuthorized></NotAuthorized>
+                <NotAuthorized>
+                    <h3>Inscrivez-vous pour participer à cette aventure !</h3>
+                </NotAuthorized>
             </AuthorizeView>
         }
         else
