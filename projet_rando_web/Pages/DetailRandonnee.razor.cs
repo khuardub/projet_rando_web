@@ -7,6 +7,7 @@ using dymaptic.GeoBlazor.Core.Components.Symbols;
 using dymaptic.GeoBlazor.Core.Objects;
 using projet_rando_web.Data;
 using System.Security.Claims;
+using Microsoft.JSInterop;
 
 namespace projet_rando_web.Pages
 {
@@ -55,14 +56,24 @@ namespace projet_rando_web.Pages
         }
 
 
-        private void InscriptionParticipant()
+        private async Task InscriptionParticipant()
         {
             var utilisateurId = utilisateurSession.Id;
             if (utilisateurId != null)
             {
-                randonneeService.InsertParticipant(randonnee, utilisateurId);
+                var message = await randonneeService.InsertParticipant(randonnee, utilisateurId);
+                if (message == "Inscription réussie")
+                {
+                    var texte = "Félicitations! Préparez - vous pour une aventure mémorable.";
+                    await jsRuntime.InvokeVoidAsync("alert", texte);
+                    // renvoie page perso
+                    //navManager.NavigateTo("/profil", true);
+                }
+                else
+                {
+                    await jsRuntime.InvokeVoidAsync("alert", message);
+                }
             }
-            // rediriger vers page perso
         }
     }
 

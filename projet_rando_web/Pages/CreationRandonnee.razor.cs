@@ -6,6 +6,7 @@ using projet_rando_web.Data;
 using System.Diagnostics;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Components;
+using System.Security.Claims;
 
 namespace projet_rando_web.Pages
 {
@@ -23,6 +24,7 @@ namespace projet_rando_web.Pages
         private List<Ville> lstVille;
         private string _selectedVilleDepartId;
         private string _selectedVilleRetourId;
+        private UtilisateurSession utilisateurSession = new UtilisateurSession();
 
         #endregion
 
@@ -89,6 +91,15 @@ namespace projet_rando_web.Pages
             randonnee = new Randonnee();
             randonnee.DateDepart = DateTime.UtcNow;
             lstVille = villeService.GetVilles();
+
+            //utilisateurSession
+            var authState = await authStateProvider.GetAuthenticationStateAsync();
+            var user = authState.User;
+
+            if (user.Identity.IsAuthenticated)
+            {
+                utilisateurSession.Id = user.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            }
         }
 
         private static bool RandonneeValid(Randonnee randonnee)

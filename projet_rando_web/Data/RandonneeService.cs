@@ -74,7 +74,7 @@ namespace projet_rando_web.Data
             return randonneExtiste != null;
         }
 
-        public async Task InsertParticipant(Randonnee randonnee, string utilisateurId)
+        public async Task<string> InsertParticipant(Randonnee randonnee, string utilisateurId)
         {
             // verifier si rando existe
             var randoExiste = RandonneeExiste(randonnee);
@@ -87,23 +87,24 @@ namespace projet_rando_web.Data
                     // verifier si utilisateur pas deja inscrit a la rando
                     if (randonnee.Participants.Any(u => u.Id == user.Id))
                     {
-                        return;
+                        return "Vous êtes déjà inscrit à cette randonnée.";
                     }
                     randonnee.Participants.Add(user);
                     var filter = Builders<Randonnee>.Filter.Eq(r => r.Id, randonnee.Id);
                     var update = Builders<Randonnee>.Update.Set(r => r.Participants, randonnee.Participants);
                     await _randonneesCollection.UpdateOneAsync(filter, update);
+                    return "Inscription réussie";
                 }
                 else
                 {
                     // utilisateur non trouvé
-                    return;
+                    return "L'utilisateur non trouvé.";
                 }
             }
             else
             {
                 // rando non trouvé
-                return;
+                return "La randonnée n'existe pas.";
             }
 
         }

@@ -19,6 +19,6 @@ namespace projet_rando_web.Interfaces
 
         bool RandonneeExiste(Randonnee randonnee);
 
-        Task InsertParticipant(Randonnee randonnee, string utilisateurId);
+        Task<string> InsertParticipant(Randonnee randonnee, string utilisateurId);
     }
 }
