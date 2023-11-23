@@ -15,7 +15,7 @@ namespace projet_rando_web.Interfaces
         Randonnee GetRandonnee(string randonneeId);
         List<Randonnee> GetRandonnees();
         // Doublon avec le code SaveOrUpdate
-        void Insert(Randonnee randonnee);
+        Task Insert(Randonnee randonnee, string utilisateurId);
 
         bool RandonneeExiste(Randonnee randonnee);
 

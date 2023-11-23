@@ -66,15 +66,23 @@ namespace projet_rando_web.Pages
 
 
         #region MÉTHODES
-        private void AjoutRandonnee()
+        private async Task AjoutRandonnee()
         {
             if (RandonneeValid(randonnee))
             {
                 if (!randonneService.RandonneeExiste(randonnee))
                 {
-                    randonnee.CreatedAt = DateTime.UtcNow;
-                    randonneService.Insert(randonnee);
-                    navigation.NavigateTo($"/detail/{randonnee.Id}", true);
+                    var utilisateurId = utilisateurSession.Id;
+                    if (utilisateurId != null)
+                    {
+                        randonnee.CreatedAt = DateTime.UtcNow;
+                        await randonneService.Insert(randonnee, utilisateurId);
+                        navigation.NavigateTo($"/detail/{randonnee.Id}", true);
+                    }
+                    else
+                    {
+                        throw new ArgumentNullException("L'utilisateur de la session n'existe pas.");
+                    }
                 }
                 else
                 {
@@ -83,7 +91,7 @@ namespace projet_rando_web.Pages
 
             }
             else
-                throw new ArgumentNullException("La randonnée n'est pas valid");
+                throw new ArgumentNullException("La randonnée n'est pas valide");
         }
 
         protected override async Task OnInitializedAsync()

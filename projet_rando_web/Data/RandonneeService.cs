@@ -60,11 +60,17 @@ namespace projet_rando_web.Data
                 await _randonneesCollection.InsertOneAsync(randonnee);
             }
         }
-        public void Insert(Randonnee randonnee)
+        public async Task Insert(Randonnee randonnee, string utilisateurId)
         {
             if(randonnee != null)
             {
-                _randonneesCollection.InsertOne(randonnee);
+                var auteur = await _utilisateurService.GetUtilisateur(utilisateurId);
+                if (auteur != null)
+                {
+                    randonnee.Auteur = auteur;
+                    _randonneesCollection.InsertOne(randonnee);
+                }
+                
             }
         }
 
