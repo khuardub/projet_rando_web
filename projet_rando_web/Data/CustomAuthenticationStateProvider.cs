@@ -29,6 +29,7 @@ namespace projet_rando_web.Data
                 }
                 var claimsPrincipal = new ClaimsPrincipal(new ClaimsIdentity(new List<Claim>
                 {
+                    new Claim(ClaimTypes.NameIdentifier, utilisateurSession.Id),
                     new Claim(ClaimTypes.Name, utilisateurSession.Pseudo),
                     new Claim(ClaimTypes.Role, utilisateurSession.Echelon.ToString()),
                     new Claim(ClaimTypes.Locality, utilisateurSession.Langue.ToString()),
@@ -51,6 +52,7 @@ namespace projet_rando_web.Data
                 await _sessionStorage.SetAsync("UtilisateurSession", utilisateurSession);
                 claimsPrincipal = new ClaimsPrincipal(new ClaimsIdentity(new List<Claim>
                 {
+                    new Claim(ClaimTypes.NameIdentifier, utilisateurSession.Id),
                     new Claim(ClaimTypes.Name, utilisateurSession.Pseudo),
                     new Claim(ClaimTypes.Role, utilisateurSession.Echelon.ToString()),
                     new Claim(ClaimTypes.Locality, utilisateurSession.Langue.ToString()),

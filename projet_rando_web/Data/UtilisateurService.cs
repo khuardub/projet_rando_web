@@ -36,9 +36,12 @@ namespace projet_rando_web.Data
             }
         }
 
-        public Utilisateur GetUtilisateur(string utilisateurId)
+        public async Task<Utilisateur> GetUtilisateur(string utilisateurId)
         {
-            return _utilisateursCollection.Find(user => user.Id == utilisateurId).FirstOrDefault();
+            return await Task.Run(() =>
+            {
+                return _utilisateursCollection.Find(user => user.Id == utilisateurId).FirstOrDefault();
+            });
         }
 
         public Utilisateur GetUtilisateurByCourriel(string courriel)

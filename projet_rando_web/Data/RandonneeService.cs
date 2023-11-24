@@ -1,7 +1,9 @@
-﻿using Microsoft.Extensions.Options;
+﻿using System.Reflection.Metadata.Ecma335;
+using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 using projet_rando_web.Classes;
 using projet_rando_web.Interfaces;
+using projet_rando_web.Data;
 
 namespace projet_rando_web.Data
 {
@@ -9,9 +11,11 @@ namespace projet_rando_web.Data
     {
 
         private readonly IMongoCollection<Randonnee> _randonneesCollection;
+        private readonly IUtilisateur _utilisateurService;
 
         public RandonneeService(
-            IOptions<RandoMaxDatabaseSettings> randoMaxDatabaseSettings)
+            IOptions<RandoMaxDatabaseSettings> randoMaxDatabaseSettings,
+            IUtilisateur utilisateurService)
         {
             var _mongoClient = new MongoClient(
                 randoMaxDatabaseSettings.Value.ConnectionString);
@@ -20,7 +24,9 @@ namespace projet_rando_web.Data
                 randoMaxDatabaseSettings.Value.DatabaseName);
 
             _randonneesCollection = _mongoDatabase.GetCollection<Randonnee>(
-                randoMaxDatabaseSettings.Value.RandonneesCollectionName);
+                randoMaxDatabaseSettings.Value.RandonneesCollectionName); ;
+
+            _utilisateurService = utilisateurService;
         }
 
 
@@ -41,24 +47,31 @@ namespace projet_rando_web.Data
         {
             return _randonneesCollection.Find(FilterDefinition<Randonnee>.Empty).ToList();
         }
-
-        public void SaveOrUpdate(Randonnee randonnee)
+        
+        public async Task SaveOrUpdate(Randonnee randonnee)
         {
             var randoUpdate = _randonneesCollection.Find(rando => rando.Id == randonnee.Id).FirstOrDefault();
             if (randoUpdate != null)
             {
-                _randonneesCollection.ReplaceOne(rando => rando.Id == randonnee.Id, randonnee);
+                await _randonneesCollection.ReplaceOneAsync(rando => rando.Id == randonnee.Id, randonnee);
             }
             else
             {
-                _randonneesCollection.InsertOne(randonnee);
+                await _randonneesCollection.InsertOneAsync(randonnee);
             }
         }
-        public void Insert(Randonnee randonnee)
+        public async Task Insert(Randonnee randonnee, string utilisateurId)
         {
             if(randonnee != null)
             {
-                _randonneesCollection.InsertOne(randonnee);
+                var auteur = await _utilisateurService.GetUtilisateur(utilisateurId);
+                if (auteur != null)
+                {
+                    randonnee.Auteur = auteur;
+                    randonnee.Participants = new List<Utilisateur>();
+                    _randonneesCollection.InsertOne(randonnee);
+                }
+                
             }
         }
 
@@ -66,6 +79,47 @@ namespace projet_rando_web.Data
         {
             var randonneExtiste = _randonneesCollection.Find(r => r.Nom == randonnee.Nom).FirstOrDefault();
             return randonneExtiste != null;
+        }
+
+        public async Task<string> InsertParticipant(Randonnee randonnee, string utilisateurId)
+        {
+            // verifier si rando existe
+            var randoExiste = RandonneeExiste(randonnee);
+            if (randoExiste)
+            {
+                // verifier si utilisateur existe
+                var user = await _utilisateurService.GetUtilisateur(utilisateurId);
+                if (user != null)
+                {
+                    // verifier si utilisateur pas deja inscrit a la rando
+                    if (randonnee.Participants.Any(u => u.Id == user.Id))
+                    {
+                        return "Vous êtes déjà inscrit à cette randonnée.";
+                    } else if (randonnee.Auteur.Id == user.Id)
+                    {
+                        return "Vous êtes l'auteur de cette randonnée.";
+                    }
+                    else
+                    {
+                        randonnee.Participants.Add(user);
+                        var filter = Builders<Randonnee>.Filter.Eq(r => r.Id, randonnee.Id);
+                        var update = Builders<Randonnee>.Update.Set(r => r.Participants, randonnee.Participants);
+                        await _randonneesCollection.UpdateOneAsync(filter, update);
+                        return "Inscription réussie";
+                    }
+                }
+                else
+                {
+                    // utilisateur non trouvé
+                    return "L'utilisateur non trouvé.";
+                }
+            }
+            else
+            {
+                // rando non trouvé
+                return "La randonnée n'existe pas.";
+            }
+
         }
     }
 }

@@ -1,5 +1,8 @@
 ﻿@page "/detail/{id}"
 @inject projet_rando_web.Interfaces.IRandonnee randonneeService
+@inject AuthenticationStateProvider authStateProvider
+@inject IJSRuntime jsRuntime
+@inject NavigationManager navManager
 
 <main class="bg-dark text-light">
     <div class="container pt-3 pb-3">
@@ -31,6 +34,21 @@
                 <li>Statut : @randonnee.Statut</li>
                 <li>Niveau : @randonnee.Niveau</li>
             </ul>
+            <AuthorizeView>
+                <Authorized>
+                    @if (utilisateurSession.Id != randonnee.Auteur.Id)
+                    {
+                        <button @onclick="InscriptionParticipant" class="btn btn-primary">S'inscrire</button>
+                    }
+                    else
+                    {
+                        <h3>Vous êtes l'auteur de cette randonnée.</h3>
+                    }
+                </Authorized>
+                <NotAuthorized>
+                    <h3>Inscrivez-vous pour participer à cette aventure !</h3>
+                </NotAuthorized>
+            </AuthorizeView>
         }
         else
         {

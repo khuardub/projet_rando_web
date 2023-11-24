@@ -20,6 +20,9 @@ namespace projet_rando_web.Classes
         [BsonElement("CreatedAt"), BsonRepresentation(BsonType.DateTime)]
         public DateTime CreatedAt { get; set; }
 
+        [BsonElement("Auteur")]
+        public Utilisateur Auteur { get; set; }
+
         [BsonElement("Nom"), BsonRepresentation(BsonType.String)]
         [Required(ErrorMessage = "Le nom est requis.")]
         [MaxLength(50, ErrorMessage = "Le nom ne peut pas dépasser 50 caractères.")]
@@ -32,8 +35,8 @@ namespace projet_rando_web.Classes
         [MinLength(10, ErrorMessage = "Le nom doit avoir au moins 10 caractères")]
         public string Description { get; set; }
 
-        //[BsonIgnore]
-        //public Utilisateur Utilisateur { get; set; }
+        [BsonElement("Participants")]
+        public List<Utilisateur>? Participants { get; set; }
 
         //[BsonIgnore]
         //public Pays Pays { get; set; }
@@ -74,9 +77,10 @@ namespace projet_rando_web.Classes
             Id = ObjectId.GenerateNewId().ToString();
         }
         
-        public Randonnee(string id, string nom, string description, Ville villeDepart, Ville villeRetour, Meteo meteo, DateTime dateDepart, Sorte typeRando, int denivele, Statut statut, Niveau niveau)
+        public Randonnee(string id, Utilisateur auteur, string nom, string description, Ville villeDepart, Ville villeRetour, Meteo meteo, DateTime dateDepart, Sorte typeRando, int denivele, Statut statut, Niveau niveau)
         {
             this.Id = id;
+            this.Auteur = auteur;
             this.Nom = nom;
             this.Description = description;
             this.EndroitDepart = villeDepart;
@@ -87,27 +91,7 @@ namespace projet_rando_web.Classes
             this.Denivele = denivele;
             this.Statut = statut;
             this.Niveau = niveau;
+            this.Participants = new List<Utilisateur>();
         }
-        /*
-        public Randonnee(IRandonnee randonneeServicepa
-        {
-            this.RandonneeService = randonneeService;
-        }
-        
-        // Ajoutez une propriété pour injecter la dépendance vers le service IRandonnee
-        [BsonIgnore]
-        public IRandonnee RandonneeService { get; set; }
-        
-        // Implémentez des méthodes pour interagir avec le service IRandonnee
-        public void Save()
-        {
-            RandonneeService.SaveOrUpdate(this);
-        }
-
-        public void Delete()
-        {
-            RandonneeService.Delete(this.Id);
-        }*/
-        
     }
 }

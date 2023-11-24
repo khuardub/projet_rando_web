@@ -10,29 +10,15 @@ namespace projet_rando_web.Interfaces
 {
     public interface IRandonnee
     {
-        void SaveOrUpdate(Randonnee randonnee);
+        Task SaveOrUpdate(Randonnee randonnee);
         string Delete(string randonneeId);
         Randonnee GetRandonnee(string randonneeId);
         List<Randonnee> GetRandonnees();
         // Doublon avec le code SaveOrUpdate
-        void Insert(Randonnee randonnee);
+        Task Insert(Randonnee randonnee, string utilisateurId);
 
         bool RandonneeExiste(Randonnee randonnee);
 
-        //public string Id { get; set; }
-        //public DateTime CreatedAt { get; set; }
-        //public string Nom { get; set; }
-        //public string Description { get; set; }
-        //public Utilisateur Utilisateur { get; set; }
-        //public Pays Pays { get; set; }
-        //public Ville EndroitDepart { get; set; }  
-        //public DateTime DateDepart { get; set; }
-        //public Ville EndroitArrivee { get; set; }
-        //public DateTime DateArrivee { get; set; }
-        //public Meteo Meteo { get; set; }
-        //public Enums.Type Type { get; set; }
-        //public int Denivele { get; set; }
-        //public Statut Statut { get; set; }
-
+        Task<string> InsertParticipant(Randonnee randonnee, string utilisateurId);
     }
 }

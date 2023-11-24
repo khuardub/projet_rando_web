@@ -6,6 +6,7 @@ using projet_rando_web.Data;
 using System.Diagnostics;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Components;
+using System.Security.Claims;
 
 namespace projet_rando_web.Pages
 {
@@ -23,6 +24,7 @@ namespace projet_rando_web.Pages
         private List<Ville> lstVille;
         private string _selectedVilleDepartId;
         private string _selectedVilleRetourId;
+        private UtilisateurSession utilisateurSession = new UtilisateurSession();
 
         #endregion
 
@@ -64,15 +66,23 @@ namespace projet_rando_web.Pages
 
 
         #region MÉTHODES
-        private void AjoutRandonnee()
+        private async Task AjoutRandonnee()
         {
             if (RandonneeValid(randonnee))
             {
                 if (!randonneService.RandonneeExiste(randonnee))
                 {
-                    randonnee.CreatedAt = DateTime.UtcNow;
-                    randonneService.Insert(randonnee);
-                    navigation.NavigateTo($"/detail/{randonnee.Id}", true);
+                    var utilisateurId = utilisateurSession.Id;
+                    if (utilisateurId != null)
+                    {
+                        randonnee.CreatedAt = DateTime.UtcNow;
+                        await randonneService.Insert(randonnee, utilisateurId);
+                        navigation.NavigateTo($"/detail/{randonnee.Id}", true);
+                    }
+                    else
+                    {
+                        throw new ArgumentNullException("L'utilisateur de la session n'existe pas.");
+                    }
                 }
                 else
                 {
@@ -81,7 +91,7 @@ namespace projet_rando_web.Pages
 
             }
             else
-                throw new ArgumentNullException("La randonnée n'est pas valid");
+                throw new ArgumentNullException("La randonnée n'est pas valide");
         }
 
         protected override async Task OnInitializedAsync()
@@ -89,6 +99,15 @@ namespace projet_rando_web.Pages
             randonnee = new Randonnee();
             randonnee.DateDepart = DateTime.UtcNow;
             lstVille = villeService.GetVilles();
+
+            //utilisateurSession
+            var authState = await authStateProvider.GetAuthenticationStateAsync();
+            var user = authState.User;
+
+            if (user.Identity.IsAuthenticated)
+            {
+                utilisateurSession.Id = user.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            }
         }
 
         private static bool RandonneeValid(Randonnee randonnee)

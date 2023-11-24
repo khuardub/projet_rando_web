@@ -26,8 +26,10 @@ namespace projet_rando_web.Pages
             var customAuthStateProvider = (CustomAuthenticationStateProvider)authStateProvider;
             await customAuthStateProvider.UpdateAuthenticationState(new UtilisateurSession
             {
+                Id = utilisateur.Id,
                 Echelon = utilisateur.Echelon,
                 Pseudo = utilisateur.Pseudo,
+                Langue = utilisateur.Langue,
             });
             navManager.NavigateTo("/", true);
         }
