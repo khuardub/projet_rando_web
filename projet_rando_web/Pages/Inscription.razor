@@ -8,47 +8,45 @@
 
 
 
-<main class="main-content">
-    <h2 class="main-title text-center mt-4">Inscription</h2>
-
-    <div class="container mt-5">
-        <div class="row justify-content-center">
-            <div class="col-md-9">
-                <div class="login-card card">
-                    <div class="card-body">
-                        <h2 class="card-title text-center mb-4">Authentification</h2>
+<main>
+    <div class="container pt-3"> 
+        <div class="div-rend bg-dark container-fluid p-5 mb-5 mt-2">
+            <h2 class="text-light text-center border-top border-bottom border-2">Inscription</h2>
+            <div class="container mt-5">
+                <div class="row justify-content-center">
+                    <div class="col-md-9">
                         <EditForm Model="@user" OnValidSubmit="CreationUtilisateur">
                             <DataAnnotationsValidator />
                             <div class="mb-3">
-                                <label for="prenom" class="form-label">Prénom</label>
+                                <label for="prenom" class="text-light">Prénom</label>
                                 <InputText id="prenom" placeholder="Votre Prénom" class="form-control" @bind-Value="user.Prenom" />
                                 <ValidationMessage For="@(() => user.Prenom)" />
                             </div>
                             <div class="mb-3">
-                                <label for="nom" class="form-label">Nom</label>
+                                <label for="nom" class="text-light">Nom</label>
                                 <InputText id="nom" placeholder="Votre Nom" class="form-control" @bind-Value="user.Nom" />
                                 <ValidationMessage For="@(() => user.Nom)" />
                             </div>
                             <div class="mb-3">
-                                <label for="courriel" class="form-label">Courriel</label>
+                                <label for="courriel" class="text-light">Courriel</label>
                                 <InputText id="courriel" placeholder="Votre Courriel" class="form-control" @bind-Value="user.Courriel" />
                                 <ValidationMessage For="@(() => user.Courriel)" />
                             </div>
                             <div class="mb-3">
-                                <label for="mdp" class="form-label">Mot de Passe</label>
+                                <label for="mdp" class="text-light">Mot de Passe</label>
                                 <InputText id="mdp" placeholder="Créer votre mot de passe" class="form-control" @bind-Value="user.MotDePasse" />
                                 <ValidationMessage For="@(() => user.MotDePasse)" />
                             </div>
                             <!-- TODO  : faire champs de validation mot de passe -->
                             <div class="mb-3">
-                                <label for="pseudo" class="form-label">Pseudo</label>
+                                <label for="pseudo" class="text-light">Pseudo</label>
                                 <InputText id="pseudo" placeholder="Votre Pseudo" class="form-control" @bind-Value="user.Pseudo" />
                                 <ValidationMessage For="@(() => user.Pseudo)" />
                             </div>
                             <div class="mb-3">
-                                <label for="langue" class="form-label">Langue</label>
+                                <label for="langue" class="text-light">Langue</label>
                                 <InputSelect id="langue" class="form-select" @bind-Value="user.Langue">
-                                    <option disabled value="" selected>-- Choisissez votre Langue --</option>
+                                    <option>Votre Langue maternelle</option>
                                     @foreach (Langue nomLangue in Enum.GetValues(typeof(Langue)))
                                     {
                                         <option value="@nomLangue">@nomLangue</option>
@@ -56,8 +54,8 @@
                                 </InputSelect>
                                 <ValidationMessage For="@(() => user.Langue)" />
                             </div>
-                            <div class="mb-3">
-                                <label for="niveau" class="form-label">Niveau</label>
+                            <div class="mb-5">
+                                <label for="niveau" class="text-light">Expérience en randonnée</label>
                                 <InputSelect id="niveau" class="form-select" @bind-Value="user.Echelon">
                                     @foreach (Echelon nomEchelon in Enum.GetValues(typeof(Echelon)))
                                     {
@@ -67,7 +65,7 @@
                                 <ValidationMessage For="@(() => user.Echelon)" />
                             </div>
                             <div class="text-center">
-                                <button type="submit" class="btn btn-outline-dark">Créer le Compte</button>
+                                <button type="submit" class="btn btn-light">Créer le Compte</button>
                             </div>
                         </EditForm>
                     </div>

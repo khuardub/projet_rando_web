@@ -6,17 +6,22 @@
 
 <main>
     <div class="container pt-3">
-        @if (_randonnees != null)
-        {
-            <div class="div-rend bg-dark container-fluid p-5 mb-5 mt-2">
-                <h2 class="text-light mb-4 text-center border-top border-bottom border-2">Nos randonnées</h2>
-                <p class="text-light">
+        <div class="div-rend bg-dark text-light container-fluid p-5 mb-5 mt-2">
+            <h2 class="text-light mb-4 text-center border-top border-bottom border-2">Nos randonnées</h2>
+            @if (_randonnees != null && _randonnees.Count() != 0)
+            {
+                <p>
                     Voici nos randonnées chez Randomax, une véritable invitation à l'aventure en plein air. Que vous soyez passionné par les montagnes majestueuses, les forêts luxuriantes ou les paysages côtiers à couper le souffle, nos randonnées sont conçues pour satisfaire tous les amoureux de la nature. Explorez des sentiers pittoresques, découvrez la faune et la flore locales, et vivez des moments mémorables en plein air. Nos guides passionnés vous accompagneront tout au long de votre périple, garantissant une expérience enrichissante à chaque étape. Chez Randomax, l'aventure commence sous vos pas.
                     Rejoignez-nous pour des randonnées inoubliables.
                 </p>
-            </div>
-
-
+            }
+            else
+            {
+                <p class="text-center">Il n'a pas de randonnée à afficher. Connectez vous pour créer une randonnée</p>
+            }
+        </div>
+        @if (_randonnees != null && _randonnees.Count() != 0)
+        {
             <div class="row">
                 @foreach (var randonnee in _randonnees)
                 {
@@ -39,10 +44,6 @@
                 }
             </div>
         }
-        else
-        {
-            <p>Créez une nouvelle randonnée!</p>
-        }
     </div>
 
 </main>
@@ -53,7 +54,7 @@
     }
 
     body {
-        background-image: url('marek-piwnicki-xag4w1eb9nm-unsplash.jpg');
+        background-image: url('randonnees.jpg');
         background-size: cover;
         background-repeat: no-repeat;
         background-attachment: fixed;
