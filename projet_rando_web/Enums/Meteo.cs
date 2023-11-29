@@ -6,11 +6,9 @@ namespace projet_rando_web.Enums
     {
         [Description("Ensoleillé")]
         Ensoleille,
-        [Description("Nuageux")]
         Nuageux,
         [Description("Enneigé")]
         Enneige,
-        [Description("Pluvieux")]
         Pluvieux
         
     }

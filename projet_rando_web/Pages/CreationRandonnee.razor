@@ -71,7 +71,6 @@
                                             {
                                                 <option value="@meteo">@UtilEnum.GetDescription(meteo)</option>
                                             }
-                                            <option selected disabled>La météo</option>
                                         </InputSelect>
                                         <ValidationMessage class="text-danger" For="@(() => randonnee.Meteo)" />
                                     </div>
@@ -82,7 +81,6 @@
                                             {
                                                 <option value="@type">@UtilEnum.GetDescription(type)</option>
                                             }
-                                            <option selected disabled>Le type</option>
                                         </InputSelect>
                                         <ValidationMessage For="@(() => randonnee.TypeRando)" />
                                     </div>
@@ -93,7 +91,6 @@
                                             {
                                                 <option value="@niveau">@UtilEnum.GetDescription(niveau)</option>
                                             }
-                                            <option selected disabled>Le niveau</option>
                                         </InputSelect>
                                         <ValidationMessage class="text-danger" For="@(() => randonnee.Niveau)" />
                                     </div>
@@ -102,9 +99,9 @@
                                         <InputNumber id="denivele" placeholder="Le Denivele de votre Randonnée" class="form-control" @bind-Value="randonnee.Denivele" />
                                         <ValidationMessage class="text-danger" For="@(() => randonnee.Denivele)" />
                                     </div>
-                                    <div class="float-end mt-3">
-                                        <button type="reset" class="btn btn-danger me-3">Réinitialiser</button>
-                                        <button type="submit" class="btn btn-light">Ajouter la randonnée</button>
+                                    <div class="mt-3 text-center">
+                                            <button type="reset" class="btn btn-danger me-3">Réinitialiser</button>
+                                            <button type="submit" class="btn btn-light">Ajouter la randonnée</button>
                                     </div>
                                 </EditForm>
                             </div>

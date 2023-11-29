@@ -6,7 +6,7 @@ namespace projet_rando_web.Enums
     {
         Relax,
         Facile,
-        [Description("Moderé")]
+        [Description("Modéré")]
         Modere,
         Soutenu
     }

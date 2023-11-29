@@ -8,6 +8,7 @@ using dymaptic.GeoBlazor.Core.Objects;
 using projet_rando_web.Data;
 using System.Security.Claims;
 using Microsoft.JSInterop;
+using projet_rando_web.Enums;
 
 namespace projet_rando_web.Pages
 {
@@ -15,6 +16,10 @@ namespace projet_rando_web.Pages
     {
         private UtilisateurSession utilisateurSession = new UtilisateurSession();
         Randonnee randonnee;
+        string meteo;
+        string type;
+        string status;
+        string niveau;
 
         [Parameter]
         public string Id { get; set; }
@@ -26,6 +31,10 @@ namespace projet_rando_web.Pages
         protected override async Task OnInitializedAsync()
         {
             randonnee = randonneeService.GetRandonnee(Id);
+            meteo = randonnee.Meteo.GetDescription();
+            type = randonnee.TypeRando.GetDescription();
+            status = randonnee.Statut.GetDescription();
+            niveau = randonnee.Niveau.GetDescription();
 
             //utilisateurSession
             var authState = await authStateProvider.GetAuthenticationStateAsync();

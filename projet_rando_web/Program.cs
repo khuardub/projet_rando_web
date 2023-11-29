@@ -17,7 +17,7 @@ builder.Services.AddAuthenticationCore();
 builder.Services.AddScoped<ProtectedSessionStorage>();
 builder.Services.AddScoped<AuthenticationStateProvider, CustomAuthenticationStateProvider>();
 builder.Services.Configure<RandoMaxDatabaseSettings>(
-    builder.Configuration.GetSection("RandoMaxDatabase"));
+builder.Configuration.GetSection("RandoMaxDatabase"));
 builder.Services.AddScoped<IRandonnee, RandonneeService>();
 builder.Services.AddScoped<IVille, VilleService>();
 builder.Services.AddScoped<IUtilisateur, UtilisateurService>();

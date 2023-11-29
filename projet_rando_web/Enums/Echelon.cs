@@ -13,7 +13,6 @@ namespace projet_rando_web.Enums
         [Description("Intermédiaire")]
         Intermediaire,
         [BsonRepresentation(BsonType.String)]
-        [Description("Expert")]
         Expert
     }
 }
