@@ -63,6 +63,7 @@ namespace projet_rando_web.Classes
         public Sorte TypeRando { get; set; }
 
         [BsonElement("Denivele"), BsonRepresentation(BsonType.Int32)]
+        [Required(ErrorMessage = "Le dénivelé est requis.")]
         public int Denivele { get; set; }
 
         [BsonElement("Statut")]
