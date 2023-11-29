@@ -12,23 +12,12 @@ namespace projet_rando_web.Pages
 {
     public partial class CreationRandonnee
     {
-
-        #region CONSTANTES
-
-
-        #endregion
-
-        #region ATTRIBUTS
-
         private Randonnee randonnee;
         private List<Ville> lstVille;
         private string _selectedVilleDepartId;
         private string _selectedVilleRetourId;
         private UtilisateurSession utilisateurSession = new UtilisateurSession();
 
-        #endregion
-
-        #region PROPRIÉTÉS ET INDEXEURS
         private string SelectedVilleDepartId
         {
             get { return _selectedVilleDepartId; }
@@ -62,10 +51,7 @@ namespace projet_rando_web.Pages
         private NavigationManager navigation { get; set; }
 
         private bool randonneExiste = false;
-        #endregion
 
-
-        #region MÉTHODES
         private async Task AjoutRandonnee()
         {
             if (RandonneeValid(randonnee))
@@ -117,7 +103,6 @@ namespace projet_rando_web.Pages
             return Validator.TryValidateObject(randonnee, validationContext, validationResults, true);
         }
 
-        #endregion
     }
 
 }

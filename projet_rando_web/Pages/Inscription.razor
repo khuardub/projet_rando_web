@@ -37,7 +37,6 @@
                                 <InputText id="mdp" type="password" placeholder="Créer votre mot de passe" class="form-control" @bind-Value="user.MotDePasse" />
                                 <ValidationMessage class="text-danger" For="@(() => user.MotDePasse)" />
                             </div>
-                            <!-- TODO  : faire champs de validation mot de passe -->
                             <div class="mb-3">
                                 <label for="pseudo" class="text-light">Pseudo</label>
                                 <InputText id="pseudo" placeholder="Votre Pseudo" class="form-control" @bind-Value="user.Pseudo" />

@@ -19,13 +19,19 @@
                             <div class="mb-3">
                                 <label for="courriel" class="form-label text-light">Courriel</label>
                                 <InputText id="courriel" class="form-control" @bind-Value="user.Courriel" />
-                                <ValidationMessage For="@(() => user.Courriel)" />
+                                <ValidationMessage class="text-danger" For="@(() => user.Courriel)" />
                             </div>
                             <div class="mb-5">
                                 <label for="mdp" class="form-label text-light">Mot de Passe</label>
                                 <InputText id="mdp" type="password" class="form-control" @bind-Value="user.MotDePasse" />
-                                <ValidationMessage For="@(() => user.MotDePasse)" />
+                                <ValidationMessage class="text-danger" For="@(() => user.MotDePasse)" />
                             </div>
+                            @if (validationResults.Any())
+                            {
+                                <div class="text-danger text-center">
+                                    <p>@validationResults[0].ErrorMessage</p>
+                                </div>
+                            }
                             <div class="text-center">
                                 <button type="submit" class="btn btn-light">Se Connecter</button>
                             </div>
