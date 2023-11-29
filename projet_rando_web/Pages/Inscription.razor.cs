@@ -1,4 +1,5 @@
-﻿using Microsoft.JSInterop;
+﻿using Microsoft.AspNetCore.Components.Forms;
+using Microsoft.JSInterop;
 using projet_rando_web.Classes;
 using projet_rando_web.Data;
 using projet_rando_web.Enums;

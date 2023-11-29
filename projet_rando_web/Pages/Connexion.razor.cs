@@ -19,7 +19,7 @@ namespace projet_rando_web.Pages
             var utilisateur = utilisateurService.GetUtilisateurByCourriel(user.Courriel);
             if (utilisateur == null || utilisateur.MotDePasse != user.MotDePasse)
             {
-                await jsRuntime.InvokeVoidAsync("alert", "Désolé. L'ensemble courriel et mot de passe est invalide.");
+                await jsRuntime.InvokeVoidAsync("Erreur","Désolé. L'ensemble courriel et mot de passe est invalide.");
                 return;
             }
 

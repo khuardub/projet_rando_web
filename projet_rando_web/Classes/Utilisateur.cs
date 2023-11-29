@@ -27,14 +27,17 @@ namespace projet_rando_web.Classes
         /// </summary>
         [BsonElement("MotDePasse"), BsonRepresentation(BsonType.String)]
         [Required(ErrorMessage = "Le mot de passe est requis.")]
-        [MaxLength(25, ErrorMessage = "Le mot de passe ne peut pas dépasser 25 caractères.")]
-        [MinLength(5, ErrorMessage = "Le mot de passe doit avoir au moins 5 caractères.")]
+        [MinLength(5, ErrorMessage = "Le mot de passe doit être entre 5 et 10 caractères.")]
+        [MaxLength(10, ErrorMessage = "Le mot de passe doit être entre 5 et 10 caractères.")]
         public string MotDePasse { get; set; }
 
         /// <summary>
         /// Obtient ou définit le pseudo de l'utilisateur.
         /// </summary>
         [BsonElement("Pseudo"), BsonRepresentation(BsonType.String)]
+        [Required(ErrorMessage = "Le pseudo est requis.")]
+        [MinLength(5, ErrorMessage = "Le prénom doit être entre 5 et 25 caractères.")]
+        [MaxLength(25, ErrorMessage = "Le prénom doit être entre 5 et 25 caractères.")]
         public string Pseudo { get; set; }
 
         /// <summary>
@@ -42,8 +45,8 @@ namespace projet_rando_web.Classes
         /// </summary>
         [BsonElement("Prenom"), BsonRepresentation(BsonType.String)]
         [Required(ErrorMessage = "Le prénom est requis.")]
-        [MaxLength(50, ErrorMessage = "Le prénom ne peut pas dépasser 50 caractères.")]
-        [MinLength(5, ErrorMessage = "Le prénom doit avoir au moins 5 caractères.")]
+        [MinLength(3, ErrorMessage = "Le prénom doit être entre 3 et 25 caractères.")]
+        [MaxLength(25, ErrorMessage = "Le prénom doit être entre 3 et 25 caractères.")]
         public string Prenom { get; set; }
 
         /// <summary>
@@ -51,8 +54,8 @@ namespace projet_rando_web.Classes
         /// </summary>
         [BsonElement("Nom"), BsonRepresentation(BsonType.String)]
         [Required(ErrorMessage = "Le nom est requis.")]
-        [MaxLength(50, ErrorMessage = "Le nom ne peut pas dépasser 50 caractères.")]
-        [MinLength(5, ErrorMessage = "Le nom doit avoir au moins 5 caractères.")]
+        [MinLength(3, ErrorMessage = "Le nom doit être entre 3 et 25 caractères.")]
+        [MaxLength(25, ErrorMessage = "Le nom doit être entre 3 et 25 caractères.")]
         public string Nom { get; set; }
 
         /// <summary>
@@ -66,6 +69,7 @@ namespace projet_rando_web.Classes
         /// <summary>
         /// Obtient ou définit la langue de l'utilisateur.
         /// </summary>
+        /// 
         [BsonElement("Langue")]
         public Langue Langue { get; set; }
 

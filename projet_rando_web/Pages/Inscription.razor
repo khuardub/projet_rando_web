@@ -20,49 +20,56 @@
                             <div class="mb-3">
                                 <label for="prenom" class="text-light">Prénom</label>
                                 <InputText id="prenom" placeholder="Votre Prénom" class="form-control" @bind-Value="user.Prenom" />
-                                <ValidationMessage For="@(() => user.Prenom)" />
+                                <ValidationMessage class="text-danger" For="@(() => user.Prenom)" />
                             </div>
                             <div class="mb-3">
                                 <label for="nom" class="text-light">Nom</label>
                                 <InputText id="nom" placeholder="Votre Nom" class="form-control" @bind-Value="user.Nom" />
-                                <ValidationMessage For="@(() => user.Nom)" />
+                                <ValidationMessage class="text-danger" For="@(() => user.Nom)" />
                             </div>
                             <div class="mb-3">
                                 <label for="courriel" class="text-light">Courriel</label>
                                 <InputText id="courriel" placeholder="Votre Courriel" class="form-control" @bind-Value="user.Courriel" />
-                                <ValidationMessage For="@(() => user.Courriel)" />
+                                <ValidationMessage class="text-danger" For="@(() => user.Courriel)" />
                             </div>
                             <div class="mb-3">
                                 <label for="mdp" class="text-light">Mot de Passe</label>
-                                <InputText id="mdp" placeholder="Créer votre mot de passe" class="form-control" @bind-Value="user.MotDePasse" />
-                                <ValidationMessage For="@(() => user.MotDePasse)" />
+                                <InputText id="mdp" type="password" placeholder="Créer votre mot de passe" class="form-control" @bind-Value="user.MotDePasse" />
+                                <ValidationMessage class="text-danger" For="@(() => user.MotDePasse)" />
                             </div>
                             <!-- TODO  : faire champs de validation mot de passe -->
                             <div class="mb-3">
                                 <label for="pseudo" class="text-light">Pseudo</label>
                                 <InputText id="pseudo" placeholder="Votre Pseudo" class="form-control" @bind-Value="user.Pseudo" />
-                                <ValidationMessage For="@(() => user.Pseudo)" />
+                                <ValidationMessage class="text-danger" For="@(() => user.Pseudo)" />
                             </div>
                             <div class="mb-3">
                                 <label for="langue" class="text-light">Langue</label>
                                 <InputSelect id="langue" class="form-select" @bind-Value="user.Langue">
-                                    <option>Votre Langue maternelle</option>
                                     @foreach (Langue nomLangue in Enum.GetValues(typeof(Langue)))
                                     {
-                                        <option value="@nomLangue">@nomLangue</option>
-                                    }
+                                        @if (nomLangue != Langue.Français)
+                                        {
+                                            <option value="@nomLangue">@nomLangue.GetDescription()</option>
+                                        }
+                                        else
+                                        { 
+                                            <option selected value="@nomLangue">@nomLangue.GetDescription()</option>
+                                        }
+
+                                    }                          
                                 </InputSelect>
-                                <ValidationMessage For="@(() => user.Langue)" />
+                                <ValidationMessage class="text-danger" For="@(() => user.Langue)" />
                             </div>
                             <div class="mb-5">
                                 <label for="niveau" class="text-light">Expérience en randonnée</label>
                                 <InputSelect id="niveau" class="form-select" @bind-Value="user.Echelon">
                                     @foreach (Echelon nomEchelon in Enum.GetValues(typeof(Echelon)))
                                     {
-                                        <option value="@nomEchelon">@nomEchelon</option>
+                                        <option value="@nomEchelon">@nomEchelon.GetDescription()</option>
                                     }
                                 </InputSelect>
-                                <ValidationMessage For="@(() => user.Echelon)" />
+                                <ValidationMessage class="text-danger" For="@(() => user.Echelon)" />
                             </div>
                             <div class="text-center">
                                 <button type="submit" class="btn btn-light">Créer le Compte</button>
@@ -77,7 +84,7 @@
 
 <style>
     body {
-        background-image: url('ander-pena-REAMd8gKbPc-unsplash.jpg');
+        background-image: url('inscription.jpg');
         background-size: cover;
         background-repeat: no-repeat;
         background-attachment: fixed;
