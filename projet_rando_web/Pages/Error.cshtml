@@ -14,17 +14,10 @@
 
 <body>
     <div class="main">
-        <div class="content px-4">
+        <div class="content px-4 text-center">
             <h1 class="text-danger">ERREUR</h1>
             <h2 class="text-danger">Un erreur est survenu lors de la demande</h2>
             <p><a href="/">Retourner au menu principal</a></p>
-
-            @if (Model.ShowRequestId)
-            {
-                <p>
-                    <strong>Request ID:</strong> <code>@Model.RequestId</code>
-                </p>
-            }
         </div>
     </div>
 </body>
