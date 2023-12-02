@@ -7,40 +7,33 @@
 
 <PageTitle>Se Connecter</PageTitle>
 
-<main class="main-content">
-    <h2 class="main-title text-center mt-4">Connection</h2>
-
-    @*     <div class="d-flex justify-content-center align-items-center">
-    <div class="map-container w-75 p-3">
-    <MapView Longitude="_longitude" Latitude="_latitude" Zoom="11" Style="height: 400px; width: 100%;">
-    <WebMap>
-    <PortalItem Id="4a6cb60ebbe3483a805999d481c2daa5" />
-    </WebMap>
-    </MapView>
-    </div>
-    </div> *@
-
-
-    <div class="container mt-5">
-        <div class="row justify-content-center">
-            <div class="col-md-9">
-                <div class="login-card card">
-                    <div class="card-body">
-                        <h2 class="card-title text-center">Se Connecter</h2>
+<main>
+    <div class="container pt-3">
+        <div class="div-rend bg-dark container-fluid p-5 mb-5 mt-2">
+            <h2 class="text-light text-center border-top border-bottom border-2">Connexion</h2>
+            <div class="container mt-5">
+                <div class="row justify-content-center">
+                    <div class="col-md-9">
                         <EditForm Model="@user" OnValidSubmit="SeConnecter">
                             <DataAnnotationsValidator />
                             <div class="mb-3">
-                                <label for="courriel" class="form-label">Courriel</label>
+                                <label for="courriel" class="form-label text-light">Courriel</label>
                                 <InputText id="courriel" class="form-control" @bind-Value="user.Courriel" />
-                                <ValidationMessage For="@(() => user.Courriel)" />
+                                <ValidationMessage class="text-danger" For="@(() => user.Courriel)" />
                             </div>
-                            <div class="mb-3">
-                                <label for="mdp" class="form-label">Mot de Passe</label>
+                            <div class="mb-5">
+                                <label for="mdp" class="form-label text-light">Mot de Passe</label>
                                 <InputText id="mdp" type="password" class="form-control" @bind-Value="user.MotDePasse" />
-                                <ValidationMessage For="@(() => user.MotDePasse)" />
+                                <ValidationMessage class="text-danger" For="@(() => user.MotDePasse)" />
                             </div>
-                            <div class="text-center mt-4">
-                                <button type="submit" class="btn btn-outline-dark">Se Connecter</button>
+                            @if (validationResults.Any())
+                            {
+                                <div class="text-danger text-center">
+                                    <p>@validationResults[0].ErrorMessage</p>
+                                </div>
+                            }
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-light">Se Connecter</button>
                             </div>
                         </EditForm>
                     </div>
@@ -51,7 +44,7 @@
 </main>
 <style>
     body {
-        background-image: url('tamara-schipchinskaya-7a7vjbap0uw-unsplash.jpg');
+        background-image: url('connexion.jpg');
         background-size: cover;
         background-repeat: no-repeat;
         background-attachment: fixed;

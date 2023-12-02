@@ -28,11 +28,11 @@
 
             <p>Autres détails : </p>
             <ul>
-                <li>Méteo : @randonnee.Meteo</li>
-                <li>Type : @randonnee.TypeRando</li>
-                <li>Dénivelé : @randonnee.Denivele</li>
-                <li>Statut : @randonnee.Statut</li>
-                <li>Niveau : @randonnee.Niveau</li>
+                <li>Météo : @meteo</li>
+                <li>Type : @type</li>
+                <li>Dénivelé : @randonnee.Denivele m</li>
+                <li>Statut : @status</li>
+                <li>Niveau : @niveau</li>
             </ul>
             <AuthorizeView>
                 <Authorized>
@@ -46,7 +46,7 @@
                     }
                 </Authorized>
                 <NotAuthorized>
-                    <h3>Inscrivez-vous pour participer à cette aventure !</h3>
+                    <h3>Connectez-vous pour participer à cette aventure !</h3>
                 </NotAuthorized>
             </AuthorizeView>
         }

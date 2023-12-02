@@ -7,7 +7,10 @@
         <NotFound>
             <PageTitle>Not found</PageTitle>
             <LayoutView Layout="@typeof(MainLayout)">
-                <p role="alert">Sorry, there's nothing at this address.</p>
+                <div class="text-center pt-3">
+                    <h3 role="alert" class="pb-3">Il n'a rien à cette adresse</h3>
+                    <p><a class="btn btn-dark" href="/">Retourner au menu principal</a></p>
+                </div>
             </LayoutView>
         </NotFound>
     </Router>
