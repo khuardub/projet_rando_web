@@ -81,6 +81,11 @@ namespace projet_rando_web.Data
             return randonneExtiste != null;
         }
 
+        public List<Utilisateur> GetParticipants(Randonnee randonnee)
+        {
+            return randonnee.Participants.ToList();
+        }
+
         public async Task<string> InsertParticipant(Randonnee randonnee, string utilisateurId)
         {
             // verifier si rando existe
@@ -120,6 +125,40 @@ namespace projet_rando_web.Data
                 return "La randonnée n'existe pas.";
             }
 
+        }
+
+        public async Task<string> RemoveParticipant(Randonnee randonnee, string utilisateurId)
+        {
+            var randoExiste = RandonneeExiste(randonnee);
+            if (randoExiste)
+            {
+                var user = await _utilisateurService.GetUtilisateur(utilisateurId);
+                if (user != null)
+                {
+                    var participantToRemove = randonnee.Participants.FirstOrDefault(u => u.Id == utilisateurId);
+                    if (participantToRemove != null)
+                    {
+                        randonnee.Participants.Remove(participantToRemove);
+                        var filter = Builders<Randonnee>.Filter.Eq(r => r.Id, randonnee.Id);
+                        var update = Builders<Randonnee>.Update.Set(r => r.Participants, randonnee.Participants);
+                        await _randonneesCollection.UpdateOneAsync(filter, update);
+                        return "Désinscription réussie.";
+                    }
+                    else
+                    {
+                        return "Vous n'êtes pas inscrit à cette randonnée.";
+                    }
+
+                }
+                else
+                {
+                    return "L'utilisateur non trouvé.";
+                }
+            }
+            else
+            {
+                return "La randonnée n'existe pas.";
+            }
         }
     }
 }
