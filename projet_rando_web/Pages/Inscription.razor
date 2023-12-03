@@ -32,11 +32,7 @@
                                 <InputText id="courriel" placeholder="Votre Courriel" class="form-control" @bind-Value="user.Courriel" />
                                 <ValidationMessage class="text-danger" For="@(() => user.Courriel)" />
                             </div>
-                            <div class="mb-3">
-                                <label for="mdp" class="text-light">Mot de Passe</label>
-                                <InputText id="mdp" type="password" placeholder="Créer votre mot de passe" class="form-control" @bind-Value="user.MotDePasse" />
-                                <ValidationMessage class="text-danger" For="@(() => user.MotDePasse)" />
-                            </div>
+                            
                             <div class="mb-3">
                                 <label for="pseudo" class="text-light">Pseudo</label>
                                 <InputText id="pseudo" placeholder="Votre Pseudo" class="form-control" @bind-Value="user.Pseudo" />
@@ -69,6 +65,16 @@
                                     }
                                 </InputSelect>
                                 <ValidationMessage class="text-danger" For="@(() => user.Echelon)" />
+                            </div>
+                            <div class="mb-3">
+                                <label for="mdp" class="text-light">Mot de Passe</label>
+                                <InputText id="mdp" type="password" placeholder="Créer votre mot de passe" class="form-control" @bind-Value="user.MotDePasse" />
+                                <ValidationMessage class="text-danger" For="@(() => user.MotDePasse)" />
+                            </div>
+                            <div class="mb-3">
+                                <label for="mdp" class="text-light">Confirmation du mot de Passe</label>
+                                <InputText id="cmdp" type="password" placeholder="Confirmer votre mot de passe" class="form-control" @bind-Value="ConfirmMotDePasse" />
+                                <ValidationMessage class="text-danger" For="@(() => ConfirmMotDePasse)" />
                             </div>
                             <div class="text-center">
                                 <button type="submit" class="btn btn-light">Créer le Compte</button>

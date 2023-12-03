@@ -1,34 +1,43 @@
-﻿using Microsoft.AspNetCore.Components.Forms;
-using Microsoft.JSInterop;
+﻿using Microsoft.JSInterop;
 using projet_rando_web.Classes;
 using projet_rando_web.Data;
-using projet_rando_web.Enums;
 
 namespace projet_rando_web.Pages
 {
     public partial class Inscription
     {
         private Utilisateur user;
+        private string ConfirmMotDePasse = "";
 
         protected override async Task OnInitializedAsync()
-        {
+        { 
             user = new Utilisateur();
         }
 
         private void CreationUtilisateur()
         {
-            var userExistant = utilisateurService.GetUtilisateurByCourriel(user.Courriel);
-            if (userExistant == null)
+            if (user.MotDePasse != ConfirmMotDePasse)
             {
-                utilisateurService.SaveOrUpdateUser(user);
-                navManager.NavigateTo("/connexion", true);
+                var message = $"Les mots de passe ne correspondent pas.";
+                jsRuntime.InvokeVoidAsync("alert", message);
             }
             else
             {
-                var message = $"Un compte utilisateur avec ce courriel {user.Courriel} existe déjà.";
-                jsRuntime.InvokeVoidAsync("alert", message);
+                var userExistant = utilisateurService.GetUtilisateurByCourriel(user.Courriel);
+                if (userExistant == null)
+                {
+                    var hashedPassword = HashPassword.HasherPassword(user.MotDePasse);
+                    user.MotDePasse = hashedPassword;
+                    utilisateurService.SaveOrUpdateUser(user);
+                    navManager.NavigateTo("/connexion", true);
+                }
+                else
+                {
+                    var message = $"Un compte utilisateur avec ce courriel {user.Courriel} existe déjà.";
+                    jsRuntime.InvokeVoidAsync("alert", message);
+                }
             }
-            
+
         }
     }
 }
