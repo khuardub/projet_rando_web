@@ -35,7 +35,8 @@ namespace projet_rando_web.Pages
             }
 
             var utilisateur = utilisateurService.GetUtilisateurByCourriel(user.Courriel);
-            if (utilisateur == null || utilisateur.MotDePasse != user.MotDePasse)
+            string hashedPassword = HashPassword.HasherPassword(user.MotDePasse);
+            if (utilisateur == null || utilisateur.MotDePasse != hashedPassword)
             {
                 validationResults.Add(new ValidationResult("Le courriel ou le mot de passe est incorrect.", new[] { nameof(user.Courriel), nameof(user.MotDePasse) }));
 
