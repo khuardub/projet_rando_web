@@ -84,6 +84,34 @@ namespace projet_rando_web.Pages
                 }
             }
         }
+
+        private bool EstParticipant()
+        {
+            var utilisateurId = utilisateurSession.Id;
+            if (utilisateurId != null)
+            {
+                return randonnee.Participants.Any(u => u.Id == utilisateurId);
+            }
+            return false;
+        }
+
+        private async Task DesinscriptionParticipant()
+        {
+            var utilisateurId = utilisateurSession.Id;
+            if(utilisateurId != null)
+            {
+                var result = await randonneeService.RemoveParticipant(randonnee, utilisateurId);
+                if (result == "Désinscription réussie.")
+                {
+                    var texte = "Vous êtes désinscrit à la randonnée.";
+                    await jsRuntime.InvokeVoidAsync("alert", texte);
+                }
+                else
+                {
+                    await jsRuntime.InvokeVoidAsync("alert", result);
+                }
+            }
+        }
     }
 
 }

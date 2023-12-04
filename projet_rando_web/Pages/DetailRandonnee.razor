@@ -38,7 +38,14 @@
                 <Authorized>
                     @if (utilisateurSession.Id != randonnee.Auteur.Id)
                     {
-                        <button @onclick="InscriptionParticipant" class="btn btn-primary">S'inscrire</button>
+                        @if (EstParticipant())
+                        {
+                            <button @onclick="DesinscriptionParticipant" class="btn btn-primary">Se désinscrire</button>
+                        }
+                        else
+                        {
+                            <button @onclick="InscriptionParticipant" class="btn btn-primary">S'inscrire</button>
+                        }
                     }
                     else
                     {
