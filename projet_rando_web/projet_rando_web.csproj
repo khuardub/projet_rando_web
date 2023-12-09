@@ -8,6 +8,8 @@
 
   <ItemGroup>
     <PackageReference Include="Blazor.Bootstrap" Version="1.10.4" />
+    <PackageReference Include="Blazorise" Version="1.4.0" />
+    <PackageReference Include="Blazorise.Icons.FontAwesome" Version="1.4.0" />
     <PackageReference Include="dymaptic.GeoBlazor.Core" Version="2.5.0" />
     <PackageReference Include="MongoDB.Driver" Version="2.22.0" />
     <PackageReference Include="Prism.Forms" Version="8.1.97" />
