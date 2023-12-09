@@ -93,7 +93,7 @@ namespace projet_rando_web.Pages
                 if (message == "Inscription réussie")
                 {
                     var texte = "Félicitations! Préparez - vous pour une aventure mémorable.";
-                    await jsRuntime.InvokeVoidAsync("alert", texte);
+                    jsRuntime.InvokeVoidAsync("localStorage.setItem", "message", texte);
                     // renvoie page perso
                     //navManager.NavigateTo("/profil", true);
                 }

@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Components;
 using System.Security.Claims;
+using Microsoft.JSInterop;
 
 namespace projet_rando_web.Pages
 {
@@ -63,6 +64,8 @@ namespace projet_rando_web.Pages
                     {
                         randonnee.CreatedAt = DateTime.UtcNow;
                         await randonneeService.Insert(randonnee, utilisateurId);
+                        var texte = "La randonnée a bien été crée.";
+                        jsRuntime.InvokeVoidAsync("localStorage.setItem", "message", texte);
                         navigation.NavigateTo($"/detail/{randonnee.Id}", true);
                     }
                     else
