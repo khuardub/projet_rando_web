@@ -21,6 +21,8 @@ namespace projet_rando_web.Pages
         string type;
         string status;
         string niveau;
+        bool visible = false;
+        private string message = "";
 
         [Parameter]
         public string Id { get; set; }
@@ -46,6 +48,22 @@ namespace projet_rando_web.Pages
                 utilisateurSession.Id = user.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             }
         }
+
+        protected override async Task OnAfterRenderAsync(bool firstRender)
+        {
+            if (firstRender)
+            {
+                var texte = await jsRuntime.InvokeAsync<string>("localStorage.getItem", "message");
+
+                if (!string.IsNullOrEmpty(texte))
+                {
+                    message = texte;
+                    visible = true;
+                    await jsRuntime.InvokeVoidAsync("localStorage.removeItem", "message");
+                }
+            }
+        }
+
         private async Task OnMapRendered()
         {
             graphicsLayer = new GraphicsLayer();

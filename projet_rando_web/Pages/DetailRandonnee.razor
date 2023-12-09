@@ -3,6 +3,7 @@
 @inject AuthenticationStateProvider authStateProvider
 @inject IJSRuntime jsRuntime
 @inject NavigationManager navManager
+@using Blazorise
 
 <main class="bg-dark text-light">
     <div class="container pt-3 pb-3">
@@ -15,6 +16,10 @@
                 </WebMap>
                 <ScaleBarWidget Position="OverlayPosition.BottomLeft" />
             </MapView>
+
+            <Alert Color="Color.Success" @bind-Visible="@visible">
+                <AlertMessage>@message</AlertMessage>
+            </Alert>
 
             <p>Description : @randonnee.Description</p>
             <p>Date de création : @randonnee.CreatedAt</p>

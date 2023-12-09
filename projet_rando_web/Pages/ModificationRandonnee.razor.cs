@@ -77,8 +77,8 @@ namespace projet_rando_web.Pages
                 var result = await randonneeService.Update(randonnee, utilisateurSession.Id);
                 if (result != null)
                 {
-                    var texte = "Modofication réussie.";
-                    await jsRuntime.InvokeVoidAsync("alert", texte);
+                    var texte = "Modification réussie.";
+                    jsRuntime.InvokeVoidAsync("localStorage.setItem", "message", texte);
                     navManager.NavigateTo($"/detail/{randonnee.Id}", true);
                 }
                 else
