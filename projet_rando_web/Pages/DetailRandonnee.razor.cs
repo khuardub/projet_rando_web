@@ -122,7 +122,6 @@ namespace projet_rando_web.Pages
         private async Task ModifierRandonnee()
         {
             navManager.NavigateTo($"/modification/{randonnee.Id}", true);
-            // TODO : faire la page modification rando
         }
     }
 
