@@ -1,4 +1,5 @@
-﻿using System.Reflection.Metadata.Ecma335;
+﻿using System.Diagnostics.Eventing.Reader;
+using System.Reflection.Metadata.Ecma335;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 using projet_rando_web.Classes;
@@ -48,19 +49,27 @@ namespace projet_rando_web.Data
             return _randonneesCollection.Find(FilterDefinition<Randonnee>.Empty).ToList();
         }
         
-        public async Task SaveOrUpdate(Randonnee randonnee)
+        public async Task<string> Update(Randonnee randonnee, string auteurId)
         {
             var randoUpdate = _randonneesCollection.Find(rando => rando.Id == randonnee.Id).FirstOrDefault();
             if (randoUpdate != null)
             {
-                await _randonneesCollection.ReplaceOneAsync(rando => rando.Id == randonnee.Id, randonnee);
+                if (randoUpdate.Auteur.Id == auteurId)
+                {
+                    await _randonneesCollection.ReplaceOneAsync(rando => rando.Id == randonnee.Id, randonnee);
+                    return "Randonnée modifiée.";
+                }
+                else
+                {
+                    return "Vous n'êtes pas l'auteur de la randonnée.";
+                }
             }
             else
             {
-                await _randonneesCollection.InsertOneAsync(randonnee);
+                return "La randonnée n'existe pas.";
             }
         }
-        public async Task Insert(Randonnee randonnee, string utilisateurId)
+        public async Task<string> Insert(Randonnee randonnee, string utilisateurId)
         {
             if(randonnee != null)
             {
@@ -70,8 +79,17 @@ namespace projet_rando_web.Data
                     randonnee.Auteur = auteur;
                     randonnee.Participants = new List<Utilisateur>();
                     _randonneesCollection.InsertOne(randonnee);
+                    return "Randonnée ajoutée.";
+                }
+                else
+                {
+                    return "L'utilisateur n'existe pas.";
                 }
                 
+            }
+            else
+            {
+                return "La randonnée n'existe pas.";
             }
         }
 

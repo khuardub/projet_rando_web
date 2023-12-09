@@ -1,3 +1,4 @@
+using System.Runtime.CompilerServices;
 using projet_rando_web.Classes;
 using Microsoft.AspNetCore.Components;
 using dymaptic.GeoBlazor.Core.Components.Layers;
@@ -111,6 +112,17 @@ namespace projet_rando_web.Pages
                     await jsRuntime.InvokeVoidAsync("alert", result);
                 }
             }
+            else
+            {
+                var texte = "Veuillez vous connecter à votre compte.";
+                await jsRuntime.InvokeVoidAsync("alert", texte);
+            }
+        }
+
+        private async Task ModifierRandonnee()
+        {
+            navManager.NavigateTo($"/modification/{randonnee.Id}", true);
+            // TODO : faire la page modification rando
         }
     }
 

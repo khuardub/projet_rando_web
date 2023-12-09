@@ -12,12 +12,6 @@ namespace projet_rando_web.Pages
         {
             _randonnees = randonneeService.GetRandonnees();
         }
-        private void Save()
-        {
-            randonneeService.SaveOrUpdate(_randonnee);
-            Reset();
-            randonneeService.GetRandonnees();
-        }
         private void Reset()
         {
             _randonnee = new Randonnee();

@@ -56,13 +56,13 @@ namespace projet_rando_web.Pages
         {
             if (RandonneeValid(randonnee))
             {
-                if (!randonneService.RandonneeExiste(randonnee))
+                if (!randonneeService.RandonneeExiste(randonnee))
                 {
                     var utilisateurId = utilisateurSession.Id;
                     if (utilisateurId != null)
                     {
                         randonnee.CreatedAt = DateTime.UtcNow;
-                        await randonneService.Insert(randonnee, utilisateurId);
+                        await randonneeService.Insert(randonnee, utilisateurId);
                         navigation.NavigateTo($"/detail/{randonnee.Id}", true);
                     }
                     else
