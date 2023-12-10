@@ -20,6 +20,64 @@
                 <p class="text-center">Il n'a pas de randonnée à afficher. Connectez vous pour créer une randonnée</p>
             }
         </div>
+        <div class="p-4 mb-4 bg-dark text-light">
+            <h4>Filtrer</h4>
+            <form>
+                <div class="row">
+                    <div class="col-md-3 mb-2">
+                        <label for="pays">Pays :</label>
+                        <input type="text" class="form-control" id="pays">
+                    </div>
+                    <div class="col-md-3 mb-2">
+                        <label for="ville">Ville :</label>
+                        <input type="text" class="form-control" id="ville">
+                    </div>
+                    <div class="col-md-2 mb-2">
+                        <label for="difficulte">Difficulté :</label>
+                        <select class="form-select" id="difficulte">
+                            <option value=""></option>
+                            <option value="Relax">Relax</option>
+                            <option value="Facile">Facile</option>
+                            <option value="Modere">Modéré</option>
+                            <option value="Soutenu">Soutenu</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2 mb-2">
+                        <label for="langue">Langue des participants:</label>
+                        <select class="form-select" id="langue">
+                            <option value=""></option>
+                            <option value="Mandarin">Mandarin</option>
+                            <option value="Espagnol">Espagnol</option>
+                            <option value="Anglais">Anglais</option>
+                            <option value="Hindi">Hindi</option>
+                            <option value="Arabe">Arabe</option>
+                            <option value="Portugais">Portugais</option>
+                            <option value="Bengali">Bengali</option>
+                            <option value="Russe">Russe</option>
+                            <option value="Japonais">Japonais</option>
+                            <option value="Francais">Français</option>
+                            <option value="Allemand">Allemand</option>
+                            <option value="Turc">Turc</option>
+                            <option value="Vietnamien">Vietnamien</option>
+                            <option value="Javanais">Javanais</option>
+                            <option value="Italien">Italien</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2 mb-2">
+                        <label for="type">Type :</label>
+                        <select class="form-select" id="type">
+                            <option value=""></option>
+                            <option value="montagneux">Montagneux</option>
+                            <option value="Foret">Forêt</option>
+                            <option value="Plage">Plage</option>
+                        </select>
+                    </div>
+                    <div class="col-md-12 mt-3">
+                        <button type="submit" class="btn btn-light">Appliquer les filtres</button>
+                    </div>
+                </div>
+            </form>
+        </div>
         @if (_randonnees != null && _randonnees.Count() != 0)
         {
             <div class="row">
@@ -40,7 +98,6 @@
                         </div>
                     </div>
                     i+=10;
-
                 }
             </div>
         }
