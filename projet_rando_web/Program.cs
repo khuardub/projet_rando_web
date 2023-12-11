@@ -6,6 +6,9 @@ using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.StaticFiles;
 using projet_rando_web.Data;
 using projet_rando_web.Interfaces;
+using Blazorise;
+using Blazorise.Bootstrap;
+using Blazorise.Icons.FontAwesome;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,6 +24,12 @@ builder.Configuration.GetSection("RandoMaxDatabase"));
 builder.Services.AddScoped<IRandonnee, RandonneeService>();
 builder.Services.AddScoped<IVille, VilleService>();
 builder.Services.AddScoped<IUtilisateur, UtilisateurService>();
+builder.Services.AddBlazorise(options =>
+{
+    options.Immediate = true;
+})
+    .AddBootstrapProviders()
+    .AddFontAwesomeIcons();
 
 var app = builder.Build();
 

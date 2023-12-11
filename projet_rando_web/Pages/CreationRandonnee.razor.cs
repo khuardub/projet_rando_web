@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Components;
 using System.Security.Claims;
+using Microsoft.JSInterop;
 
 namespace projet_rando_web.Pages
 {
@@ -56,13 +57,15 @@ namespace projet_rando_web.Pages
         {
             if (RandonneeValid(randonnee))
             {
-                if (!randonneService.RandonneeExiste(randonnee))
+                if (!randonneeService.RandonneeExiste(randonnee))
                 {
                     var utilisateurId = utilisateurSession.Id;
                     if (utilisateurId != null)
                     {
                         randonnee.CreatedAt = DateTime.UtcNow;
-                        await randonneService.Insert(randonnee, utilisateurId);
+                        await randonneeService.Insert(randonnee, utilisateurId);
+                        var texte = "La randonnée a bien été crée.";
+                        jsRuntime.InvokeVoidAsync("localStorage.setItem", "message", texte);
                         navigation.NavigateTo($"/detail/{randonnee.Id}", true);
                     }
                     else

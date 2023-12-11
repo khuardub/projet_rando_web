@@ -10,12 +10,11 @@ namespace projet_rando_web.Interfaces
 {
     public interface IRandonnee
     {
-        Task SaveOrUpdate(Randonnee randonnee);
+        Task<string> Update(Randonnee randonnee, string auteurId);
         string Delete(string randonneeId);
         Randonnee GetRandonnee(string randonneeId);
         List<Randonnee> GetRandonnees();
-        // Doublon avec le code SaveOrUpdate
-        Task Insert(Randonnee randonnee, string utilisateurId);
+        Task<string> Insert(Randonnee randonnee, string utilisateurId);
 
         bool RandonneeExiste(Randonnee randonnee);
 
