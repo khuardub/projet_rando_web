@@ -47,6 +47,7 @@ namespace projet_rando_web.Pages
             {
                 utilisateurSession.Id = user.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             }
+
         }
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -89,13 +90,12 @@ namespace projet_rando_web.Pages
             var utilisateurId = utilisateurSession.Id;
             if (utilisateurId != null)
             {
-                var message = await randonneeService.InsertParticipant(randonnee, utilisateurId);
-                if (message == "Inscription réussie")
+                var result = await randonneeService.InsertParticipant(randonnee, utilisateurId);
+                if (result == "Inscription réussie")
                 {
                     var texte = "Félicitations! Préparez - vous pour une aventure mémorable.";
-                    jsRuntime.InvokeVoidAsync("localStorage.setItem", "message", texte);
-                    // renvoie page perso
-                    //navManager.NavigateTo("/profil", true);
+                    message = texte;
+                    visible = true;
                 }
                 else
                 {
@@ -123,7 +123,9 @@ namespace projet_rando_web.Pages
                 if (result == "Désinscription réussie.")
                 {
                     var texte = "Vous êtes désinscrit à la randonnée.";
-                    await jsRuntime.InvokeVoidAsync("alert", texte);
+                    //jsRuntime.InvokeVoidAsync("localStorage.setItem", "message", texte);
+                    message = texte;
+                    visible = true;
                 }
                 else
                 {

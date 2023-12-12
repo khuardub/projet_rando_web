@@ -17,8 +17,9 @@
                 <ScaleBarWidget Position="OverlayPosition.BottomLeft" />
             </MapView>
 
-            <Alert Color="Color.Success" @bind-Visible="@visible">
+            <Alert Color="Color.Success" @bind-Visible=@visible>
                 <AlertMessage>@message</AlertMessage>
+                    <CloseButton />
             </Alert>
 
             <p>Description : @randonnee.Description</p>

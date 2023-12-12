@@ -1,8 +1,9 @@
-﻿@page "/utilisateur/{id}"
+﻿@page "/profil/{id}"
 @inject projet_rando_web.Interfaces.IRandonnee randonneeService
 @inject AuthenticationStateProvider authStateProvider
 @inject IJSRuntime jsRuntime
 @inject NavigationManager navManager
+@using Blazorise
 
 <main class="bg-dark text-light">
     <div class="container pt-3 pb-3">
@@ -79,7 +80,7 @@
                     @if (_randonneesFuturesParticipant != null && _randonneesFuturesParticipant.Count() != 0)
                     {
                         <div class="row">
-                        @foreach (var randonnee in _randonneesFuturesAuteur)
+                        @foreach (var randonnee in _randonneesFuturesParticipant)
                         {
                             <div class="col-md-4 mb-4">
                                 <div class="card border-0 shadow-sm">
