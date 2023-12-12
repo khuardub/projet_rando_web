@@ -44,6 +44,40 @@ namespace projet_rando_web.Data
             return _randonneesCollection.Find(rando => rando.Id == randonneeId).FirstOrDefault();
         }
 
+
+        public async Task<List<Randonnee>> GetRandonneesPasseesByAuteur(string utilisateurId)
+        {
+            DateTime currentDate = DateTime.Now;
+            return _randonneesCollection
+                .Find(rando => rando.Auteur.Id == utilisateurId && rando.DateDepart < currentDate)
+                .ToList();
+        }
+
+        public async Task<List<Randonnee>> GetRandonneesFuturesByAuteur(string utilisateurId)
+        {
+            DateTime currentDate = DateTime.Now;
+            return _randonneesCollection
+                .Find(rando => rando.Auteur.Id == utilisateurId && rando.DateDepart > currentDate)
+                .ToList();
+        }
+
+
+        public async Task<List<Randonnee>> GetRandonneesPasseesByParticipant(string utilisateurId)
+        {
+            DateTime currentDate = DateTime.Now;
+            return _randonneesCollection
+                .Find(rando => rando.Participants.Any(p => p.Id == utilisateurId) && rando.DateDepart < currentDate)
+                .ToList();
+        }
+
+        public async Task<List<Randonnee>> GetRandonneesFuturesByParticipant(string utilisateurId)
+        {
+            DateTime currentDate = DateTime.Now;
+            return _randonneesCollection
+                .Find(rando => rando.Participants.Any(p => p.Id == utilisateurId) && rando.DateDepart > currentDate)
+                .ToList();
+        }
+
         public List<Randonnee> GetRandonnees()
         {
             return _randonneesCollection.Find(FilterDefinition<Randonnee>.Empty).ToList();

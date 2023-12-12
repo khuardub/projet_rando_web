@@ -23,5 +23,10 @@ namespace projet_rando_web.Interfaces
         Task<string> InsertParticipant(Randonnee randonnee, string utilisateurId);
 
         Task<string> RemoveParticipant(Randonnee randonnee, string utilisateurId);
+
+        Task<List<Randonnee>> GetRandonneesPasseesByAuteur(string utilisateurId);
+        Task<List<Randonnee>> GetRandonneesFuturesByAuteur(string utilisateurId);
+        Task<List<Randonnee>> GetRandonneesPasseesByParticipant(string utilisateurId);
+        Task<List<Randonnee>> GetRandonneesFuturesByParticipant(string utilisateurId);
     }
 }
