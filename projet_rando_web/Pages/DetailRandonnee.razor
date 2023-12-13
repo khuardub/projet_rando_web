@@ -4,11 +4,19 @@
 @inject IJSRuntime jsRuntime
 @inject NavigationManager navManager
 
-<main class="bg-dark text-light">
-    <div class="container pt-3 pb-3">
+<main class="text-light">
+    <div class="container pt-3"> 
+    <div class="div-rend bg-dark container-fluid p-5 mb-5 mt-2">
+            @if (randonnee != null)
+            {
+                <h2 class="mb-3 text-center border-top border-bottom border-2">Détails : @randonnee.Nom</h2>
+            }
+        
+        <div class="container mt-5">
+                <div class="row justify-content-center">
         @if (randonnee != null)
         {
-            <h2 class="mb-3 text-center border-top border-bottom border-2">Détails : @randonnee.Nom</h2>
+
             <MapView @ref="mapView" OnMapRendered="OnMapRendered" Longitude="randonnee.EndroitDepart.Longitude" Latitude="randonnee.EndroitDepart.Latitude" Zoom="16" Style="height: 400px; width: 100%; justify-content:center;" Class="border-4 border mb-3" GraphicSerializationChunkSize="grosseurChunk">
                 <WebMap>
                     <PortalItem Id="e409ec0a5ef94d5cb486571894143b7c" />
@@ -62,5 +70,24 @@
             <p>Désolé, cette randonnée n'existe pas.</p>
         }
     </div>
+    </div>
+    </div>
+    </div>
 </main>
+<style>
+    .card-img-top {
+        height: 250px;
+        object-fit: cover;
+    }
+
+    body {
+        background-image: url('details.jpg');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-position: center center;
+        height: 100%;
+        margin: 0;
+    }
+</style>
     
