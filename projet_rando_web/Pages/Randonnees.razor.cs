@@ -23,7 +23,7 @@ namespace projet_rando_web.Pages
 
         private void FiltrerRandonnees()
         {
-            _randonnees = randonneeService.GetRandonnees(); // Reset the list before applying filters
+            _randonnees = randonneeService.GetRandonnees(); 
 
             if (!string.IsNullOrEmpty(_filtreVille))
             {

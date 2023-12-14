@@ -58,13 +58,13 @@
         </div>
         @if (_randonnees != null && _randonnees.Count() != 0)
         {
-            @* i = 0; *@
+            i = 0;
             <div class="row">
                 @foreach (var randonnee in _randonnees)
                 {
                     <div class="col-md-4 mb-4">
                         <div class="card border-0 shadow-sm">
-                            <img src="@($"https://picsum.photos/1000/1000")" class="card-img-top" alt="Image de la randonnée">
+                            <img src="@($"https://picsum.photos/id/{i}/1000/1000")" class="card-img-top" alt="Image de la randonnée">
                             <div class="card-body">
                                 <h5 class="card-title">@randonnee.Nom</h5>
                                 <p>Ville de départ : @randonnee.EndroitDepart.Nom</p>
@@ -76,7 +76,7 @@
                             </div>
                         </div>
                     </div>
-                    @* i += 10; *@
+                    i += 10; 
                 }
             </div>
         }
