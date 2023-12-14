@@ -1,3 +1,4 @@
+using System.Runtime.CompilerServices;
 using projet_rando_web.Classes;
 using Microsoft.AspNetCore.Components;
 using dymaptic.GeoBlazor.Core.Components.Layers;
@@ -20,6 +21,8 @@ namespace projet_rando_web.Pages
         string type;
         string status;
         string niveau;
+        bool visible = false;
+        private string message = "";
 
         [Parameter]
         public string Id { get; set; }
@@ -45,6 +48,22 @@ namespace projet_rando_web.Pages
                 utilisateurSession.Id = user.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             }
         }
+
+        protected override async Task OnAfterRenderAsync(bool firstRender)
+        {
+            if (firstRender)
+            {
+                var texte = await jsRuntime.InvokeAsync<string>("localStorage.getItem", "message");
+
+                if (!string.IsNullOrEmpty(texte))
+                {
+                    message = texte;
+                    visible = true;
+                    await jsRuntime.InvokeVoidAsync("localStorage.removeItem", "message");
+                }
+            }
+        }
+
         private async Task OnMapRendered()
         {
             graphicsLayer = new GraphicsLayer();
@@ -74,7 +93,7 @@ namespace projet_rando_web.Pages
                 if (message == "Inscription réussie")
                 {
                     var texte = "Félicitations! Préparez - vous pour une aventure mémorable.";
-                    await jsRuntime.InvokeVoidAsync("alert", texte);
+                    jsRuntime.InvokeVoidAsync("localStorage.setItem", "message", texte);
                     // renvoie page perso
                     //navManager.NavigateTo("/profil", true);
                 }
@@ -111,6 +130,16 @@ namespace projet_rando_web.Pages
                     await jsRuntime.InvokeVoidAsync("alert", result);
                 }
             }
+            else
+            {
+                var texte = "Veuillez vous connecter à votre compte.";
+                await jsRuntime.InvokeVoidAsync("alert", texte);
+            }
+        }
+
+        private async Task ModifierRandonnee()
+        {
+            navManager.NavigateTo($"/modification/{randonnee.Id}", true);
         }
     }
 
