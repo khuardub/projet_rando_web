@@ -73,12 +73,16 @@ namespace projet_rando_web.Classes
         [Required(ErrorMessage = "Le niveau est requis.")]
         public Niveau Niveau { get; set; }
 
+        [BsonElement("IsArchive")]
+        public bool IsArchive { get; set; } = false;
+
         public Randonnee()
         {
             Id = ObjectId.GenerateNewId().ToString();
+            Participants = new List<Utilisateur>();
         }
         
-        public Randonnee(string id, Utilisateur auteur, string nom, string description, Ville villeDepart, Ville villeRetour, Meteo meteo, DateTime dateDepart, Sorte typeRando, int denivele, Statut statut, Niveau niveau)
+        public Randonnee(string id, Utilisateur auteur, string nom, string description, Ville villeDepart, Ville villeRetour, Meteo meteo, DateTime dateDepart, Sorte typeRando, int denivele, Statut statut, Niveau niveau, bool isArchive)
         {
             this.Id = id;
             this.Auteur = auteur;
@@ -92,7 +96,8 @@ namespace projet_rando_web.Classes
             this.Denivele = denivele;
             this.Statut = statut;
             this.Niveau = niveau;
-            this.Participants = new List<Utilisateur>();
+            this.IsArchive = isArchive; 
+            Participants = new List<Utilisateur>();
         }
     }
 }

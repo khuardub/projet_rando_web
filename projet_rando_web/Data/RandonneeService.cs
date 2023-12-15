@@ -78,9 +78,17 @@ namespace projet_rando_web.Data
                 .ToList();
         }
 
-        public List<Randonnee> GetRandonnees()
+        public async Task<List<Randonnee>> GetRandonnees()
         {
             return _randonneesCollection.Find(FilterDefinition<Randonnee>.Empty).ToList();
+        }
+
+        public async Task<List<Randonnee>> GetRandonneesAVenirNonArchive()
+        {
+            var randoFiltres = _randonneesCollection
+                    .Find(rando => rando.IsArchive == false && rando.DateDepart >= DateTime.Today)
+                    .ToList();
+            return randoFiltres;
         }
         
         public async Task<string> Update(Randonnee randonnee, string auteurId)
