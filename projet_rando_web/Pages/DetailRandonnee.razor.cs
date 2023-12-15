@@ -123,7 +123,6 @@ namespace projet_rando_web.Pages
                 if (result == "Désinscription réussie.")
                 {
                     var texte = "Vous êtes désinscrit à la randonnée.";
-                    //jsRuntime.InvokeVoidAsync("localStorage.setItem", "message", texte);
                     message = texte;
                     visible = true;
                 }

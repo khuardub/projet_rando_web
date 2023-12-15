@@ -47,5 +47,10 @@ namespace projet_rando_web.Pages
 
         }
 
+        private void ModifierProfil()
+        {
+            navManager.NavigateTo($"/modification-profil/{utilisateurSession.Id}");
+        }
+
     }
 }

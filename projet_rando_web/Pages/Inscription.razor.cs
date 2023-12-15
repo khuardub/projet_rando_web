@@ -14,7 +14,7 @@ namespace projet_rando_web.Pages
             user = new Utilisateur();
         }
 
-        private void CreationUtilisateur()
+        private async Task CreationUtilisateur()
         {
             if (user.MotDePasse != ConfirmMotDePasse)
             {
@@ -28,7 +28,7 @@ namespace projet_rando_web.Pages
                 {
                     var hashedPassword = HashPassword.HasherPassword(user.MotDePasse);
                     user.MotDePasse = hashedPassword;
-                    utilisateurService.SaveOrUpdateUser(user);
+                    await utilisateurService.SaveOrUpdateUser(user);
                     navManager.NavigateTo("/connexion", true);
                 }
                 else

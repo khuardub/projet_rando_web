@@ -15,8 +15,11 @@
                     <h3>Mon profil</h3>
                     <p>Mon niveau : @utilisateurSession.Echelon</p>
                     <p>Ma langue préférée : @utilisateurSession.Langue</p>
-                <!-- TODO : Partie info utilisateur avec possibilite de modification -->
-                    <p>Modifier mon profil - Fonctionalité à venir</p>
+
+                    <h5>Modifier mon profil</h5>
+                    <div class="text-center">
+                        <button @onclick="ModifierProfil" class="btn btn-light">Modifier le profil</button>
+                    </div>
 
                     <h3>Mes randonnées crées</h3>
                     <h4>À venir</h4>

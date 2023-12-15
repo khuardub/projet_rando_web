@@ -9,7 +9,7 @@ namespace projet_rando_web.Interfaces
 {
     public interface IUtilisateur
     {
-        void SaveOrUpdateUser(Utilisateur utilisateur);
+        Task SaveOrUpdateUser(Utilisateur utilisateur);
 
         Task<Utilisateur> GetUtilisateur(string utilisateurId);
         Utilisateur GetUtilisateurByCourriel(string courriel);

@@ -1,43 +1,68 @@
-﻿using Microsoft.JSInterop;
+﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.JSInterop;
 using projet_rando_web.Classes;
 using projet_rando_web.Data;
+using projet_rando_web.Interfaces;
+using System.Security.Claims;
 
 namespace projet_rando_web.Pages
 {
     public partial class ModificationUtilisateur
     {
-        private Utilisateur user;
-        private string ConfirmMotDePasse = "";
+        private UtilisateurSession utilisateurSession = new UtilisateurSession();
+        private Utilisateur utilisateur = new Utilisateur();
+        bool visible = false;
+        private string message = "";
+
+        [Parameter] public string userId { get; set; }
+
 
         protected override async Task OnInitializedAsync()
         {
-            user = new Utilisateur();
+            var authState = await authStateProvider.GetAuthenticationStateAsync();
+            var user = authState.User;
+
+            utilisateur = await utilisateurService.GetUtilisateur(userId);
+            if (utilisateur == null)
+            {
+                message = "Cet utilisateur n\'existe pas.";
+                visible = true;
+            }
+
+            if (user.Identity.IsAuthenticated)
+            {
+                utilisateurSession.Id = user.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            }
         }
 
-        private void CreationUtilisateur()
+        private async Task UpdateUtilisateur()
         {
-            if (user.MotDePasse != ConfirmMotDePasse)
+            Console.WriteLine("updateUtilisateur");
+            if (utilisateurSession.Id == userId)
             {
-                var message = $"Les mots de passe ne correspondent pas.";
-                jsRuntime.InvokeVoidAsync("alert", message);
-            }
-            else
-            {
-                var userExistant = utilisateurService.GetUtilisateurByCourriel(user.Courriel);
-                if (userExistant == null)
+                Console.WriteLine("Id ok");
+                if (utilisateur != null)
                 {
-                    var hashedPassword = HashPassword.HasherPassword(user.MotDePasse);
-                    user.MotDePasse = hashedPassword;
-                    utilisateurService.SaveOrUpdateUser(user);
-                    navManager.NavigateTo("/connexion", true);
+                    Console.WriteLine("utilisateur ok");
+                    await utilisateurService.SaveOrUpdateUser(utilisateur);
+                    navManager.NavigateTo($"/profil/{userId}", true);
                 }
                 else
                 {
-                    var message = $"Un compte utilisateur avec ce courriel {user.Courriel} existe déjà.";
-                    jsRuntime.InvokeVoidAsync("alert", message);
+                    Console.WriteLine("utilisateur nok");
+                    message = "Veuillez vous connecter.";
+                    visible = true;
+                    navManager.NavigateTo("/connexion", true);
                 }
             }
-
+            else
+            {
+                Console.WriteLine("utilisateur diff");
+                message = "Vous ne pouvez pas modifier le profil autre que le votre.";
+                visible = true;
+            }
         }
+
     }
 }

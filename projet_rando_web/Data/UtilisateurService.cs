@@ -23,7 +23,7 @@ namespace projet_rando_web.Data
                 randoMaxDatabaseSettings.Value.UtilisateursCollectionName);
         }
 
-        public void SaveOrUpdateUser(Utilisateur utilisateur)
+        public async Task SaveOrUpdateUser(Utilisateur utilisateur)
         {
             var userUpdate = _utilisateursCollection.Find(user => user.Courriel == utilisateur.Courriel).FirstOrDefault();
             if (userUpdate != null)
