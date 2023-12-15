@@ -5,173 +5,158 @@
 @inject NavigationManager navManager
 @using Blazorise
 
-<main class="bg-dark text-light">
-    <div class="container pt-3 pb-3">
-
-        <AuthorizeView>
+<main class="text-light">
+    <div class="container pt-3">
+        <div class="div-rend bg-dark container-fluid p-5 mb-5 mt-2">
+            <AuthorizeView>
                 <Authorized>
-                    <h2>@utilisateurSession.Pseudo</h2>
-
-                    <h3>Mon profil</h3>
+                    <h2 class="border-top border-bottom border-2 text-center">Mon profil : @utilisateurSession.Pseudo</h2>
                     <p>Mon niveau : @utilisateurSession.Echelon</p>
-                    <p>Ma langue préférée : @utilisateurSession.Langue</p>
-
+                    <p>Ma langue : @utilisateurSession.Langue</p>
                     <h5>Modifier mon profil</h5>
                     <div class="text-center">
                         <button @onclick="ModifierProfil" class="btn btn-light">Modifier le profil</button>
                     </div>
 
-                    <h3>Mes randonnées crées</h3>
-                    <h4>À venir</h4>
-                    @if (_randonneesFuturesAuteur != null && _randonneesFuturesAuteur.Count() != 0)
-                    {
-                        <div class="row">
-                            @foreach (var randonnee in _randonneesFuturesAuteur)
-                            {
-                                <div class="col-md-4 mb-4">
-                                    <div class="card border-0 shadow-sm">
-                                        <img src="@($"https://picsum.photos/id/{i}/1000/1000")" class="card-img-top" alt="Image de la randonnée">
-                                        <div class="card-body">
-                                            <h5 class="card-title">@randonnee.Nom</h5>
-                                            <p>Ville de départ : @randonnee.EndroitDepart.Nom</p>
-                                            @if (randonnee.EndroitRetour != null)
-                                            {
-                                                <p>Ville de retour : @randonnee.EndroitRetour.Nom</p>
-                                            }
-                                            <a href="/detail/@randonnee.Id" class="btn btn-outline-dark">Détails</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                i+= 10;
-                            }
-                        </div>
-                    }
-                    else
-                    {
-                        <p>Aucune randonnée crée prochainement.</p>
-                    }
-
-                    <h4>Passées</h4>
-                    @if (_randonneesPasseesAuteur != null && _randonneesPasseesAuteur.Count() != 0)
-                    {
-                        <div class="row">
-                            @foreach (var randonnee in _randonneesPasseesAuteur)
-                            {
-                                <div class="col-md-4 mb-4">
-                                    <div class="card border-0 shadow-sm">
-                                        <img src="@($"https://picsum.photos/id/{i}/1000/1000")" class="card-img-top" alt="Image de la randonnée">
-                                        <div class="card-body">
-                                            <h5 class="card-title">@randonnee.Nom</h5>
-                                            <p>Ville de départ : @randonnee.EndroitDepart.Nom</p>
-                                            @if (randonnee.EndroitRetour != null)
-                                            {
-                                                <p>Ville de retour : @randonnee.EndroitRetour.Nom</p>
-                                            }
-                                            <a href="/detail/@randonnee.Id" class="btn btn-outline-dark">Détails</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                i+= 10;
-                            }
-                        </div>
-                    }
-                    else
-                    {
-                        <p>Aucune randonnée crée passée.</p>
-                    }
-
-                    <h4>Archivées</h4>
-                    @if (_randonneesArchiveesAuteur != null && _randonneesArchiveesAuteur.Count() != 0)
-                    {
-                        <div class="row">
-                        @foreach (var randonnee in _randonneesArchiveesAuteur)
+                    <div class="mt-5 text-light  text-center">
+                        <h3 class="border-2">Mes randonnées crées</h3>
+                        <h4 class="border-top border-bottom mt-2">À venir</h4>
+                        @if (_randonneesFuturesAuteur != null && _randonneesFuturesAuteur.Count() != 0)
                         {
-                            <div class="col-md-4 mb-4">
-                                <div class="card border-0 shadow-sm">
-                                    <img src="@($"https://picsum.photos/id/{i}/1000/1000")" class="card-img-top" alt="Image de la randonnée">
-                                    <div class="card-body">
-                                        <h5 class="card-title">@randonnee.Nom</h5>
-                                        <p>Ville de départ : @randonnee.EndroitDepart.Nom</p>
-                                        @if (randonnee.EndroitRetour != null)
-                                        {
-                                            <p>Ville de retour : @randonnee.EndroitRetour.Nom</p>
-                                        }
-                                        <a href="/detail/@randonnee.Id" class="btn btn-outline-dark">Détails</a>
+                            <div class="row">
+                                @foreach (var randonnee in _randonneesFuturesAuteur)
+                                {
+                                    <div class="col-md-4 mb-4">
+                                        <div class="card border-0 shadow-sm">
+                                            <img src="@($"https://picsum.photos/id/{i}/1000/1000")" class="card-img-top" alt="Image de la randonnée">
+                                            <div class="card-body">
+                                                <h5 class="card-title">@randonnee.Nom</h5>
+                                                <p>Ville de départ : @randonnee.EndroitDepart.Nom</p>
+                                                @if (randonnee.EndroitRetour != null)
+                                                {
+                                                    <p>Ville de retour : @randonnee.EndroitRetour.Nom</p>
+                                                }
+                                                <a href="/detail/@randonnee.Id" class="btn btn-outline-dark">Détails</a>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
+                                    i += 10;
+                                }
                             </div>
-                            i+= 10;
+                        }
+                        else
+                        {
+                            <p>Aucune randonnée créé</p>
+                        }
+
+                        <h4 class="border-top border-bottom mt-2">Archivés</h4>
+                        @if (_randonneesPasseesAuteur != null && _randonneesPasseesAuteur.Count() != 0)
+                        {
+                            <div class="row">
+                                @foreach (var randonnee in _randonneesPasseesAuteur)
+                                {
+                                    <div class="col-md-4 mb-4">
+                                        <div class="card border-0 shadow-sm">
+                                            <img src="@($"https://picsum.photos/id/{i}/1000/1000")" class="card-img-top" alt="Image de la randonnée">
+                                            <div class="card-body">
+                                                <h5 class="card-title">@randonnee.Nom</h5>
+                                                <p>Ville de départ : @randonnee.EndroitDepart.Nom</p>
+                                                @if (randonnee.EndroitRetour != null)
+                                                {
+                                                    <p>Ville de retour : @randonnee.EndroitRetour.Nom</p>
+                                                }
+                                                <a href="/detail/@randonnee.Id" class="btn btn-outline-dark">Détails</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    i += 10;
+                                }
+                            </div>
+                        }
+                        else
+                        {
+                            <p>Aucune randonnée archivée.</p>
                         }
                     </div>
-                    }
-                    else
-                    {
-                        <p>Aucune randonnée crée archivée.</p>
-                    }
 
-                    <h3>Mes randonnées participants</h3>
-                    <h4>À venir</h4>
-                    @if (_randonneesFuturesParticipant != null && _randonneesFuturesParticipant.Count() != 0)
-                    {
-                        <div class="row">
-                        @foreach (var randonnee in _randonneesFuturesParticipant)
+                    <div class="mt-5 text-light text-center">
+                        <h3 class="border-top border-bottom border-2 mt-4">Mes randonnées participants</h3>
+
+                        <h4 class="border-top border-bottom mt-2">À venir</h4>
+                        @if (_randonneesFuturesParticipant != null && _randonneesFuturesParticipant.Count() != 0)
                         {
-                            <div class="col-md-4 mb-4">
-                                <div class="card border-0 shadow-sm">
-                                    <img src="@($"https://picsum.photos/id/{i}/1000/1000")" class="card-img-top" alt="Image de la randonnée">
-                                    <div class="card-body">
-                                        <h5 class="card-title">@randonnee.Nom</h5>
-                                        <p>Ville de départ : @randonnee.EndroitDepart.Nom</p>
-                                        @if (randonnee.EndroitRetour != null)
-                                        {
-                                            <p>Ville de retour : @randonnee.EndroitRetour.Nom</p>
-                                        }
-                                        <a href="/detail/@randonnee.Id" class="btn btn-outline-dark">Détails</a>
-                                    </div>
-                                </div>
-                            </div>
-                            i+= 10;
-                        }
-                        </div>
-                    }
-                    else
-                    {
-                        <p>Aucune inscription à une randonnée.</p>
-                    }
-                    <h4>Passées</h4>
-                    @if (_randonneesPasseesParticipant != null && _randonneesPasseesParticipant.Count() != 0)
-                    {
-                        <div class="row">
-                            @foreach (var randonnee in _randonneesPasseesParticipant)
-                            {
-                                <div class="col-md-4 mb-4">
-                                    <div class="card border-0 shadow-sm">
-                                        <img src="@($"https://picsum.photos/id/{i}/1000/1000")" class="card-img-top" alt="Image de la randonnée">
-                                        <div class="card-body">
-                                            <h5 class="card-title">@randonnee.Nom</h5>
-                                            <p>Ville de départ : @randonnee.EndroitDepart.Nom</p>
-                                            @if (randonnee.EndroitRetour != null)
-                                            {
-                                                <p>Ville de retour : @randonnee.EndroitRetour.Nom</p>
-                                            }
-                                            <a href="/detail/@randonnee.Id" class="btn btn-outline-dark">Détails</a>
+                            <div class="row">
+                                @foreach (var randonnee in _randonneesFuturesParticipant)
+                                {
+                                    <div class="col-md-4 mb-4">
+                                        <div class="card border-0 shadow-sm">
+                                            <img src="@($"https://picsum.photos/id/{i}/1000/1000")" class="card-img-top" alt="Image de la randonnée">
+                                            <div class="card-body">
+                                                <h5 class="card-title">@randonnee.Nom</h5>
+                                                <p>Ville de départ : @randonnee.EndroitDepart.Nom</p>
+                                                @if (randonnee.EndroitRetour != null)
+                                                {
+                                                    <p>Ville de retour : @randonnee.EndroitRetour.Nom</p>
+                                                }
+                                                <a href="/detail/@randonnee.Id" class="btn btn-outline-dark">Détails</a>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                i+= 10;
-                            }
-                        </div>
-                    }
-                    else
-                    {
-                        <p>Aucune participation à une randonnée.</p>
-                    }
+                                    i += 10;
+                                }
+                            </div>
+                        }
+                        else
+                        {
+                            <p>Aucune inscription à une randonnée.</p>
+                        }
+                        <h4 class="border-top border-bottom mt-2">Archivés</h4>
+                        @if (_randonneesPasseesParticipant != null && _randonneesPasseesParticipant.Count() != 0)
+                        {
+                            <div class="row">
+                                @foreach (var randonnee in _randonneesPasseesParticipant)
+                                {
+                                    <div class="col-md-4 mb-4">
+                                        <div class="card border-0 shadow-sm">
+                                            <img src="@($"https://picsum.photos/id/{i}/1000/1000")" class="card-img-top" alt="Image de la randonnée">
+                                            <div class="card-body">
+                                                <h5 class="card-title">@randonnee.Nom</h5>
+                                                <p>Ville de départ : @randonnee.EndroitDepart.Nom</p>
+                                                @if (randonnee.EndroitRetour != null)
+                                                {
+                                                    <p>Ville de retour : @randonnee.EndroitRetour.Nom</p>
+                                                }
+                                                <a href="/detail/@randonnee.Id" class="btn btn-outline-dark">Détails</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    i += 10;
+                                }
+                            </div>
+                        }
+                        else
+                        {
+                            <p>Aucune participation à une randonnée.</p>
+                        }
+                    </div>
                 </Authorized>
                 <NotAuthorized>
-                    <h3>Inscrivez-vous ou connectez-vous pour avoir accès à votre page personnalisée !</h3>
+                    <h3>Inscrivez-vous ou connectez-vous pour avoir accès à cette page !</h3>
                 </NotAuthorized>
             </AuthorizeView>
 
+        </div>
     </div>
 </main>
-    
+<style>
+    body {
+        background-image: url('perso.jpg');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-position: center center;
+        height: 100%;
+        margin: 0;
+    }
+
+</style>
