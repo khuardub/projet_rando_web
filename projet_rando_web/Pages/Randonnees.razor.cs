@@ -4,27 +4,28 @@ using System.Collections.Generic;
 using MongoDB.Driver;
 using projet_rando_web.Enums;
 using Microsoft.AspNetCore.Components;
+using projet_rando_web.Interfaces;
 
 namespace projet_rando_web.Pages
 {
     public partial class Randonnees
     {
         List<Randonnee> _randonnees = new List<Randonnee>();
-      
+        Randonnee _randonnee = new Randonnee();
+
         private string _filtreVille = string.Empty;
         private string _filtreDifficulte = string.Empty;
         private string _filtreMeteo = string.Empty;
         private string _filtreType = string.Empty;
         protected override async Task OnInitializedAsync()
         {
-            _randonnees = await randonneeService.GetRandonneesAVenirNonArchive();
-          _randonnees = randonneeService.GetRandonnees();
+          _randonnees = await randonneeService.GetRandonnees();
             List<Randonnee> filtreRandonnees = _randonnees;
         }
        
-        private void FiltrerRandonnees()
+        private async Task FiltrerRandonnees()
         {
-            _randonnees = randonneeService.GetRandonnees(); 
+            _randonnees = await randonneeService.GetRandonnees(); 
 
             if (!string.IsNullOrEmpty(_filtreVille))
             {
@@ -54,28 +55,6 @@ namespace projet_rando_web.Pages
                     .ToList();
             }
 
-        }
-
-
-        private void Save()
-        {
-            randonneeService.SaveOrUpdate(_randonnee);
-            Reset();
-            _randonnees = randonneeService.GetRandonnees();
-        }
-        private void Reset()
-        {
-            _randonnee = new Randonnee();
-            _randonnees = randonneeService.GetRandonnees();
-        }
-        private void Edit(string randonneeId)
-        {
-            _randonnee = randonneeService.GetRandonnee(randonneeId);
-        }
-        private void Delete(string randonneeId)
-        {
-            randonneeService.Delete(randonneeId);
-            _randonnees = randonneeService.GetRandonnees();
         }
 
     }

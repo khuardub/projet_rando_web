@@ -142,27 +142,6 @@ namespace projet_rando_web.Pages
         {
             navManager.NavigateTo($"/modification/{randonnee.Id}", true);
         }
-
-        private async Task ArchiverRandonnee()
-        {
-            var isArchive = randonnee.IsArchive;
-            var response = await randonneeService.ArchiverRandonnee(randonnee, !isArchive);
-            if (response == "Modification de l\'archivage effectué.")
-            {
-                randonnee.IsArchive = !isArchive;
-                var texte = "Modification de l'archivage effectuée.";
-                message = texte;
-                visible = true;
-                // forcer le rafraichissement de la vue pour changer le bouton
-                StateHasChanged();
-            }
-            else
-            {
-                var texte = "Modification non effectuée. Veuillez contacter un administrateur.";
-                message = texte;
-                visible = true;
-            }
-        }
     }
 
 }

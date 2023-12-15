@@ -3,106 +3,72 @@
 @inject AuthenticationStateProvider authStateProvider
 @inject IJSRuntime jsRuntime
 @inject NavigationManager navManager
-
+@using Blazorise
 
 <main class="bg-dark text-light">
     <div class="container pt-3 pb-3">
         @if (randonnee != null)
         {
             <h2 class="mb-3 text-center border-top border-bottom border-2">Détails : @randonnee.Nom</h2>
-            <MapView @ref="mapView" OnMapRendered="OnMapRendered" Longitude="randonnee.EndroitDepart.Longitude" Latitude="randonnee.EndroitDepart.Latitude" Zoom="16" Style="height: 400px; width: 100%; justify-content:center;" Class="border-4 border mb-3" GraphicSerializationChunkSize="grosseurChunk">
-                <WebMap>
-                    <PortalItem Id="e409ec0a5ef94d5cb486571894143b7c" />
-                </WebMap>
-                <ScaleBarWidget Position="OverlayPosition.BottomLeft" />
-            </MapView>
-
-            <Alert Color="Color.Success" @bind-Visible=@visible>
-                <AlertMessage>@message</AlertMessage>
-                <CloseButton />
-            </Alert>
-            @if (utilisateurSession.Id == randonnee.Auteur.Id)
-            {
-                <Badge Color="Color.Info" Pill Class="badge-xl">Auteur</Badge>
-            }
-
-            <p>Description : @randonnee.Description</p>
-            <p>Date de création : @randonnee.CreatedAt</p>
-            <p>Ville de départ : @randonnee.EndroitDepart.Nom</p>
-
-            @if (randonnee.EndroitRetour != null)
-            {
-                <h2 class="mb-3 text-center border-top border-bottom border-2">Détails : @randonnee.Nom</h2>
-            }
-
             <div class="container mt-5">
-                    @if (randonnee != null)
+                @if (randonnee != null)
+                {
+
+                    <MapView @ref="mapView" OnMapRendered="OnMapRendered" Longitude="randonnee.EndroitDepart.Longitude" Latitude="randonnee.EndroitDepart.Latitude" Zoom="16" Style="height: 400px; width: 100%; justify-content:center;" Class="border-4 border mb-3" GraphicSerializationChunkSize="grosseurChunk">
+                        <WebMap>
+                            <PortalItem Id="e409ec0a5ef94d5cb486571894143b7c" />
+                        </WebMap>
+                        <ScaleBarWidget Position="OverlayPosition.BottomLeft" />
+                    </MapView>
+
+                    <p>Description : @randonnee.Description</p>
+                    <p>Date de création : @randonnee.CreatedAt</p>
+                    <p>Ville de départ : @randonnee.EndroitDepart.Nom</p>
+
+                    @if (randonnee.EndroitRetour != null)
                     {
+                        <p> Ville de retour : @randonnee.EndroitRetour.Nom</p>
+                    }
+                    <p>Date de départ : @randonnee.DateDepart</p>
 
-                        <MapView @ref="mapView" OnMapRendered="OnMapRendered" Longitude="randonnee.EndroitDepart.Longitude" Latitude="randonnee.EndroitDepart.Latitude" Zoom="16" Style="height: 400px; width: 100%; justify-content:center;" Class="border-4 border mb-3" GraphicSerializationChunkSize="grosseurChunk">
-                            <WebMap>
-                                <PortalItem Id="e409ec0a5ef94d5cb486571894143b7c" />
-                            </WebMap>
-                            <ScaleBarWidget Position="OverlayPosition.BottomLeft" />
-                        </MapView>
-
-                        <p>Description : @randonnee.Description</p>
-                        <p>Date de création : @randonnee.CreatedAt</p>
-                        <p>Ville de départ : @randonnee.EndroitDepart.Nom</p>
-
-                        @if (randonnee.EndroitRetour != null)
-                        {
-                            <p> Ville de retour : @randonnee.EndroitRetour.Nom</p>
-                        }
-                        <p>Date de départ : @randonnee.DateDepart</p>
-
-                        <p>Autres détails : </p>
-                        <ul>
-                            <li>Météo : @meteo</li>
-                            <li>Type : @type</li>
-                            <li>Dénivelé : @randonnee.Denivele m</li>
-                            <li>Statut : @status</li>
-                            <li>Niveau : @niveau</li>
-                        </ul>
-                        <AuthorizeView>
-                            <Authorized>
-                                @if (utilisateurSession.Id != randonnee.Auteur.Id)
+                    <p>Autres détails : </p>
+                    <ul>
+                        <li>Météo : @meteo</li>
+                        <li>Type : @type</li>
+                        <li>Dénivelé : @randonnee.Denivele m</li>
+                        <li>Statut : @status</li>
+                        <li>Niveau : @niveau</li>
+                    </ul>
+                    <AuthorizeView>
+                        <Authorized>
+                            @if (utilisateurSession.Id != randonnee.Auteur.Id)
+                            {
+                                @if (EstParticipant())
                                 {
-                                    @if (EstParticipant())
-                                    {
-                                        <button @onclick="DesinscriptionParticipant" class="btn btn-light">Se désinscrire</button>
-                                    }
-                                    else
-                                    {
-                                        <button @onclick="InscriptionParticipant" class="btn btn-light">S'inscrire</button>
-                                    }
+                                    <button @onclick="DesinscriptionParticipant" class="btn btn-light">Se désinscrire</button>
                                 }
                                 else
                                 {
-                                    <h3>Vous êtes l'auteur de cette randonnée.</h3>
+                                    <button @onclick="InscriptionParticipant" class="btn btn-light">S'inscrire</button>
                                 }
-                            </Authorized>
-                            <NotAuthorized>
-                                <h3>Connectez-vous pour participer à cette aventure !</h3>
-                            </NotAuthorized>
-                        </AuthorizeView>
-                    }
-                    else
-                    {
+                            }
+                            else
+                            {
+                                <h3>Vous êtes l'auteur de cette randonnée.</h3>
+                            }
+                        </Authorized>
+                        <NotAuthorized>
+                            <h3>Connectez-vous pour participer à cette aventure !</h3>
+                        </NotAuthorized>
+                    </AuthorizeView>
+                }
+                else
+                {
 
-                        <h3>Vous êtes l'auteur de cette randonnée.</h3>
-                        <button @onclick="ModifierRandonnee" class="btn btn-primary">Modifier</button>
-                        @if (randonnee.IsArchive && randonnee.DateDepart >= DateTime.Today)
-                        {
-                            <button @onclick="ArchiverRandonnee" class="btn btn-primary m-3">Publier</button>
-                        }
-                        else if (!randonnee.IsArchive && randonnee.DateDepart >= DateTime.Today)
-                        {
-                            <button @onclick="ArchiverRandonnee" class="btn btn-primary m-3">Archiver</button>
-                        }
-                    }
+                    <h3>Vous êtes l'auteur de cette randonnée.</h3>
+                    <button @onclick="ModifierRandonnee" class="btn btn-primary">Modifier</button>
+                }
             </div>
-        </div>
     </div>
 </main>
 
