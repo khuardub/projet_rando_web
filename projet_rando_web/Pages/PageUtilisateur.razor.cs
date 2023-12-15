@@ -19,6 +19,7 @@ namespace projet_rando_web.Pages
         int i = 0;
         List<Randonnee> _randonneesFuturesAuteur;
         List<Randonnee> _randonneesPasseesAuteur;
+        List<Randonnee> _randonneesArchiveesAuteur;
         List<Randonnee> _randonneesFuturesParticipant;
         List<Randonnee> _randonneesPasseesParticipant;
 
@@ -36,6 +37,7 @@ namespace projet_rando_web.Pages
                 utilisateurSession.Id = user.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             }
 
+            _randonneesArchiveesAuteur = await randonneeService.GetRandonneesArchiveesByAuteur(utilisateurSession.Id);
             _randonneesPasseesAuteur = await randonneeService.GetRandonneesPasseesByAuteur(utilisateurSession.Id);
             _randonneesFuturesAuteur = await randonneeService.GetRandonneesFuturesByAuteur(utilisateurSession.Id);
             _randonneesFuturesParticipant =

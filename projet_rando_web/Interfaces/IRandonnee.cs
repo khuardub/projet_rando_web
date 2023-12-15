@@ -29,5 +29,7 @@ namespace projet_rando_web.Interfaces
         Task<List<Randonnee>> GetRandonneesPasseesByParticipant(string utilisateurId);
         Task<List<Randonnee>> GetRandonneesFuturesByParticipant(string utilisateurId);
         Task<List<Randonnee>> GetRandonneesAVenirNonArchive();
+        Task<string> ArchiverRandonnee(Randonnee randonnee, bool isArchive);
+        Task<List<Randonnee>> GetRandonneesArchiveesByAuteur(string utilisateurId);
     }
 }

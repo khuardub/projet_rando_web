@@ -19,8 +19,12 @@
 
             <Alert Color="Color.Success" @bind-Visible=@visible>
                 <AlertMessage>@message</AlertMessage>
-                    <CloseButton />
+                <CloseButton />
             </Alert>
+            @if (utilisateurSession.Id == randonnee.Auteur.Id)
+            {
+                <Badge Color="Color.Info" Pill Class="badge-xl">Auteur</Badge>
+            }
 
             <p>Description : @randonnee.Description</p>
             <p>Date de création : @randonnee.CreatedAt</p>
@@ -57,6 +61,15 @@
                     {
                         <h3>Vous êtes l'auteur de cette randonnée.</h3>
                         <button @onclick="ModifierRandonnee" class="btn btn-primary">Modifier</button>
+                        @if (randonnee.IsArchive && randonnee.DateDepart >= DateTime.Today)
+                        {
+                            <button @onclick="ArchiverRandonnee" class="btn btn-primary m-3">Publier</button>
+                        }
+                        else if (!randonnee.IsArchive && randonnee.DateDepart >= DateTime.Today)
+                        {
+                            <button @onclick="ArchiverRandonnee" class="btn btn-primary m-3">Archiver</button>
+                        }
+
                     }
                 </Authorized>
                 <NotAuthorized>
@@ -70,4 +83,10 @@
         }
     </div>
 </main>
+
+<style>
+    .badge-xl {
+        font-size: 22px;
+    }
+</style>
     

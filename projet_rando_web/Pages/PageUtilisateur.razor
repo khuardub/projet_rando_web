@@ -47,7 +47,8 @@
                     {
                         <p>Aucune randonnée crée prochainement.</p>
                     }
-                    <h4>Archivés</h4>
+
+                    <h4>Passées</h4>
                     @if (_randonneesPasseesAuteur != null && _randonneesPasseesAuteur.Count() != 0)
                     {
                         <div class="row">
@@ -73,8 +74,38 @@
                     }
                     else
                     {
+                        <p>Aucune randonnée crée passée.</p>
+                    }
+
+                    <h4>Archivées</h4>
+                    @if (_randonneesArchiveesAuteur != null && _randonneesArchiveesAuteur.Count() != 0)
+                    {
+                        <div class="row">
+                        @foreach (var randonnee in _randonneesArchiveesAuteur)
+                        {
+                            <div class="col-md-4 mb-4">
+                                <div class="card border-0 shadow-sm">
+                                    <img src="@($"https://picsum.photos/id/{i}/1000/1000")" class="card-img-top" alt="Image de la randonnée">
+                                    <div class="card-body">
+                                        <h5 class="card-title">@randonnee.Nom</h5>
+                                        <p>Ville de départ : @randonnee.EndroitDepart.Nom</p>
+                                        @if (randonnee.EndroitRetour != null)
+                                        {
+                                            <p>Ville de retour : @randonnee.EndroitRetour.Nom</p>
+                                        }
+                                        <a href="/detail/@randonnee.Id" class="btn btn-outline-dark">Détails</a>
+                                    </div>
+                                </div>
+                            </div>
+                            i+= 10;
+                        }
+                    </div>
+                    }
+                    else
+                    {
                         <p>Aucune randonnée crée archivée.</p>
                     }
+
                     <h3>Mes randonnées participants</h3>
                     <h4>À venir</h4>
                     @if (_randonneesFuturesParticipant != null && _randonneesFuturesParticipant.Count() != 0)
@@ -104,7 +135,7 @@
                     {
                         <p>Aucune inscription à une randonnée.</p>
                     }
-                    <h4>Archivés</h4>
+                    <h4>Passées</h4>
                     @if (_randonneesPasseesParticipant != null && _randonneesPasseesParticipant.Count() != 0)
                     {
                         <div class="row">
