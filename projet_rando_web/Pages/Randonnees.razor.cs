@@ -9,18 +9,19 @@ namespace projet_rando_web.Pages
 {
     public partial class Randonnees
     {
-        Randonnee _randonnee = new Randonnee();
-        List<Randonnee> _randonnees;
+        List<Randonnee> _randonnees = new List<Randonnee>();
+      
         private string _filtreVille = string.Empty;
         private string _filtreDifficulte = string.Empty;
         private string _filtreMeteo = string.Empty;
         private string _filtreType = string.Empty;
         protected override async Task OnInitializedAsync()
         {
-            _randonnees = randonneeService.GetRandonnees();
+            _randonnees = await randonneeService.GetRandonneesAVenirNonArchive();
+          _randonnees = randonneeService.GetRandonnees();
             List<Randonnee> filtreRandonnees = _randonnees;
         }
-
+       
         private void FiltrerRandonnees()
         {
             _randonnees = randonneeService.GetRandonnees(); 

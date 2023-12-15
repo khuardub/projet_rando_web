@@ -47,6 +47,7 @@ namespace projet_rando_web.Pages
             {
                 utilisateurSession.Id = user.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             }
+
         }
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -89,13 +90,12 @@ namespace projet_rando_web.Pages
             var utilisateurId = utilisateurSession.Id;
             if (utilisateurId != null)
             {
-                var message = await randonneeService.InsertParticipant(randonnee, utilisateurId);
-                if (message == "Inscription réussie")
+                var result = await randonneeService.InsertParticipant(randonnee, utilisateurId);
+                if (result == "Inscription réussie")
                 {
                     var texte = "Félicitations! Préparez - vous pour une aventure mémorable.";
-                    jsRuntime.InvokeVoidAsync("localStorage.setItem", "message", texte);
-                    // renvoie page perso
-                    //navManager.NavigateTo("/profil", true);
+                    message = texte;
+                    visible = true;
                 }
                 else
                 {
@@ -123,7 +123,8 @@ namespace projet_rando_web.Pages
                 if (result == "Désinscription réussie.")
                 {
                     var texte = "Vous êtes désinscrit à la randonnée.";
-                    await jsRuntime.InvokeVoidAsync("alert", texte);
+                    message = texte;
+                    visible = true;
                 }
                 else
                 {
@@ -140,6 +141,27 @@ namespace projet_rando_web.Pages
         private async Task ModifierRandonnee()
         {
             navManager.NavigateTo($"/modification/{randonnee.Id}", true);
+        }
+
+        private async Task ArchiverRandonnee()
+        {
+            var isArchive = randonnee.IsArchive;
+            var response = await randonneeService.ArchiverRandonnee(randonnee, !isArchive);
+            if (response == "Modification de l\'archivage effectué.")
+            {
+                randonnee.IsArchive = !isArchive;
+                var texte = "Modification de l'archivage effectuée.";
+                message = texte;
+                visible = true;
+                // forcer le rafraichissement de la vue pour changer le bouton
+                StateHasChanged();
+            }
+            else
+            {
+                var texte = "Modification non effectuée. Veuillez contacter un administrateur.";
+                message = texte;
+                visible = true;
+            }
         }
     }
 

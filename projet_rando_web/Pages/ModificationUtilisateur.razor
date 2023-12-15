@@ -1,0 +1,100 @@
+﻿@page "/modification-profil/{userId}"
+@layout MainLayout
+@using projet_rando_web.Enums
+@inject Interfaces.IUtilisateur utilisateurService
+@inject NavigationManager navManager
+@inject AuthenticationStateProvider authStateProvider
+@using Blazorise
+
+<main>
+    <AuthorizeView>
+        <Authorized Context="authContext">
+            <div class="container pt-3">
+                <div class="bg-dark container-fluid p-5 mb-5 mt-2">
+                    <h2 class="text-light text-center border-top border-bottom border-2">Modification du profil</h2>
+
+                    <Alert Color="Color.Warning" @bind-Visible="@visible">
+                        <AlertMessage>@message</AlertMessage>
+                        <CloseButton/>
+                    </Alert>
+
+                    <div class="container mt-5">
+                        <div class="row justify-content-center">
+                            <div class="col-md-9">
+                                <EditForm OnValidSubmit="UpdateUtilisateur" Model="@utilisateur">
+                                    <DataAnnotationsValidator/>
+                                    <div class="mb-3">
+                                        <label for="courriel" class="text-light">Courriel</label>
+                                        <InputText id="courriel" placeholder="Votre Courriel" class="form-control" @bind-Value="utilisateur.Courriel"/>
+                                        <ValidationMessage class="text-danger" For="@(() => utilisateur.Courriel)"/>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="langue" class="text-light">Langue</label>
+                                        <InputSelect id="langue" class="form-select" @bind-Value="utilisateur.Langue">
+                                            @foreach (Langue nomLangue in Enum.GetValues(typeof(Langue)))
+                                            {
+                                                @if (nomLangue != Langue.Français)
+                                                {
+                                                    <option value="@nomLangue">@nomLangue.GetDescription()</option>
+                                                }
+                                                else
+                                                {
+                                                    <option selected value="@nomLangue">@nomLangue.GetDescription()</option>
+                                                }
+
+                                            }
+                                        </InputSelect>
+                                        <ValidationMessage class="text-danger" For="@(() => utilisateur.Langue)"/>
+                                    </div>
+
+                                    <div class="mb-5">
+                                        <label for="niveau" class="text-light">Expérience en randonnée</label>
+                                        <InputSelect id="niveau" class="form-select" @bind-Value="utilisateur.Echelon">
+                                            @foreach (Echelon nomEchelon in Enum.GetValues(typeof(Echelon)))
+                                            {
+                                                <option value="@nomEchelon">@nomEchelon.GetDescription()</option>
+                                            }
+                                        </InputSelect>
+                                        <ValidationMessage class="text-danger" For="@(() => utilisateur.Echelon)"/>
+                                    </div>
+
+                                    <div class="text-center">
+                                        <button type="submit" class="btn btn-light">Modifier le profil</button>
+                                    </div>
+
+                                </EditForm>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </Authorized>
+        <NotAuthorized Context="noAuthContext">
+            <h3 class="text-center mb-4">Veuillez-vous connecter pour modifier votre compte.</h3>
+        </NotAuthorized>
+    </AuthorizeView>
+</main>
+
+<style>
+    body {
+        background-image: url('inscription.jpg');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-position: center center;
+        height: 100%;
+        margin: 0;
+    }
+
+    .login-card {
+        background-color: rgba(255, 255, 255, 0.9);
+        border-radius: 8px;
+        box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    }
+
+    .main-title {
+        color: white;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    }
+</style>

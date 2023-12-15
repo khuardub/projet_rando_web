@@ -42,6 +42,13 @@ namespace projet_rando_web.Data
             }
         }
 
+        public async Task<string?> GetUserIdFromSession()
+        {
+            var authenticationState = await GetAuthenticationStateAsync();
+            var userId = authenticationState.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            return userId;
+        }
+
         // Login ou Logout utilisateur
         public async Task UpdateAuthenticationState(UtilisateurSession utilisateurSession)
         {

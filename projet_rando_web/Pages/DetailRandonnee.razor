@@ -4,10 +4,33 @@
 @inject IJSRuntime jsRuntime
 @inject NavigationManager navManager
 
-<main class="text-light">
-    <div class="container pt-3">
-        <div class="div-rend bg-dark container-fluid p-5 mb-5 mt-2">
-            @if (randonnee != null)
+
+<main class="bg-dark text-light">
+    <div class="container pt-3 pb-3">
+        @if (randonnee != null)
+        {
+            <h2 class="mb-3 text-center border-top border-bottom border-2">Détails : @randonnee.Nom</h2>
+            <MapView @ref="mapView" OnMapRendered="OnMapRendered" Longitude="randonnee.EndroitDepart.Longitude" Latitude="randonnee.EndroitDepart.Latitude" Zoom="16" Style="height: 400px; width: 100%; justify-content:center;" Class="border-4 border mb-3" GraphicSerializationChunkSize="grosseurChunk">
+                <WebMap>
+                    <PortalItem Id="e409ec0a5ef94d5cb486571894143b7c" />
+                </WebMap>
+                <ScaleBarWidget Position="OverlayPosition.BottomLeft" />
+            </MapView>
+
+            <Alert Color="Color.Success" @bind-Visible=@visible>
+                <AlertMessage>@message</AlertMessage>
+                <CloseButton />
+            </Alert>
+            @if (utilisateurSession.Id == randonnee.Auteur.Id)
+            {
+                <Badge Color="Color.Info" Pill Class="badge-xl">Auteur</Badge>
+            }
+
+            <p>Description : @randonnee.Description</p>
+            <p>Date de création : @randonnee.CreatedAt</p>
+            <p>Ville de départ : @randonnee.EndroitDepart.Nom</p>
+
+            @if (randonnee.EndroitRetour != null)
             {
                 <h2 class="mb-3 text-center border-top border-bottom border-2">Détails : @randonnee.Nom</h2>
             }
@@ -66,16 +89,31 @@
                     }
                     else
                     {
-                        <p>Désolé, cette randonnée n'existe pas.</p>
+
+                        <h3>Vous êtes l'auteur de cette randonnée.</h3>
+                        <button @onclick="ModifierRandonnee" class="btn btn-primary">Modifier</button>
+                        @if (randonnee.IsArchive && randonnee.DateDepart >= DateTime.Today)
+                        {
+                            <button @onclick="ArchiverRandonnee" class="btn btn-primary m-3">Publier</button>
+                        }
+                        else if (!randonnee.IsArchive && randonnee.DateDepart >= DateTime.Today)
+                        {
+                            <button @onclick="ArchiverRandonnee" class="btn btn-primary m-3">Archiver</button>
+                        }
                     }
             </div>
         </div>
     </div>
 </main>
+
 <style>
     .card-img-top {
         height: 250px;
         object-fit: cover;
+    }
+  
+      .badge-xl {
+        font-size: 22px;
     }
 
     body {
@@ -88,4 +126,5 @@
         margin: 0;
     }
 </style>
+
 

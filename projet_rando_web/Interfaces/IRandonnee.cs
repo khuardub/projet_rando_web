@@ -13,7 +13,7 @@ namespace projet_rando_web.Interfaces
         Task<string> Update(Randonnee randonnee, string auteurId);
         string Delete(string randonneeId);
         Randonnee GetRandonnee(string randonneeId);
-        List<Randonnee> GetRandonnees();
+        Task<List<Randonnee>> GetRandonnees();
         Task<string> Insert(Randonnee randonnee, string utilisateurId);
 
         bool RandonneeExiste(Randonnee randonnee);
@@ -23,5 +23,13 @@ namespace projet_rando_web.Interfaces
         Task<string> InsertParticipant(Randonnee randonnee, string utilisateurId);
 
         Task<string> RemoveParticipant(Randonnee randonnee, string utilisateurId);
+
+        Task<List<Randonnee>> GetRandonneesPasseesByAuteur(string utilisateurId);
+        Task<List<Randonnee>> GetRandonneesFuturesByAuteur(string utilisateurId);
+        Task<List<Randonnee>> GetRandonneesPasseesByParticipant(string utilisateurId);
+        Task<List<Randonnee>> GetRandonneesFuturesByParticipant(string utilisateurId);
+        Task<List<Randonnee>> GetRandonneesAVenirNonArchive();
+        Task<string> ArchiverRandonnee(Randonnee randonnee, bool isArchive);
+        Task<List<Randonnee>> GetRandonneesArchiveesByAuteur(string utilisateurId);
     }
 }

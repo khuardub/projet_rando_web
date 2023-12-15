@@ -5,6 +5,7 @@ using MongoDB.Driver;
 using projet_rando_web.Classes;
 using projet_rando_web.Interfaces;
 using projet_rando_web.Data;
+using projet_rando_web.Pages;
 
 namespace projet_rando_web.Data
 {
@@ -44,9 +45,59 @@ namespace projet_rando_web.Data
             return _randonneesCollection.Find(rando => rando.Id == randonneeId).FirstOrDefault();
         }
 
-        public List<Randonnee> GetRandonnees()
+
+        public async Task<List<Randonnee>> GetRandonneesPasseesByAuteur(string utilisateurId)
+        {
+            DateTime currentDate = DateTime.Now;
+            return _randonneesCollection
+                .Find(rando => rando.Auteur.Id == utilisateurId && rando.DateDepart < currentDate && !rando.IsArchive)
+                .ToList();
+        }
+
+        public async Task<List<Randonnee>> GetRandonneesFuturesByAuteur(string utilisateurId)
+        {
+            DateTime currentDate = DateTime.Now;
+            return _randonneesCollection
+                .Find(rando => rando.Auteur.Id == utilisateurId && rando.DateDepart > currentDate && !rando.IsArchive)
+                .ToList();
+        }
+
+        public async Task<List<Randonnee>> GetRandonneesArchiveesByAuteur(string utilisateurId)
+        {
+            DateTime currentDate = DateTime.Now;
+            return _randonneesCollection
+                .Find(rando => rando.Auteur.Id == utilisateurId && !rando.IsArchive)
+                .ToList();
+        }
+
+
+        public async Task<List<Randonnee>> GetRandonneesPasseesByParticipant(string utilisateurId)
+        {
+            DateTime currentDate = DateTime.Now;
+            return _randonneesCollection
+                .Find(rando => rando.Participants.Any(p => p.Id == utilisateurId) && rando.DateDepart < currentDate && !rando.IsArchive)
+                .ToList();
+        }
+
+        public async Task<List<Randonnee>> GetRandonneesFuturesByParticipant(string utilisateurId)
+        {
+            DateTime currentDate = DateTime.Now;
+            return _randonneesCollection
+                .Find(rando => rando.Participants.Any(p => p.Id == utilisateurId) && rando.DateDepart > currentDate && !rando.IsArchive)
+                .ToList();
+        }
+
+        public async Task<List<Randonnee>> GetRandonnees()
         {
             return _randonneesCollection.Find(FilterDefinition<Randonnee>.Empty).ToList();
+        }
+
+        public async Task<List<Randonnee>> GetRandonneesAVenirNonArchive()
+        {
+            var randoFiltres = _randonneesCollection
+                    .Find(rando => rando.IsArchive == false && rando.DateDepart >= DateTime.Today)
+                    .ToList();
+            return randoFiltres;
         }
         
         public async Task<string> Update(Randonnee randonnee, string auteurId)
@@ -69,6 +120,23 @@ namespace projet_rando_web.Data
                 return "La randonnée n'existe pas.";
             }
         }
+
+        public async Task<string> ArchiverRandonnee(Randonnee randonnee, bool isArchive)
+        {
+            var filter = Builders<Randonnee>.Filter.Eq(r => r.Id, randonnee.Id);
+            var update = Builders<Randonnee>.Update.Set(r => r.IsArchive, isArchive);
+
+            var result = await _randonneesCollection.UpdateOneAsync(filter, update);
+            if (result.IsModifiedCountAvailable && result.ModifiedCount > 0)
+            {
+                return "Modification de l\'archivage effectué.";
+            }
+            else
+            {
+                return "Erreur lors de la modification de l'archivage.";
+            }
+        }
+
         public async Task<string> Insert(Randonnee randonnee, string utilisateurId)
         {
             if(randonnee != null)

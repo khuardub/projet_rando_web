@@ -53,7 +53,7 @@ namespace projet_rando_web.Pages
 
         private bool randonneExiste = false;
 
-        private async Task AjoutRandonnee()
+        private async Task AjoutRandonnee(bool isArchive)
         {
             if (RandonneeValid(randonnee))
             {
@@ -63,6 +63,7 @@ namespace projet_rando_web.Pages
                     if (utilisateurId != null)
                     {
                         randonnee.CreatedAt = DateTime.UtcNow;
+                        randonnee.IsArchive = isArchive;
                         await randonneeService.Insert(randonnee, utilisateurId);
                         var texte = "La randonnée a bien été crée.";
                         jsRuntime.InvokeVoidAsync("localStorage.setItem", "message", texte);
