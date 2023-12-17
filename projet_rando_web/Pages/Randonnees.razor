@@ -8,57 +8,20 @@
     <div class="container pt-3">
         <div class="div-rend bg-dark text-light container-fluid p-5 mb-5 mt-2">
             <h2 class="text-light mb-4 text-center border-top border-bottom border-2">Nos randonnées</h2>
-            <p>
-                Voici nos randonnées chez Randomax, une véritable invitation à l'aventure en plein air. Que vous soyez passionné par les montagnes majestueuses, les forêts luxuriantes ou les paysages côtiers à couper le souffle, nos randonnées sont conçues pour satisfaire tous les amoureux de la nature. Explorez des sentiers pittoresques, découvrez la faune et la flore locales, et vivez des moments mémorables en plein air. Nos guides passionnés vous accompagneront tout au long de votre périple, garantissant une expérience enrichissante à chaque étape. Chez Randomax, l'aventure commence sous vos pas.
-                Rejoignez-nous pour des randonnées inoubliables.
-            </p>
-        </div>
-        <div class="p-4 mb-4 bg-dark text-light">
-            <h3 class="border-top border-bottom border-2 text-center">Filtre</h3>
-            <form @onsubmit="FiltrerRandonnees">
-                <div class="row">
-                    <div class="col-md-3 mb-2">
-                        <label for="ville">Ville :</label>
-                        <input type="text" class="form-control" @bind="_filtreVille">
-                    </div>
-                    <div class="col-md-2 mb-2">
-                        <label for="difficulte">Difficulté :</label>
-                        <select class="form-select" @bind="_filtreDifficulte">
-                            <option value=""></option>
-                            <option value="Relax">Relax</option>
-                            <option value="Facile">Facile</option>
-                            <option value="Modere">Modéré</option>
-                            <option value="Soutenu">Soutenu</option>
-                        </select>
-                    </div>
-                    <div class="col-md-2 mb-2">
-                        <label for="meteo">Météo:</label>
-                        <select class="form-select" @bind="_filtreMeteo">
-                            <option value=""></option>
-                            <option value="Ensoleille">Ensolleilé</option>
-                            <option value="Nuageux">Nuageux</option>
-                            <option value="Enneigé">Enneigé</option>
-                            <option value="Pluvieux">Pluvieux</option>
-                        </select>
-                    </div>
-                    <div class="col-md-2 mb-2">
-                        <label for="type">Type :</label>
-                        <select class="form-select" @bind="_filtreType">
-                            <option value=""></option>
-                            <option value="Montagneux">Montagneux</option>
-                            <option value="Foret">Forêt</option>
-                            <option value="Plage">Plage</option>
-                        </select>
-                    </div>
-                    <div class="col-md-12 mt-3">
-                        <button type="submit" class="btn btn-light">Appliquer les filtres</button>
-                    </div>
-                </div>
-            </form>
+            @if (_randonnees != null && _randonnees.Count() != 0)
+            {
+                <p>
+                    Voici nos randonnées chez Randomax, une véritable invitation à l'aventure en plein air. Que vous soyez passionné par les montagnes majestueuses, les forêts luxuriantes ou les paysages côtiers à couper le souffle, nos randonnées sont conçues pour satisfaire tous les amoureux de la nature. Explorez des sentiers pittoresques, découvrez la faune et la flore locales, et vivez des moments mémorables en plein air. Nos guides passionnés vous accompagneront tout au long de votre périple, garantissant une expérience enrichissante à chaque étape. Chez Randomax, l'aventure commence sous vos pas.
+                    Rejoignez-nous pour des randonnées inoubliables.
+                </p>
+            }
+            else
+            {
+                <p class="text-center">Il n'a pas de randonnée à afficher. Connectez vous pour créer une randonnée</p>
+            }
         </div>
         @if (_randonnees != null && _randonnees.Count() != 0)
         {
-            i = 0;
             <div class="row">
                 @foreach (var randonnee in _randonnees)
                 {
@@ -76,13 +39,10 @@
                             </div>
                         </div>
                     </div>
-                    i += 10; 
+                    i += 10;
+
                 }
             </div>
-        }
-        else
-        {
-            <p class="text-center text-light bg-dark p-4">Il n'a pas de randonnée à afficher.</p>
         }
     </div>
 

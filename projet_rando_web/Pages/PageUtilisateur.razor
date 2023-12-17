@@ -14,7 +14,7 @@
                     <p>Mon niveau : @utilisateurSession.Echelon</p>
                     <p>Ma langue : @utilisateurSession.Langue</p>
                     
-@*                     <div class="text-center">
+                    @* <div class="text-center">
                         <button @onclick="ModifierProfil" class="btn btn-light">Modifier le profil</button>
                     </div> *@
 
@@ -23,7 +23,7 @@
                         <h4 class="border-top border-bottom mt-2">À venir</h4>
                         @if (_randonneesFuturesAuteur != null && _randonneesFuturesAuteur.Count() != 0)
                         {
-                            <div class="row">
+                            <div class="row text-black">
                                 @foreach (var randonnee in _randonneesFuturesAuteur)
                                 {
                                     <div class="col-md-4 mb-4">
@@ -52,7 +52,7 @@
                         <h4 class="border-top border-bottom mt-2">Archivés</h4>
                         @if (_randonneesPasseesAuteur != null && _randonneesPasseesAuteur.Count() != 0)
                         {
-                            <div class="row">
+                            <div class="row text-black">
                                 @foreach (var randonnee in _randonneesPasseesAuteur)
                                 {
                                     <div class="col-md-4 mb-4">
@@ -85,7 +85,7 @@
                         <h4 class="border-top border-bottom mt-2">À venir</h4>
                         @if (_randonneesFuturesParticipant != null && _randonneesFuturesParticipant.Count() != 0)
                         {
-                            <div class="row">
+                            <div class="row text-black">
                                 @foreach (var randonnee in _randonneesFuturesParticipant)
                                 {
                                     <div class="col-md-4 mb-4">
@@ -113,7 +113,7 @@
                         <h4 class="border-top border-bottom mt-2">Archivés</h4>
                         @if (_randonneesPasseesParticipant != null && _randonneesPasseesParticipant.Count() != 0)
                         {
-                            <div class="row">
+                            <div class="row text-black">
                                 @foreach (var randonnee in _randonneesPasseesParticipant)
                                 {
                                     <div class="col-md-4 mb-4">
