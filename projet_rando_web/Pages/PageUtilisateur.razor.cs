@@ -44,7 +44,7 @@ namespace projet_rando_web.Pages
                 await randonneeService.GetRandonneesFuturesByParticipant(utilisateurSession.Id);
             _randonneesPasseesParticipant =
                 await randonneeService.GetRandonneesPasseesByParticipant(utilisateurSession.Id);
-
+            string echelon = utilisateurSession.Echelon.GetDescription();
         }
 
         private void ModifierProfil()

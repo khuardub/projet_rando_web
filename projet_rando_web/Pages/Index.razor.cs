@@ -39,7 +39,7 @@ namespace projet_rando_web.Pages
         }
         protected override async Task OnInitializedAsync()
         {
-            _randonnees = await randonneeService.GetRandonnees();
+            _randonnees = await randonneeService.GetRandonneesAVenirNonArchive();
         }
         private PopupTemplate GeneratePopupTemplate(Randonnee rando)
         {

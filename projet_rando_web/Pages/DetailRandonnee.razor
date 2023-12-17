@@ -5,11 +5,14 @@
 @inject NavigationManager navManager
 @using Blazorise
 
-<main class="bg-dark text-light">
-    <div class="container pt-3 pb-3">
+<main class="text-light">
+    <div class="container pt-3">
         @if (randonnee != null)
         {
+        <div class="div-rend bg-dark container-fluid p-5 mb-5 mt-2">
+
             <h2 class="mb-3 text-center border-top border-bottom border-2">Détails : @randonnee.Nom</h2>
+                <div class="container mt-5">
             <MapView @ref="mapView" OnMapRendered="OnMapRendered" Longitude="randonnee.EndroitDepart.Longitude" Latitude="randonnee.EndroitDepart.Latitude" Zoom="16" Style="height: 400px; width: 100%; justify-content:center;" Class="border-4 border mb-3" GraphicSerializationChunkSize="grosseurChunk">
                 <WebMap>
                     <PortalItem Id="e409ec0a5ef94d5cb486571894143b7c" />
@@ -76,6 +79,8 @@
                     <h3>Connectez-vous pour participer à cette aventure !</h3>
                 </NotAuthorized>
             </AuthorizeView>
+                </div>
+            </div>
         }
         else
         {
