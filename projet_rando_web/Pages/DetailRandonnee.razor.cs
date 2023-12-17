@@ -42,7 +42,7 @@ namespace projet_rando_web.Pages
             //utilisateurSession
             var authState = await authStateProvider.GetAuthenticationStateAsync();
             var user = authState.User;
-            
+
             if (user.Identity.IsAuthenticated)
             {
                 utilisateurSession.Id = user.FindFirst(ClaimTypes.NameIdentifier)?.Value;
@@ -117,7 +117,7 @@ namespace projet_rando_web.Pages
         private async Task DesinscriptionParticipant()
         {
             var utilisateurId = utilisateurSession.Id;
-            if(utilisateurId != null)
+            if (utilisateurId != null)
             {
                 var result = await randonneeService.RemoveParticipant(randonnee, utilisateurId);
                 if (result == "Désinscription réussie.")
@@ -141,6 +141,27 @@ namespace projet_rando_web.Pages
         private async Task ModifierRandonnee()
         {
             navManager.NavigateTo($"/modification/{randonnee.Id}", true);
+        }
+
+        private async Task ArchiverRandonnee()
+        {
+            var isArchive = randonnee.IsArchive;
+            var response = await randonneeService.ArchiverRandonnee(randonnee, !isArchive);
+            if (response == "Modification de l\'archivage effectué.")
+            {
+                randonnee.IsArchive = !isArchive;
+                var texte = "Modification de l'archivage effectuée.";
+                message = texte;
+                visible = true;
+                // forcer le rafraichissement de la vue pour changer le bouton
+                StateHasChanged();
+            }
+            else
+            {
+                var texte = "Modification non effectuée. Veuillez contacter un administrateur.";
+                message = texte;
+                visible = true;
+            }
         }
     }
 
