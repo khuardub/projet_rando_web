@@ -66,7 +66,7 @@ namespace projet_rando_web.Data
         {
             DateTime currentDate = DateTime.Now;
             return _randonneesCollection
-                .Find(rando => rando.Auteur.Id == utilisateurId && !rando.IsArchive)
+                .Find(rando => rando.Auteur.Id == utilisateurId && rando.IsArchive)
                 .ToList();
         }
 
