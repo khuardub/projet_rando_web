@@ -44,13 +44,20 @@ namespace projet_rando_web.Pages
                 Console.WriteLine("Id ok");
                 if (utilisateur != null)
                 {
-                    Console.WriteLine("utilisateur ok");
                     await utilisateurService.SaveOrUpdateUser(utilisateur);
+                    var customAuthStateProvider = (CustomAuthenticationStateProvider)authStateProvider;
+                    await customAuthStateProvider.UpdateAuthenticationState(new UtilisateurSession
+                    {
+                        Id = utilisateur.Id,
+                        Echelon = utilisateur.Echelon,
+                        Pseudo = utilisateur.Pseudo,
+                        Langue = utilisateur.Langue,
+                    });
+
                     navManager.NavigateTo($"/profil/{userId}", true);
                 }
                 else
                 {
-                    Console.WriteLine("utilisateur nok");
                     message = "Veuillez vous connecter.";
                     visible = true;
                     navManager.NavigateTo("/connexion", true);
@@ -58,7 +65,6 @@ namespace projet_rando_web.Pages
             }
             else
             {
-                Console.WriteLine("utilisateur diff");
                 message = "Vous ne pouvez pas modifier le profil autre que le votre.";
                 visible = true;
             }
