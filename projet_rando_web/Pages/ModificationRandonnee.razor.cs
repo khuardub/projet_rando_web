@@ -50,13 +50,14 @@ namespace projet_rando_web.Pages
         protected override async Task OnInitializedAsync()
         {
             randonnee = randonneeService.GetRandonnee(randoId);
-
+/*
             if (randonnee == null)
             {
-                var texte = "Vous ne pouvez modifier cette randonnée.";
-                await jsRuntime.InvokeVoidAsync("alert", texte);
-                navManager.NavigateTo($"/creation_randonnee", true);
-            }
+                var texte = "Cette randonnée n'existe pas.";
+                //await jsRuntime.InvokeVoidAsync("alert", texte);
+                //navManager.NavigateTo($"/creation_randonnee", true);
+                navManager.NavigateTo();
+            }*/
 
             lstVille = villeService.GetVilles();
 

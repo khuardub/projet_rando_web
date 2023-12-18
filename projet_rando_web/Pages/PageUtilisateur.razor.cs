@@ -16,6 +16,7 @@ namespace projet_rando_web.Pages
     public partial class PageUtilisateur
     {
         private UtilisateurSession utilisateurSession = new UtilisateurSession();
+        private Utilisateur utilisateur = new Utilisateur();
         int i = 0;
         List<Randonnee> _randonneesFuturesAuteur;
         List<Randonnee> _randonneesPasseesAuteur;
@@ -35,7 +36,10 @@ namespace projet_rando_web.Pages
             if (user.Identity.IsAuthenticated)
             {
                 utilisateurSession.Id = user.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+                
             }
+
+            utilisateur = await utilisateurService.GetUtilisateur(Id);
 
             _randonneesArchiveesAuteur = await randonneeService.GetRandonneesArchiveesByAuteur(utilisateurSession.Id);
             _randonneesPasseesAuteur = await randonneeService.GetRandonneesPasseesByAuteur(utilisateurSession.Id);
@@ -44,7 +48,6 @@ namespace projet_rando_web.Pages
                 await randonneeService.GetRandonneesFuturesByParticipant(utilisateurSession.Id);
             _randonneesPasseesParticipant =
                 await randonneeService.GetRandonneesPasseesByParticipant(utilisateurSession.Id);
-            string echelon = utilisateurSession.Echelon.GetDescription();
         }
 
         private void ModifierProfil()

@@ -21,49 +21,58 @@
                     <div class="container mt-5">
                         <div class="row justify-content-center">
                             <div class="col-md-9">
-                                <EditForm OnValidSubmit="UpdateUtilisateur" Model="@utilisateur">
-                                    <DataAnnotationsValidator/>
-                                    <div class="mb-3">
-                                        <label for="courriel" class="text-light">Courriel</label>
-                                        <InputText id="courriel" placeholder="Votre Courriel" class="form-control" @bind-Value="utilisateur.Courriel"/>
-                                        <ValidationMessage class="text-danger" For="@(() => utilisateur.Courriel)"/>
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <label for="langue" class="text-light">Langue</label>
-                                        <InputSelect id="langue" class="form-select" @bind-Value="utilisateur.Langue">
-                                            @foreach (Langue nomLangue in Enum.GetValues(typeof(Langue)))
-                                            {
-                                                @if (nomLangue != Langue.Français)
+                                @if (utilisateurSession.Id != userId)
+                                {
+                                    <h3>Vous ne pouvez pas modifier le profil d'un autre utilisateur.</h3>
+                                }
+                                else
+                                {
+                                    <EditForm Model="@utilisateur"  >
+                                        <DataAnnotationsValidator/>
+                                        <div class="mb-3">
+                                            <label for="langue" class="text-light">Langue</label>
+                                            <InputSelect id="langue" class="form-select" @bind-Value="utilisateur.Langue">
+                                                @foreach (Langue nomLangue in Enum.GetValues(typeof(Langue)))
                                                 {
-                                                    <option value="@nomLangue">@nomLangue.GetDescription()</option>
+                                                    @if (nomLangue != utilisateur.Langue)
+                                                    {
+                                                        <option value="@nomLangue">@nomLangue.GetDescription()</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option selected value="@nomLangue">@nomLangue.GetDescription()</option>
+                                                    }
+
                                                 }
-                                                else
+                                            </InputSelect>
+                                            <ValidationMessage class="text-danger" For="@(() => utilisateur.Langue)"/>
+                                        </div>
+
+                                        <div class="mb-5">
+                                            <label for="niveau" class="text-light">Expérience en randonnée</label>
+                                            <InputSelect id="niveau" class="form-select" @bind-Value="utilisateur.Echelon">
+                                                @foreach (Echelon nomEchelon in Enum.GetValues(typeof(Echelon)))
                                                 {
-                                                    <option selected value="@nomLangue">@nomLangue.GetDescription()</option>
+                                                    @if (nomEchelon != utilisateur.Echelon)
+                                                    {
+                                                        <option value="@nomEchelon">@nomEchelon.GetDescription()</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option selected value="@nomEchelon">@nomEchelon.GetDescription()</option>
+                                                    }
+                                                    
                                                 }
+                                            </InputSelect>
+                                            <ValidationMessage class="text-danger" For="@(() => utilisateur.Echelon)"/>
+                                        </div>
 
-                                            }
-                                        </InputSelect>
-                                        <ValidationMessage class="text-danger" For="@(() => utilisateur.Langue)"/>
-                                    </div>
+                                        <div class="text-center">
+                                            <button type="submit" @onclick="UpdateUtilisateur" class="btn btn-light">Modifier le profil</button>
+                                        </div>
 
-                                    <div class="mb-5">
-                                        <label for="niveau" class="text-light">Expérience en randonnée</label>
-                                        <InputSelect id="niveau" class="form-select" @bind-Value="utilisateur.Echelon">
-                                            @foreach (Echelon nomEchelon in Enum.GetValues(typeof(Echelon)))
-                                            {
-                                                <option value="@nomEchelon">@nomEchelon.GetDescription()</option>
-                                            }
-                                        </InputSelect>
-                                        <ValidationMessage class="text-danger" For="@(() => utilisateur.Echelon)"/>
-                                    </div>
-
-                                    <div class="text-center">
-                                        <button type="submit" class="btn btn-light">Modifier le profil</button>
-                                    </div>
-
-                                </EditForm>
+                                    </EditForm>
+                                }
                             </div>
                         </div>
                     </div>
